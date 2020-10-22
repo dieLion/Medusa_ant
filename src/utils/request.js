@@ -20,6 +20,7 @@ console.log(service)
 // // request interceptor
 service.interceptors.request.use(
   config => {
+   
     // console.log(store.state.storeToken)
     // if(store.state.storeToken){
     //   config.headers.common['Token'] = store.state.storeToken
@@ -163,6 +164,22 @@ export function post(url, params, config) {
       })
   })
 }
+
+export function postAcction(url, params, config) {
+  return new Promise((resolve, reject) => {
+    service
+      .post(url, qs.stringify(params), {
+        ...config
+      })
+      .then(response => {
+        resolve(response)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
 export function postDownload(url, params, config) {
   return new Promise((resolve, reject) => {
     service

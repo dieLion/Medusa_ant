@@ -123,7 +123,7 @@ export default {
       name: "normal_login",
     });
   },
-
+  
   methods: {
     handleSubmit() {
       this.form.validateFields((err, values) => {
@@ -152,15 +152,17 @@ export default {
                   // 500：请使用Post请求
                   switch (res.code) {
                     case 200:
+                      console.log(res)
                       this.$message.success("欢迎" + res.message.show_name);
                       let userinfo = {
                         email: res.message.email,
-                        img_path: res.message.img_path,
                         name: res.message.name,
                         show_name: res.message.show_name,
                         key: res.message.key,
                       };
                       this.$store.commit("userinfo", userinfo);
+                      let avatar=res.message.avatar
+                      this.$store.commit("avatar", avatar);
                       this.$router.push("/layout");
                       break;
                     case 404:

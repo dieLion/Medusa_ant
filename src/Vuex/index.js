@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     storeToken: localStorage.getItem('storeToken')?localStorage.getItem('storeToken'):'',
-    userinfo:{}
+    userinfo:{},
+    avatar:''
   },
   mutations: {
     tokenLogin(state,usertoken){
@@ -17,6 +18,10 @@ export default new Vuex.Store({
     userinfo(state,userinfo){
       state.userinfo=userinfo
       console.log(state.userinfo)
+    },
+    avatar(state,avatar){
+      state.avatar = avatar
+      console.log(state.avatar)
     }
   },
   actions: {

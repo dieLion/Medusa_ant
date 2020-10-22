@@ -41,10 +41,17 @@
                 <setPW ref="getPW"></setPW>
               </div>
             </a-modal>
-
+            <!-- 
             <button type="button" class="ant-btn profile-operate">
               <span>修改头像</span>
-            </button>
+            </button> -->
+            <a-upload
+              name="file"
+              :customRequest="handleCustomRequest"
+              :beforeUpload="handleBeforeUpload"
+            >
+              <a-button> <a-icon type="upload" /> 修改头像 </a-button>
+            </a-upload>
           </a-col>
           <a-col
             class="profile-deadline"
@@ -142,6 +149,18 @@ export default {
       show_pw: false,
     };
   },
+  computed: {
+    getAvatar() {
+      return this.$store.state.avatar;
+    },
+  },
+  watch: {
+    getAvatar: function (old, newd) {
+      const config = require("../../../faceConfig");
+      const imgURL = config.imgPath;
+      this.title = imgURL + old;
+    },
+  },
   mounted() {
     this.handleSetPersonalInformationList();
     setInterval(this.newtime, 1000);
@@ -187,7 +206,7 @@ export default {
       if (this.$store.state.userinfo.name != undefined) {
         let userinfo = this.$store.state.userinfo;
         console.log("获取vuex" + userinfo);
-        this.title = imgURL + userinfo.img_path;
+        this.title = imgURL + this.$store.state.avatar;
         this.personalInformationList = [
           {
             title: "Username",
@@ -216,8 +235,9 @@ export default {
         this.$api.user_info(params).then((res) => {
           switch (res.code) {
             case 200:
+              console.log(res);
               let user = res.message;
-              this.title = imgURL + user.img_path;
+              this.title = imgURL + user.avatar;
               this.personalInformationList = [
                 {
                   title: "Username",
@@ -242,12 +262,13 @@ export default {
               ];
               let userinfo = {
                 email: res.message.email,
-                img_path: res.message.img_path,
                 name: res.message.name,
                 show_name: res.message.show_name,
                 key: res.message.key,
               };
               this.$store.commit("userinfo", userinfo);
+              let avatar = res.message.avatar;
+              this.$store.commit("avatar", avatar);
               break;
             case 404:
               console.log("您未登录，请重新登录");
@@ -286,6 +307,62 @@ export default {
     },
     handleNoSetPw() {
       this.show_pw = false;
+    },
+    // handleChange(info) {
+    //   if (info.file.status !== "uploading") {
+    //     console.log(info.file, info.fileList);
+    //   }
+    //   if (info.file.status === "done") {
+    //     this.$message.success(`${info.file.name} file uploaded successfully`);
+    //   } else if (info.file.status === "error") {
+    //     this.$message.error(`${info.file.name} file upload failed.`);
+    //   }
+    // },
+
+    handleBeforeUpload(file) {
+      const isJpgOrPng =
+        file.type === "image/jpeg" ||
+        file.type === "image/jpg" ||
+        file.type === "image/png";
+      if (!isJpgOrPng) {
+        this.$message.error("只能上传jpg/png格式的头像!");
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        this.$message.error("图片不得大于2MB!");
+      }
+      return isJpgOrPng && isLt2M;
+    },
+    handleChange(file) {
+      let progress = { percent: 1 };
+      const intervalId = setInterval(() => {
+        if (progress.percent < 100) {
+          progress.percent += 10;
+          file.onProgress(progress);
+        } else {
+          clearInterval(intervalId);
+        }
+      }, 100);
+    },
+    async handleCustomRequest(file) {
+      console.log(file);
+      let params = new FormData();
+      params.append("file", file.file);
+      await this.handleChange(file);
+      console.log(params);
+      this.$api.upload_avatar(params).then((res) => {
+        switch (res.code) {
+          case 200:
+            console.log("1" + file);
+            file.onSuccess();
+            this.$message.success("头像上传成功");
+            this.$store.commit("avatar", res.message);
+            // const config = require("../../../faceConfig");
+            // const imgURL = config.imgPath;
+            // this.title = imgURL + res.message;
+            break;
+        }
+      });
     },
   },
 };

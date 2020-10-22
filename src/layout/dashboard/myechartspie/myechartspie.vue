@@ -63,6 +63,8 @@ export default {
                             name: "低危"
                         },
                     ],
+                    roseType:'radius',
+                    minAngle:'33',
                     emphasis: {
                         itemStyle: {
                             shadowBlur: 10,

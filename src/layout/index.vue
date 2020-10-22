@@ -59,7 +59,7 @@
           @click="() => (collapsed = !collapsed)"
         />
         <div class="user">
-          <a-avatar size="small" :src="headerImg" />
+          <a-avatar  :src="headerImg" />
           <span>{{username}}</span>
         </div>
         <!-- <a-breadcrumb style="margin: 0 0">
@@ -103,6 +103,11 @@ export default {
   mounted() {
      this.handleGetuserinfo();
   },
+    computed: {
+    getAvatar() {
+      return this.$store.state.avatar;
+    },
+  },
   methods: {
     handleGetuserinfo() {
       const config = require("../../faceConfig");
@@ -115,12 +120,14 @@ export default {
               console.log("已验证您身份")
               let userinfo = {
                 email: res.message.email,
-                img_path: res.message.img_path,
                 name: res.message.name,
                 show_name: res.message.show_name,
                 key: res.message.key,
               };
-              this.headerImg=imgURL+res.message.img_path
+              
+              let  avatar=res.message.avatar
+              this.$store.commit("avatar", avatar);
+              this.headerImg=imgURL+res.message.avatar
               this.username=res.message.show_name,
               this.$store.commit("userinfo", userinfo);
               break;
@@ -192,14 +199,13 @@ export default {
   },
   watch: {
     $route(to) {
-      // console.log(to.name);
-      // if (this.$route.name == 'siteScan/vulnerabilityDetails') {
-      //     this.contentBackground = {
-      //         background: "rgba(46,64,81,1)",
-      //     };
-      // }
       this.activeIndex = [to.name];
       this.Refresh();
+    },
+    getAvatar: function (old, newd) {
+      const config = require("../../faceConfig");
+      const imgURL = config.imgPath;
+      this.headerImg = imgURL + old;
     },
   },
 };

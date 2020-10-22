@@ -42,7 +42,7 @@
           :lg="{ span: 24 }"
           class="gradeDistribution-nav"
         >
-          <myechartspie :myEcharts='myEcharts'></myechartspie>
+          <myechartspie :myEcharts="myEcharts"></myechartspie>
         </a-col>
       </a-col>
       <a-col :xs="{ span: 24 }" :lg="{ span: 12 }">
@@ -86,7 +86,7 @@
         </div>
 
         <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="list-nav">
-          <component :is="currentView"></component>
+          <component :is="currentView" :parameter="parameter"></component>
         </a-col>
       </a-col>
     </a-row>
@@ -137,7 +137,7 @@ export default {
       rice: "icon-shuidaoSVG",
       core: "icon-anquanzhongxin",
       farmer: "icon-nongminSVG",
-      myEcharts:{}, 
+      myEcharts: {},
       active: 0,
       currentView: "activeRisk",
       tabs: [
@@ -150,6 +150,10 @@ export default {
           view: "passiveMonitoring",
         },
       ],
+      distribution_time:[],
+      distribution_value:[],
+      parameterlist: [],
+      parameter: [],
     };
   },
   mounted() {
@@ -159,6 +163,9 @@ export default {
     fntab(i, v) {
       this.active = i;
       this.currentView = v;
+      // console.log(this.parameterlist[i])
+      this.parameter = this.parameterlist[i];
+
       //console.log(this.active, this.currentView)
     },
     handleHomePage() {
@@ -170,7 +177,6 @@ export default {
         start_time: "1594087497",
         end_time: "1604087497",
       };
-      console.log(params)
       this.$api.homepage_data(params).then((res) => {
         //   503：小宝贝时间呢？
         // 404：想啥呢？不知道查询出问题了吗？
@@ -179,6 +185,7 @@ export default {
         // 500：请使用Post请求
         switch (res.code) {
           case 200:
+            console.log(res)
             this.arrNumber = [
               {
                 name: "目标网站",
@@ -203,10 +210,30 @@ export default {
             ];
             this.myEcharts = {
               high_risk_number: res.message.high_risk_number,
-              mid_risk_number:res.message.mid_risk_number,
-              low_risk_number:res.message.low_risk_number,
+              mid_risk_number: res.message.mid_risk_number,
+              low_risk_number: res.message.low_risk_number,
             };
-            console.log(this.myEcharts)
+            res.message.time_distribution.forEach((e) => {
+              // let unixTimestamp = new Date(e[0] * 1000);
+              // let Y = unixTimestamp.getFullYear() + "-";
+              // let M =
+              //   (unixTimestamp.getMonth() + 1 < 10
+              //     ? "0" + (unixTimestamp.getMonth() + 1)
+              //     : unixTimestamp.getMonth() + 1) + "-";
+              // let D = unixTimestamp.getDate() + " ";
+              // let h = unixTimestamp.getHours() + ":";
+              // let m = unixTimestamp.getMinutes() + ":";
+              // let s = unixTimestamp.getSeconds();
+              // let Time = Y + M + D + h + m + s;
+              let a = e[0] * 1000
+              this.distribution_time.push([a,e[1]])
+              // this.distribution_value.push(e[1])
+            });
+            this.parameterlist = [
+              this.distribution_time,
+            ];
+            this.parameter = this.parameterlist[0];
+            console.log(this.parameter);
             break;
           case 503:
             this.$message.error("小宝贝时间呢？");
@@ -313,14 +340,14 @@ export default {
     }
   }
   .list-nav {
-    min-height: 230px;
+    height: 350px;
     min-width: 280px;
     padding: 10px;
     color: #fff;
     border-top-right-radius: 5px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    text-align: left;
+    text-align: center;
     background: #2e4051;
     font: 16px sans-serif;
   }
