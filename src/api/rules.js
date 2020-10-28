@@ -13,8 +13,12 @@ import {
     URL_POST_DOWNLOAD_WORD,
     URL_POST_GETINFO,
     URL_POST_UPDATE_PASSWORD,
-    URL_POST_HOMEPAGE_DATA,
-    URL_POST_UPLOAD_AVATAR
+    URL_POST_HOMEPAGE_DEFAULT_DATA,
+    URL_POST_HOMEPAGE_VULNERABILITY_DISTRIBUTIONT_DATA,
+    URL_POST_UPLOAD_AVATAR,
+    URL_POST_GITHUB_MONITOR,
+    URL_POST_HOMEPAGE_GITHUB_MONITOR_DATA
+    
 } from './url'
 import store from '../Vuex'
 
@@ -72,12 +76,25 @@ let api = {
     },
     //首页内容
     async homepage_data(params){
-        let response = await post(URL_POST_HOMEPAGE_DATA,params,{
+        let response = await post(URL_POST_HOMEPAGE_DEFAULT_DATA,params,{
             headers:{}
         })
         return response
-    }
-    ,
+    },
+    //首页漏洞分布
+    async homepage_vulnerability_distributiont_data(params){
+        let response = await post(URL_POST_HOMEPAGE_VULNERABILITY_DISTRIBUTIONT_DATA,params,{
+            headers:{}
+        })
+        return response
+    },
+    // 首页GitHub监控信息
+    async homepage_github_monitor_data(params){
+        let response = await post(URL_POST_HOMEPAGE_GITHUB_MONITOR_DATA,params,{
+            headers:{}
+        })
+        return response
+    },
     //上传头像
     async upload_avatar(params){
         let response = await post(URL_POST_UPLOAD_AVATAR,params,{
@@ -90,6 +107,17 @@ let api = {
         })
         return response
     },
+
+    //github监控
+    async github_monitor(params){
+        let response = await post(URL_POST_GITHUB_MONITOR,params,{
+            headers:{
+
+            }
+        })
+        return response
+    },
+
     async medusa_query(params) {
         let response = await post(URL_POST_MEDUSA_QUERY, params, {
             headers: {}

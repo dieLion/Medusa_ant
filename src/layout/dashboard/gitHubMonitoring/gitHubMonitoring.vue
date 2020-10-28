@@ -1,5 +1,5 @@
 <template>
-<div ref="activeRisk" class="activeRisk"></div>
+<div ref="gitHubMonitoring" class="gitHubMonitoring"></div>
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default {
     },
     data() {
         return {
-            activeRiskEcharts: {},
+            gitHubMonitoringEcharts: {},
             //   xais: [],
             //   value: [],
             data: [],
@@ -25,19 +25,19 @@ export default {
             _this.data.push([item[0], item[1]]);
         });
         setTimeout(() => {
-            _this.fnactiveRiskEcharts();
+            _this.fngitHubMonitoringEcharts();
         });
 
         window.onresize = function () {
-            _this.activeRiskEcharts.resize();
+            _this.gitHubMonitoringEcharts.resize();
         };
     },
     methods: {
-        fnactiveRiskEcharts() {
+        fngitHubMonitoringEcharts() {
             //   console.log(this.parameter);
             // 基于准备好的dom，初始化echarts实例
-            this.activeRiskEcharts = this.$echarts.init(this.$refs.activeRisk);
-            this.activeRiskEcharts.setOption({
+            this.gitHubMonitoringEcharts = this.$echarts.init(this.$refs.gitHubMonitoring);
+            this.gitHubMonitoringEcharts.setOption({
                 // backgroundColor: "rgb(241,242,246)",
                 tooltip: {
                     show: true,
@@ -47,7 +47,7 @@ export default {
 
                     },
                     formatter: function (params) {
-                        return params[0].data[0] + '<br />' + '漏洞数:' + params[0].data[1]
+                        return params[0].data[0] + '<br />' + '监控数:' + params[0].data[1]
                     },
                     backgroundColor: "rgba(111, 111, 111, 1)",
                     borderWidth: 1,
@@ -125,8 +125,8 @@ export default {
                 },
                 series: {
                     type: "line",
-                    symbol: 'circle',
                     showSymbol: false,
+                    symbol: 'circle',
                     hoverAnimation: true,
                     itemStyle: {
                         color: "rgba(110,150,243,1)",
@@ -159,7 +159,7 @@ export default {
                 },
             });
             window.addEventListener("resize", () => {
-                this.activeRiskEcharts.resize();
+                this.gitHubMonitoringEcharts.resize();
             });
         },
     },
@@ -182,14 +182,14 @@ export default {
                 _this.data.push([item[0], item[1]]);
             });
 
-            _this.fnactiveRiskEcharts();
+            _this.fngitHubMonitoringEcharts();
         },
     },
 };
 </script>
 
 <style>
-.activeRisk {
+.gitHubMonitoring {
     width: 100%;
     height: 100%;
 }

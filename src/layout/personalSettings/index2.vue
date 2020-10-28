@@ -1,13 +1,16 @@
 <template>
   <div class="personalSettings">
-    <a-row :gutter="[16, 24]">
-      <a-col class="profile-left" :xs="{ span: 24 }" :lg="{ span: 10 }">
+    <a-row :gutter="[16, 64]">
+      <a-col class="profile-left" :xs="{ span: 24 }" :lg="{ span: 11 }">
         <a-col class="profile-info" :xs="{ span: 24 }" :lg="{ span: 24 }">
           <a-avatar
             shape="square"
             class="profile-avatar"
             icon="user"
             :src="title"
+            :loadError="handleLoadError"
+            :size="180"
+            
           />
           <div class="profile-name">{{ personalInformationList[0].nav }}</div>
           <div class="profile-email">{{ personalInformationList[2].nav }}</div>
@@ -48,7 +51,8 @@
             <a-upload
               name="file"
               :customRequest="handleCustomRequest"
-              :beforeUpload="handleBeforeUpload"
+              @change="handle_Change"
+              :file-list="fileList"
             >
               <a-button> <a-icon type="upload" /> 修改头像 </a-button>
             </a-upload>
@@ -147,6 +151,7 @@ export default {
         },
       ],
       show_pw: false,
+      fileList: [],
     };
   },
   computed: {
@@ -320,6 +325,7 @@ export default {
     // },
 
     handleBeforeUpload(file) {
+      console.log(file);
       const isJpgOrPng =
         file.type === "image/jpeg" ||
         file.type === "image/jpg" ||
@@ -327,42 +333,115 @@ export default {
       if (!isJpgOrPng) {
         this.$message.error("只能上传jpg/png格式的头像!");
       }
-      const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        this.$message.error("图片不得大于2MB!");
+      console.log(file.size);
+      const isLt10M = file.size / 1024 / 1024 < 10;
+      const isLt10K = file.size / 1024 > 10;
+      if (!isLt10M) {
+        this.$message.error("图片不得大于10MB!");
       }
-      return isJpgOrPng && isLt2M;
+      if (!isLt10K) {
+        this.$message.error("图片得大于10KB!");
+        //  file.onError()
+      }
+      return isJpgOrPng && isLt10M && isLt10K;
     },
-    handleChange(file) {
-      let progress = { percent: 1 };
+    handle_Change(info) {
+      console.log(info);
+      let fileList = [...info.fileList];
+      this.fileList = fileList;
+      // this.fileList = fileList;
+      // if (info.event == 100 || info.event == undefined) {
+      //   console.log("1" + info);
+      //   fileList = fileList.slice(0, 0);
+
+      //   // 2. read from response and show file link
+      //   fileList = fileList.map((file) => {
+      //     if (file.response) {
+      //       // Component will show file.url as link
+      //       file.url = file.response.url;
+      //     }
+      //     return file;
+      //   });
+
+      //   this.fileList = fileList;
+      // } else {
+      //   console.log("2" + info);
+      //   this.fileList = fileList;
+      // }
+    },
+    // handleChange(file) {
+    //   console.log(file);
+    //   let progress = { percent: 1 };
+    //   const intervalId = setInterval(() => {
+    //     if (progress.percent < 100) {
+    //       progress.percent += 10;
+    //       file.onProgress(progress);
+    //     } else {
+    //       clearInterval(intervalId);
+    //     }
+    //   }, 100);
+    // },
+    handleCustomRequest(file) {
+      let params = new FormData();
+      params.append("file", file.file);
+      // await this.handleChange(file);
+      console.log(file);
+      let progress = { percent: 0 };
       const intervalId = setInterval(() => {
         if (progress.percent < 100) {
-          progress.percent += 10;
+          progress.percent += 25;
           file.onProgress(progress);
         } else {
           clearInterval(intervalId);
+          if (this.handleBeforeUpload(file.file)) {
+            this.$api.upload_avatar(params).then((res) => {
+              switch (res.code) {
+                // 200：返回用户头像名字
+                // 603：它实在是太小了，莎酱真的一点感觉都没有o(TヘTo)
+                // 404：宝贝没有用户你要插到哪里去呢？
+                // 169：你不对劲！为什么报错了？
+                // 500：请使用Post请求
+                case 200:
+                  file.onSuccess();
+                  this.fileList = [];
+                  this.$message.success("头像上传成功");
+                  this.$store.commit("avatar", res.message);
+                  // const config = require("../../../faceConfig");
+                  // const imgURL = config.imgPath;
+                  // this.title = imgURL + res.message;
+                  break;
+                case 603:
+                  this.$message.error(
+                    "它实在是太小了，莎酱真的一点感觉都没有o(TヘTo)"
+                  );
+                  file.onError();
+                  break;
+                case 404:
+                  this.$message.error("宝贝没有用户你要插到哪里去呢？");
+                  file.onError();
+                  break;
+                case 169:
+                  this.$message.error("你不对劲！为什么报错了？");
+                  file.onError();
+                  break;
+                case 500:
+                  this.$message.error("请使用Post请求");
+                  file.onError();
+                  break;
+              }
+            });
+          } else {
+            console.log("false");
+            this.fileList = [];
+          }
         }
       }, 100);
     },
-    async handleCustomRequest(file) {
-      console.log(file);
-      let params = new FormData();
-      params.append("file", file.file);
-      await this.handleChange(file);
-      console.log(params);
-      this.$api.upload_avatar(params).then((res) => {
-        switch (res.code) {
-          case 200:
-            console.log("1" + file);
-            file.onSuccess();
-            this.$message.success("头像上传成功");
-            this.$store.commit("avatar", res.message);
-            // const config = require("../../../faceConfig");
-            // const imgURL = config.imgPath;
-            // this.title = imgURL + res.message;
-            break;
-        }
-      });
+    handleLoadError() {
+      console.log('error')
+      const config = require("../../../faceConfig");
+      const imgURL = config.imgPath;
+      this.title=imgURL+'admin.jpg'
     },
   },
 };
@@ -372,11 +451,12 @@ export default {
 .personalSettings {
   width: 100%;
   height: 100%;
+  padding: 30px;
   background: #fff;
 }
 
 .ant-btn {
-  font-size: 0.07rem;
+  font-size: 12px;
 }
 
 .profile-left,
@@ -400,14 +480,14 @@ export default {
     }
 
     .profile-name {
-      font-size: 20px;
-      line-height: 1.5;
+      font-size: 22px;
+      line-height: 50px;
       font-weight: 700;
       color: #000;
     }
 
     .profile-email {
-      font-size: 0.07rem;
+      font-size: 18px;
       color: #888;
     }
 
@@ -441,14 +521,14 @@ export default {
     width: 100%;
     border-left: 5px solid #1890ff;
     font-size: 24px;
-    line-height: 40px;
+    line-height: 48px;
   }
 
   .personalInformationList {
     height: 20px;
     width: 100%;
     font-size: 20px;
-    line-height: 20px;
+    line-height:40px;
     margin-top: 20px;
     line-height: unset;
   }

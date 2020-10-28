@@ -10,6 +10,8 @@ import dashboard from '../layout/dashboard'
 import siteScan from '../layout/siteScan'
 import vulnerabilityDetails from '../layout/siteScan/vulnerability/vulnerabilityDetails/vulnerabilityDetails.vue'
 import domainNameDetails from '../layout/siteScan/portInformation/domainNameDetails/domainNameDetails.vue'
+import gitHub from '../layout/gitHub/gitHub.vue'
+
 
 Vue.use(VueRouter)
 
@@ -61,7 +63,12 @@ const routes = [
         path: 'siteScan/domainNameDetails',
         component: domainNameDetails,
         name: 'siteScan/domainNameDetails'
-      }
+      },
+      {
+        path: 'gitHub',
+        component: gitHub,
+        name: 'gitHub'
+      },
     ]
   },
 ]

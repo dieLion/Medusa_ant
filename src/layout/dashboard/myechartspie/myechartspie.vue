@@ -5,23 +5,24 @@
 <script>
 export default {
     name: "myechartspie",
-    props:['myEcharts'],
+    props: ["myEcharts"],
     data() {
         return {
             myChart: {},
         };
     },
     mounted() {
-        console.log(this.myEcharts)
+        console.log(this.myEcharts);
         let _this = this;
-        _this.fnDrawLine();
+        setTimeout(() => {
+            _this.fnDrawLine();
+        });
         window.onresize = function () {
             _this.myChart.resize();
         };
     },
     methods: {
         fnDrawLine() {
-            
             // 基于准备好的dom，初始化echarts实例
             this.myChart = this.$echarts.init(
                 document.getElementById("myechartspie")
@@ -29,42 +30,74 @@ export default {
             this.myChart.setOption({
                 tooltip: {
                     trigger: "item",
-                    formatter: "{a} <br/>{b} : {c} ({d}%)",
+                    formatter: "{a} <br/>{b} : {c}",
                     textStyle: {
                         fontSize: 16,
                         color: "#fff",
                     },
                 },
-                legend: {
-                    orient: "vertical",
-                    top: 10,
-                    left: 10,
+                grid: {
+                    left: "3%",
+                    right: "3%",
+                    bottom: "3%",
+                    containLabel: true,
+                },
+                xAxis: [{
+                    type: "category",
                     data: ["高危", "中危", "低危"],
-                    textStyle: {
-                        fontSize: 16,
-                        color: "#fff",
+
+                    nameTextStyle: {
+                        color: "rgba(169,169,169,1)",
                     },
-                },
+                    axisLine: {
+                        lineStyle: {
+                            color: "rgba(169,169,169,1)",
+                        },
+                    },
+                }, ],
+                yAxis: [{
+                    type: "value",
+                    axisLabel: {
+                        show: true,
+                        color: "rgba(169,169,169,1)",
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: "rgba(169,169,169,1)",
+                        },
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            // 使用深浅的间隔色
+                            type: "dashed",
+                            color: ["rgba(169,169,169,0.5)"],
+                        },
+                    },
+                }, ],
                 series: [{
                     name: "等级分布",
-                    type: "pie",
-                    center: ["50%", "50%"],
-                    color:["red","yellow","blue"],
+                    type: "bar",
+                    itemStyle: {
+                        color: function (params) {
+                            // build a color map as your need.
+                            var colorList = ["#FFC0CB", "#00BFFF", "#7FFFAA"];
+                            return colorList[params.dataIndex];
+                        },
+                    },
+                    barMaxWidth: "20%",
+                    barMinHeight: 5,
                     data: [{
                             value: this.myEcharts.high_risk_number,
-                            name: "高危"
                         },
                         {
                             value: this.myEcharts.mid_risk_number,
-                            name: "中危"
                         },
                         {
                             value: this.myEcharts.low_risk_number,
-                            name: "低危"
                         },
                     ],
-                    roseType:'radius',
-                    minAngle:'33',
+                    // roseType:'radius',
+                    // minAngle:'33',
                     emphasis: {
                         itemStyle: {
                             shadowBlur: 10,
@@ -78,17 +111,21 @@ export default {
                         fontSize: 16,
                         color: "#fff",
                         backgroundColor: "rgba(0,23,11,0.5)",
+                        position: "top",
                     },
                 }, ],
             });
+            window.addEventListener("resize", () => {
+                this.myChart.resize();
+            });
         },
     },
-    watch:{
-        myEcharts(){
-            this.myEcharts=this.myEcharts
+    watch: {
+        myEcharts() {
+            this.myEcharts = this.myEcharts;
             this.fnDrawLine();
-        }
-    }
+        },
+    },
 };
 </script>
 

@@ -1,6 +1,6 @@
 <template>
 <div class="domainNameDetails">
-    <a-row :gutter="[{ xs: 16, sm: 24, md: 32, lg: 40 },{xs: 16, sm: 24, md: 32, lg: 40 }]">
+    <a-row style="margin:0" :gutter="[{ xs: 16, sm: 24, md: 32, lg: 40 },{xs: 16, sm: 24, md: 32, lg: 40 }]">
         <a-col :xs="{ span: 24}" :lg="{ span: 24}">
             <a-col :xs="{ span: 24}" :lg="{ span: 24}" class="domainNameDetails-search">
                 <a-form-model :model="form" layout="inline" style="margin-left: 30px;">
@@ -199,7 +199,7 @@ export default {
 <style lang="scss">
 .domainNameDetails {
     background: rgb(88, 119, 151);
-
+   
     .domainNameDetails-search {
         margin-top: 50px;
         font-size: 14px;
