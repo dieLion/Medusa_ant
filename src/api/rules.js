@@ -5,6 +5,7 @@ import {
 import {
     URL_POST_LOGIN,
     URL_POST_REGISTERED,
+    URL_POST_FORGET_PASSWORD,
     URL_POST_SCANNING,
     URL_POST_LIST_QUERY,
     URL_POST_INFOMATION_QUERY,
@@ -34,6 +35,14 @@ let api = {
     async registered(params) {
         let response = await post(URL_POST_REGISTERED, params, {
             headers: {}
+        })
+        return response
+    },
+    
+    // 忘记密码
+    async forget_password(params){
+        let response = await post(URL_POST_FORGET_PASSWORD,params,{
+            headers:{}
         })
         return response
     },

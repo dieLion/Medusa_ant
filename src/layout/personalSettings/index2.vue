@@ -216,12 +216,12 @@ export default {
           {
             title: "Username",
             type: "user",
-            nav: userinfo.show_name,
+            nav: userinfo.name,
           },
           {
             title: "Nickname",
             type: "heart",
-            nav: userinfo.name,
+            nav: userinfo.show_name,
           },
           {
             title: "Email",

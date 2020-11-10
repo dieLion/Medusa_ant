@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     storeToken: localStorage.getItem('storeToken')?localStorage.getItem('storeToken'):'',
     userinfo:{},
-    avatar:''
+    avatar:'',
+    active_scan_id:'null'//主动扫描目标单个漏洞详细内容查询key
   },
   mutations: {
     tokenLogin(state,usertoken){
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     avatar(state,avatar){
       state.avatar = avatar
       console.log(state.avatar)
+    },
+    active_scan_id(state,active_scan_id){
+      state.active_scan_id = active_scan_id
     }
   },
   actions: {

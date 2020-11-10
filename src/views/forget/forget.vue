@@ -5,7 +5,7 @@
             <a-form-item v-bind="formItemLayout">
                 <span slot="label">
                     key&nbsp;
-                    <a-tooltip title="用户本地config.py文件中设置的secret_key_required_for_account_registration字段值">
+                    <a-tooltip title="用户本地config.py文件中设置的forget_password_key值">
                         <a-icon type="question-circle-o" />
                     </a-tooltip>
                 </span>
@@ -39,7 +39,7 @@
               },
             ]" />
             </a-form-item>
-            <a-form-item v-bind="formItemLayout" label="Password" has-feedback>
+            <a-form-item v-bind="formItemLayout" label="new_Password" has-feedback>
                 <a-input v-decorator="[
               'password',
               {
@@ -73,26 +73,6 @@
             </a-form-item>
             <a-form-item v-bind="formItemLayout">
                 <span slot="label">
-                    Showname&nbsp;
-                    <a-tooltip title="可重复的显示名称">
-                        <a-icon type="question-circle-o" />
-                    </a-tooltip>
-                </span>
-                <a-input v-decorator="[
-              'showname',
-              {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please input your showname!',
-                    whitespace: true,
-                  },
-                ],
-              },
-            ]" />
-            </a-form-item>
-            <a-form-item v-bind="formItemLayout">
-                <span slot="label">
                     Username&nbsp;
                     <a-tooltip title="唯一的登录名">
                         <a-icon type="question-circle-o" />
@@ -121,7 +101,7 @@
 
 <script>
 export default {
-    name: "Register",
+    name: "Forget",
     data() {
         return {
             confirmDirty: false,
@@ -170,42 +150,29 @@ export default {
                 if (!err) {
                     let params = {
                         key: values.key,
-                        show_name: values.showname,
-                        username: values.username,
-                        passwd: values.password,
+                        name: values.username,
+                        new_passwd: values.password,
                         email: values.email,
                     };
                     console.log(values, params);
-                    this.$api.registered(params).then((res) => {
+                    this.$api.forget_password(params).then((res) => {
                         console.log(res);
                         switch (res.code) {
                             case 200:
-                                this.$message.success("注册成功");
+                                this.$message.success("修改成功啦~建议去配置文件中关闭忘记密码功能哦~");
                                 this.$router.push("/");
                                 break;
-                            case 400:
-                                this.$message.error("未知错误");
-                                break;
                             case 404:
-                                this.$message.error("报错了");
+                                this.$message.error("大黑阔别乱搞，莎莎好怕怕(/ω＼)");
                                 break;
                             case 403:
-                                this.$message.error("小宝贝这是非法注册哦(๑•̀ㅂ•́)و✧");
+                                this.$message.error("小宝贝你没有开启忘记密码功能哦(๑•̀ㅂ•́)و✧");
                                 break;
                             case 500:
                                 this.$message.error("请使用Post请求");
                                 break;
                             case 503:
-                                this.$message.error("小宝贝你没有开启注册功能哦！");
-                                break;
-                            case 603:
-                                this.$message.error("注册失败了");
-                                break;
-                            case 604:
-                                this.$message.error("用户名或者邮箱已存在");
-                                break;
-                            case 666:
-                                this.$message.error("宝贝数据呢？");
+                                this.$message.error("这个数据你是认真的嘛(。﹏。)");
                                 break;
                         }
                     });

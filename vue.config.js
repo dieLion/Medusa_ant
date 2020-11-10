@@ -19,6 +19,19 @@ module.exports = {
         },
         before: app => { }
     },
+    css: {
+        loaderOptions: {
+          less: {
+            lessOptions: {
+              modifyVars: {
+                'primary-color': '#51c51a',
+                'table-header-color': '#51c51a'
+              },
+              javascriptEnabled: true,
+            },
+          },
+        },
+      },
     configureWebpack: {
         module: {
             rules: [

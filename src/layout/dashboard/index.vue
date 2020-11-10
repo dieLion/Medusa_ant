@@ -8,7 +8,10 @@
             <div class="a-col-4" :style="{ background: colorlist[i] }">
                 <h3 class="a-col-4-title">{{ item.name }}</h3>
                 <div>
-                    <myicon :type="item.type" class="a-col-4-icon" />
+                    <div class="icon_pie">
+                        <myicon :type="item.type" class="a-col-4-icon" />
+                    </div>
+
                     <span class="a-col-4-val"><span style="font-size: 36px">{{ item.val }}</span>个</span>
                 </div>
             </div>
@@ -81,7 +84,7 @@ import {
 import activeRisk from "./activeRisk/activeRisk.vue";
 import gitHubMonitoring from "./gitHubMonitoring/gitHubMonitoring.vue";
 const MyIcon = Icon.createFromIconfontCN({
-    scriptUrl: "//at.alicdn.com/t/font_1734998_i0feu56gjii.js",
+    scriptUrl: "//at.alicdn.com/t/font_1734998_u0tahsdom7.js",
 });
 export default {
     name: "dashboard",
@@ -95,29 +98,29 @@ export default {
         return {
             arrNumber: [{
                     name: "目标网站",
-                    type: "icon-anquanbiaozhi",
+                    type: "icon-Vector",
                     val: 0,
                 },
                 {
                     name: "端口发现",
-                    type: "icon-shuidaoSVG",
+                    type: "icon-duankousaomiao",
                     val: 0,
                 },
                 {
                     name: "代理扫描",
-                    type: "icon-nongminSVG",
+                    type: "icon-saomiao",
                     val: 0,
                 },
                 {
                     name: "发现漏洞",
-                    type: "icon-anquanzhongxin",
+                    type: "icon-loudongyujing",
                     val: 0,
                 },
             ],
-            security: "icon-anquanbiaozhi",
-            rice: "icon-shuidaoSVG",
-            core: "icon-anquanzhongxin",
-            farmer: "icon-nongminSVG",
+            security: "icon-Vector",
+            rice: "icon-duankousaomiao",
+            farmer: "icon-saomiao",
+            core: "icon-loudongyujing",
             myEcharts: {},
             test: [],
             test2: [],
@@ -514,15 +517,24 @@ export default {
         border-radius: 5px;
         text-align: left;
         background: #2e4051;
-        font: 20px;
+        font-size: 16px;
         min-width: 168px;
 
         .a-col-4-title {
             color: #fff;
         }
 
-        .a-col-4-icon {
-            font-size: 70px;
+        .icon_pie {
+            display: inline-block;
+            border: 1px solid #88888870;
+            border-radius: 50% 50%;
+            box-shadow: 0px 2px 5px #6b6b6b inset;
+            overflow: hidden;
+
+            .a-col-4-icon {
+                padding: 10px;
+                font-size: 40px;
+            }
         }
 
         .a-col-4-val {
@@ -544,7 +556,7 @@ export default {
         background: #fff;
         margin-right: 30px;
 
-        font: 20px sans-serif;
+        font-size: 20px;
         border-bottom: 1px solid rgb(238, 238, 238);
     }
 
@@ -560,7 +572,7 @@ export default {
         border-bottom: 1px solid rgb(238, 238, 238);
         text-align: left;
         background: #fff;
-        font: 16px sans-serif;
+        font-size: 16px;
     }
 
     .hoverBorder:hover .gradeDistribution-name,
@@ -579,7 +591,7 @@ export default {
         border-bottom-right-radius: 5px;
         text-align: center;
         background: #2e4051;
-        font: 16px sans-serif;
+        font-size: 16px;
     }
 }
 </style>

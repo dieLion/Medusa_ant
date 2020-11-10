@@ -24,10 +24,11 @@ export default {
         _this.parameter.map(function (item) {
             _this.data.push([item[0], item[1]]);
         });
-        setTimeout(() => {
-            _this.fnactiveRiskEcharts();
+        _this.$nextTick(() => {
+            setTimeout(() => {
+                _this.fnactiveRiskEcharts();
+            }, 10);
         });
-
         window.onresize = function () {
             _this.activeRiskEcharts.resize();
         };
@@ -44,10 +45,10 @@ export default {
                     trigger: "axis",
                     axisPointer: {
                         type: "line",
-
                     },
+
                     formatter: function (params) {
-                        return params[0].data[0] + '<br />' + '漏洞数:' + params[0].data[1]
+                        return params[0].data[0] + "<br />" + "漏洞数:" + params[0].data[1];
                     },
                     backgroundColor: "rgba(111, 111, 111, 1)",
                     borderWidth: 1,
@@ -108,11 +109,11 @@ export default {
                         },
                     },
                     label: {
-                        show: true,
+                        show: false,
                     },
                     emphasis: {
                         label: {
-                            show: true,
+                            show: false,
                         },
                     },
                 },
@@ -120,13 +121,14 @@ export default {
                 //     type: "inside",
                 // }, ],
                 grid: {
-                    top: '15%',
-                    height: '70%'
+                    top: "15%",
+                    height: "70%",
                 },
                 series: {
                     type: "line",
-                    symbol: 'circle',
+                    symbol: "circle",
                     showSymbol: false,
+                    smooth: true,
                     hoverAnimation: true,
                     itemStyle: {
                         color: "rgba(110,150,243,1)",
@@ -134,7 +136,7 @@ export default {
 
                     emphasis: {
                         label: {
-                            show: true,
+                            show: false,
                         },
                     },
                     areaStyle: {

@@ -7,11 +7,13 @@ import layout from '../layout'
 // import personalSettings from '../layout/personalSettings'
 import personalSettings2 from '../layout/personalSettings/index2'
 import dashboard from '../layout/dashboard'
-import siteScan from '../layout/siteScan'
-import vulnerabilityDetails from '../layout/siteScan/vulnerability/vulnerabilityDetails/vulnerabilityDetails.vue'
-import domainNameDetails from '../layout/siteScan/portInformation/domainNameDetails/domainNameDetails.vue'
+import siteScan from '../layout/siteInformation/siteScan/siteScan.vue'
+import siteInformation from '../layout/siteInformation/siteInformation.vue'
+import vulnerabilityDetails from '../layout/siteInformation/siteScan/vulnerability/vulnerabilityDetails/vulnerabilityDetails.vue'
+import domainNameDetails from '../layout/siteInformation/siteScan/portInformation/domainNameDetails/domainNameDetails.vue'
 import gitHub from '../layout/gitHub/gitHub.vue'
-
+import Agreement from '../views/agreement/agreement.vue'
+import Forget from '../views/forget/forget.vue'
 
 Vue.use(VueRouter)
 
@@ -24,11 +26,24 @@ const routes = [
     // component:()=> import('@views/login/index')
   },
   {
+    path: '/Agreement',
+    name: 'Agreement',
+    // component: Login
+    component: Agreement
+    // component:()=> import('@views/login/index')
+  },
+  {
     path: '/Register',
     name: 'Register',
     // component: Login
     component: register
     // component:()=> import('@views/login/index')
+  },
+  {
+    path: '/Forget',
+    name: 'Forget',
+    // component: Login
+    component: Forget
   },
   {
     path: '/layout',
@@ -50,19 +65,24 @@ const routes = [
         name: 'dashboard'
       },
       {
-        path: 'siteScan',
+        path:'siteInformation',
+        component: siteInformation,
+        name: 'siteInformation'
+      },
+      {
+        path: 'siteInformation/siteScan',
         component: siteScan,
-        name: 'siteScan'
+        name: 'siteInformation/siteScan'
       },
       {
-        path: 'siteScan/vulnerabilityDetails',
+        path: 'siteInformation/siteScan/vulnerabilityDetails',
         component: vulnerabilityDetails,
-        name: 'siteScan/vulnerabilityDetails'
+        name: 'siteInformation/siteScan/vulnerabilityDetails'
       },
       {
-        path: 'siteScan/domainNameDetails',
+        path: 'siteInformation/siteScan/domainNameDetails',
         component: domainNameDetails,
-        name: 'siteScan/domainNameDetails'
+        name: 'siteInformation/siteScan/domainNameDetails'
       },
       {
         path: 'gitHub',
@@ -73,8 +93,8 @@ const routes = [
   },
 ]
 const originalPush = VueRouter.prototype.push
-   VueRouter.prototype.push = function push(location) {
-   return originalPush.call(this, location).catch(err => err)
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
 }
 const router = new VueRouter({
   routes

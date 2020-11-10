@@ -6,7 +6,7 @@ import axios from 'axios'
 import 'lib-flexible'
 
 import Antd from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.css' // or 'ant-design-vue/dist/antd.less'
+import 'ant-design-vue/dist/antd.less' // or 'ant-design-vue/dist/antd.less'
 import echarts from 'echarts'
 import api from './api/rules'
 Vue.prototype.$echarts = echarts
@@ -16,7 +16,6 @@ Vue.prototype.$api = api
 Vue.use(Antd)
 
 Vue.config.productionTip = false
-
 new Vue({
   router,
   store,

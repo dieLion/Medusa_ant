@@ -14,8 +14,10 @@ export default {
     mounted() {
         console.log(this.myEcharts);
         let _this = this;
-        setTimeout(() => {
-            _this.fnDrawLine();
+        _this.$nextTick(() => {
+            setTimeout(() => {
+                _this.fnDrawLine();
+            }, 10);
         });
         window.onresize = function () {
             _this.myChart.resize();
