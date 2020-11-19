@@ -9,8 +9,8 @@ import personalSettings2 from '../layout/personalSettings/index2'
 import dashboard from '../layout/dashboard'
 import siteScan from '../layout/siteInformation/siteScan/siteScan.vue'
 import siteInformation from '../layout/siteInformation/siteInformation.vue'
-import vulnerabilityDetails from '../layout/siteInformation/siteScan/vulnerability/vulnerabilityDetails/vulnerabilityDetails.vue'
-import domainNameDetails from '../layout/siteInformation/siteScan/portInformation/domainNameDetails/domainNameDetails.vue'
+import vulnerabilityDetails from '../layout/siteInformation/siteScan/vulnerabilityDetails/vulnerabilityDetails2.vue'
+// import domainNameDetails from '../layout/siteInformation/siteScan/portInformation/domainNameDetails/domainNameDetails.vue'
 import gitHub from '../layout/gitHub/gitHub.vue'
 import Agreement from '../views/agreement/agreement.vue'
 import Forget from '../views/forget/forget.vue'
@@ -79,11 +79,11 @@ const routes = [
         component: vulnerabilityDetails,
         name: 'siteInformation/siteScan/vulnerabilityDetails'
       },
-      {
-        path: 'siteInformation/siteScan/domainNameDetails',
-        component: domainNameDetails,
-        name: 'siteInformation/siteScan/domainNameDetails'
-      },
+      // {
+      //   path: 'siteInformation/siteScan/domainNameDetails',
+      //   component: domainNameDetails,
+      //   name: 'siteInformation/siteScan/domainNameDetails'
+      // },
       {
         path: 'gitHub',
         component: gitHub,

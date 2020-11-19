@@ -89,7 +89,11 @@ export default {
                 token: localStorage.getItem("storeToken"),
             };
             this.$api.list_query(params).then((res) => {
-                console.log(res)
+                //200：返回扫描列表信息
+                // 404：数据库出问题了🐈
+                // 403：小宝贝这是非法查询哦(๑•̀ㅂ•́)و✧
+                // 169：莎酱被玩坏啦(>^ω^<)喵
+                // 500：请使用Post请求
                 switch (res.code) {
                     case 200:
 
@@ -107,6 +111,18 @@ export default {
                         });
 
                         this.data = this.FBdata;
+                        break;
+                    case 404:
+                        this.$message.error("数据库出问题了");
+                        break;
+                    case 403:
+                        this.$message.error("小宝贝这是非法查询哦(๑•̀ㅂ•́)و✧");
+                        break;
+                    case 169:
+                        this.$message.error("莎酱被玩坏啦(>^ω^<)喵");
+                        break;
+                    case 500:
+                        this.$message.error("请使用Post请求");
                         break;
                 }
             });

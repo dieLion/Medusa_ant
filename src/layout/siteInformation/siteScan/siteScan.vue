@@ -2,17 +2,17 @@
 <div class="siteScan">
     <a-row :gutter="[
         { xs: 8, sm: 16, md: 24, xs: 8 },
-        { xs: 4, sm: 8, md: 12, lg: 16 },
+        { xs: 4, sm: 8, md: 16, lg: 24 },
       ]">
         <a-col :xs="{ span: 24 }" :lg="{ span: 24 }">
-            <a-col :xs="{ span: 4 }" :lg="{ span: 3 }" :xl="{ span: 3 }" :xxl="{ span: 2 }" class="safetyOverview">安全总览</a-col>
+            <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="safetyOverview-title">安全总览:</a-col>
             <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="safetyOverview-nav">
                 <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="safetyOverview-nav-header">
                     <a-col :xs="{ span: 8 }" :lg="{ span: 4 }">richhc.com</a-col>
-                    <a-col :xs="{ span: 16 }" :lg="{ span: 12 }" style="color: rgba(36, 181, 155, 1)">2020.03.12 16:15:06---1010.03.13 16:15:06</a-col>
-                    <a-col :xs="{ span: 8 }" :lg="{ span: 3 }" style="color: rgba(36, 181, 155, 1)">得分: 100</a-col>
-                    <a-col :xs="{ span: 8 }" :lg="{ span: 3 }" style="color: rgba(36, 181, 155, 1)">非周期任务</a-col>
-                    <a-col :xs="{ span: 8 }" :lg="{ span: 2 }" style="color: rgba(36, 181, 155, 1)">导出报告</a-col>
+                    <a-col :xs="{ span: 16 }" :lg="{ span: 12 }">2020.03.12 16:15:06---1010.03.13 16:15:06</a-col>
+                    <a-col :xs="{ span: 8 }" :lg="{ span: 3 }">得分: 100</a-col>
+                    <a-col :xs="{ span: 8 }" :lg="{ span: 3 }">非周期任务</a-col>
+                    <a-col :xs="{ span: 8 }" :lg="{ span: 2 }">导出报告</a-col>
                 </a-col>
                 <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="safetyOverview-nav-body">
                     <a-col :xs="{ span: 24 }" :lg="{ span: 8 }" class="safetyOverview-nav-body-risk">
@@ -27,31 +27,52 @@
                 </a-col>
             </a-col>
         </a-col>
-    </a-row>
-
-    <a-row :gutter="[
-        { xs: 8, sm: 16, md: 24, xs: 8 },
-        { xs: 4, sm: 6, md: 8, lg: 10 },
-      ]">
         <a-col :xs="{ span: 24 }" :lg="{ span: 24 }">
-            <div class="tabs">
-                <a-col :xs="{ span: 6 }" :md="{ span: 3 }" :lg="{ span: 3 }" :xl="{ span: 3 }" :xxl="{ span: 2 }" v-for="(index, i) in tabs" :key="i" @click="fntab(i, index.view)" class="tab" :class="{ active: active == i }">{{ index.type }}</a-col>
-            </div>
-
-            <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="list-nav">
-                <component :is="currentView"></component>
+            <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="tabs">
+                <a-tabs default-active-key="1" @change="handleCallback">
+                    <a-tab-pane key="1" tab="端口信息">
+                        Content of Tab Pane 1
+                    </a-tab-pane>
+                    <a-tab-pane key="2" tab="子域名列表" force-render>
+                        Content of Tab Pane 2
+                    </a-tab-pane>
+                </a-tabs>
             </a-col>
         </a-col>
-    </a-row>
-
-    <a-row :gutter="[
-        { xs: 8, sm: 16, md: 24, xs: 8 },
-        { xs: 4, sm: 6, md: 8, lg: 10 },
-      ]">
         <a-col :xs="{ span: 24 }" :lg="{ span: 24 }">
-            <a-col :xs="{ span: 4 }" :lg="{ span: 3 }" :xl="{ span: 3 }" :xxl="{ span: 2 }" class="vulnerabilityDetails">漏洞详情</a-col>
-            <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="vulnerabilityDetails-nav">
-                <vulnerability></vulnerability>
+            <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="vulnerabilityDetails_title">漏洞详情:
+            </a-col>
+            <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="vulnerabilityDetails_nav">
+                <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="vulnerabilityDetails_nav_lv">
+                    威胁等级:
+                    <a-checkbox-group @change="handleRiskOnChange" v-model="plainOptions">
+                        <a-checkbox value="高危">高危</a-checkbox>
+                        <a-checkbox value="中危">中危</a-checkbox>
+                        <a-checkbox value="低危">低危</a-checkbox>
+                    </a-checkbox-group>
+                </a-col>
+                <a-col :xs="{ span: 24 }" :sm="{ span: 10 }" :lg="{ span: 8 }" class="vulnerabilityDetails_nav_tag">
+                    <a-col :xs="{ span: 8 }" :lg="{ span: 8 }" class="vulnerabilityDetails_nav_tag_hight">高危:{{HightRisk}}</a-col>
+                    <a-col :xs="{ span: 8 }" :lg="{ span: 8 }" class="vulnerabilityDetails_nav_tag_medium">中危:{{MediumRisk}}</a-col>
+                    <a-col :xs="{ span: 8 }" :lg="{ span: 8 }" class="vulnerabilityDetails_nav_tag_low">低危:{{LowRisk}}</a-col>
+                </a-col>
+                <!--
+                <a-col :xs="{ span: 24 }" :sm="{ span: 14 }" :lg="{ span: 12, offset: 4 }" class="vulnerabilityDetails_nav_tag">
+                    <a-radio-group v-model="ScreenValue" @change="handleScreenOnChange">
+                        <a-radio-button value="all"> 全部 </a-radio-button>
+                        <a-radio-button value="repaired"> 待修复 </a-radio-button>
+                        <a-radio-button value="fixed"> 已修复 </a-radio-button>
+                        <a-radio-button value="Ignored"> 已忽略 </a-radio-button>
+                    </a-radio-group>
+                </a-col>
+                -->
+                <a-col :xs="{ span: 24 }" :lg="{ span: 24 }">
+                    <a-table :columns="columns" :data-source="data">
+                        <span slot="action" slot-scope="text, record">
+                            <a @click="handleGetTableSerch(record.key)">查询</a>
+                        </span>
+                    </a-table>
+                </a-col>
             </a-col>
         </a-col>
     </a-row>
@@ -62,32 +83,45 @@
 import hisghtRisk from "./risk/hightRisk";
 import mediumRisk from "./risk/mediumRisk";
 import lowRisk from "./risk/lowRisk";
-import portInformation from "./portInformation/portInformation";
-import subdomainNameList from "./subdomainNameList/subdomainNameList";
-import vulnerability from "./vulnerability/vulnerability";
 export default {
     name: "siteScan",
     components: {
         hisghtRisk,
         mediumRisk,
         lowRisk,
-        portInformation,
-        subdomainNameList,
-        vulnerability,
     },
     data() {
         return {
-            active: 0,
-            currentView: "portInformation",
-            tabs: [{
-                    type: "端口信息",
-                    view: "portInformation",
+            ScreenValue: "all",
+            columns: [{
+                    title: "目标URL",
+                    dataIndex: "url",
+                    key: "url",
                 },
                 {
-                    type: "子域名列表",
-                    view: "subdomainNameList",
+                    title: "威胁等级",
+                    dataIndex: "rank",
+                    key: "rank",
+                },
+                {
+                    title: "漏洞名称",
+                    dataIndex: "name",
+                    key: "name",
+                },
+                {
+                    title: "操作",
+                    key: "action",
+                    scopedSlots: {
+                        customRender: "action",
+                    },
                 },
             ],
+            data: [],
+            FBdata: [], //data的副本
+            plainOptions: ["高危", "中危", "低危"],
+            HightRisk: 0, //高危数量
+            MediumRisk: 0,
+            LowRisk: 0,
         };
     },
     mounted() {
@@ -96,94 +130,144 @@ export default {
     methods: {
         handleGetImfomation_query() {
             console.log(this.$store.state.active_scan_id);
-            if (this.$store.state.active_scan_id != 'null') {
+            if (this.$store.state.active_scan_id != "null") {
                 let params = {
                     token: localStorage.getItem("storeToken"),
                     active_scan_id: this.$store.state.active_scan_id,
                 };
                 this.$api.imfomation_query(params).then((res) => {
                     console.log(res);
+                    switch (res.code) {
+                        case 200:
+                            res.message.map((item) => {
+                                let data = {
+                                    key: item.scan_info_id,
+                                    url: item.url,
+                                    rank: item.rank,
+                                    name: item.name,
+                                };
+                                this.FBdata.push(data);
+                            });
+                            this.FBdata.map((item) => {
+                                switch (item.rank) {
+                                    case "高危":
+                                        this.HightRisk++
+                                        break;
+                                    case "中危":
+                                        this.MediumRisk++
+                                        break;
+                                    case "低危":
+                                        this.LowRisk++
+                                        break;
+                                }
+                            });
+                            this.data = this.FBdata;
+
+                            break;
+                        case 404:
+                            this.$message.error("数据库炸了BOOM~");
+                            break;
+                        case 403:
+                            this.$message.error("小宝贝这是非法查询哦(๑•̀ㅂ•́)و✧");
+                            break;
+                        case 169:
+                            this.$message.error("莎酱被玩坏啦(>^ω^<)喵");
+                            break;
+                        case 500:
+                            this.$message.error("请使用Post请求");
+                            break;
+                    }
                 });
             } else {
-                this.$message.warning('请从站点扫描进入,跳转站点扫描中...')
-                this.$router.push('/layout/siteInformation')
+                this.$message.warning("请从站点扫描进入,跳转站点扫描中...");
+                this.$router.push("/layout/siteInformation");
             }
         },
-        fntab(i, v) {
-            this.active = i;
-            this.currentView = v;
-            //console.log(this.active, this.currentView)
+        handleCallback(key) {
+            console.log(key);
+        },
+        handleRiskOnChange(checkedValues) {
+            console.log(checkedValues);
+            let data = [];
+            this.FBdata.map((item) => {
+                checkedValues.map((i) => {
+                    if (item.rank == i) {
+                        data.push(item);
+                    }
+                });
+            });
+            this.data = data;
+            console.log(data);
+            //   this.FBdata.map((i) => {
+            //     if (i[item].indexOf(val) != -1) {
+            //       let data = {
+            //         key: i.github_id,
+            //         github_id: i.github_id,
+            //         name: i.name,
+            //         html_url: i.html_url,
+            //         created_at: i.created_at,
+            //         updated_at: i.updated_at,
+            //         pushed_at: i.pushed_at,
+            //         forks_count: i.forks_count,
+            //         watchers_count: i.watchers_count,
+            //       };
+            //       this.data.push(data);
+            //     }
+            //   });
+        },
+        // handleScreenOnChange(e) {
+        //     console.log(`checked = ${e.target.value}`);
+        // },
+        handleGetTableSerch(e) {
+            console.log(e);
+            this.$store.commit('scan_info_id', e)
+            this.$router.push("/layout/siteInformation/siteScan/vulnerabilityDetails")
         },
     },
 };
 </script>
 
 <style lang="scss" scoped>
+$background: #fff;
+$color: #51c51a;
+
 .siteScan {
-    width: 100%;
-    //height: 100%;
-    padding: 20px 20px 0 20px;
-    background: #587797;
+    margin: 0;
+    padding: 20px;
+    padding-top: 15px;
 
-    .safetyOverview,
-    .vulnerabilityDetails {
-        min-width: 60px;
-        padding: 10px;
-        color: #fff;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        text-align: center;
-        background: #2e4051;
-        margin-right: 20px;
-        font-size: 16px;
+    // .safetyOverview-title {
+    //     min-width: 60px;
+    //     padding: 10px;
+    //     color: $color;
+    //     border-top-left-radius: 5px;
+    //     border-top-right-radius: 5px;
+    //     text-align: center;
+    //     background: $background;
+    //     margin-right: 20px;
+    //     font-size: 16px;
+    // }
+    .safetyOverview-title,
+    .vulnerabilityDetails_title {
+        font-size: 18px;
+        color: $color;
     }
 
-    .tabs {
-        min-height: 20px;
-        min-width: 280px;
-
-        .tab {
-            min-width: 85px;
-            padding: 10px;
-            color: #fff;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            text-align: center;
-            background: rgba(42, 74, 105, 1);
-            margin-right: 20px;
-            font-size: 16px;
-        }
-
-        .tab.active {
-            background: #2e4051;
-        }
-    }
-
-    .subdomainNameList {
-        min-width: 60px;
-        padding: 10px;
-        color: #fff;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        text-align: center;
-        background: rgba(42, 74, 105, 1);
-        margin-right: 20px;
-        font-size: 16px;
-    }
-
-    .safetyOverview-nav {
+    .safetyOverview-nav,
+    .tabs,
+    .vulnerabilityDetails_nav {
         min-width: 280px;
         padding: 10px;
-        color: #fff;
-        border-top-right-radius: 5px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
+        color: $color;
+        border-radius: 15px;
         text-align: left;
-        background: #2e4051;
-        font: 0.12rem sans-serif;
+        background: $background;
+        font-size: 14px;
 
         .safetyOverview-nav-header {
+            color: $color;
             font-size: 14px;
+            border-bottom: 1px solid #ccc;
         }
 
         .portInformation-nav-header {
@@ -192,7 +276,7 @@ export default {
         }
 
         .safetyOverview-nav-body {
-            background: rgba(42, 74, 105, 1);
+            background: $background;
             min-height: 210px;
 
             .safetyOverview-nav-body-risk {
@@ -200,31 +284,36 @@ export default {
                 height: 1rem;
             }
         }
+
+        .vulnerabilityDetails_nav_lv {
+            border-bottom: 1px solid #ccc;
+        }
+
+        .vulnerabilityDetails_nav_tag {
+            font-size: 16px;
+
+            .vulnerabilityDetails_nav_tag_hight {
+                color: #ff6347;
+            }
+
+            .vulnerabilityDetails_nav_tag_low {
+                color: #03b7c9;
+            }
+
+            .vulnerabilityDetails_nav_tag_medium {
+                color: #ff8000;
+            }
+        }
     }
 
-    .vulnerabilityDetails-nav {
-        min-width: 265px;
-        padding: 10px;
-        color: #fff;
-        border-top-right-radius: 5px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-        text-align: left;
-        background: #2e4051;
-        font-size: 14px;
-    }
-
-    .list-nav {
-        min-height: 230px;
-        min-width: 280px;
-        padding: 10px;
-        color: #fff;
-        border-top-right-radius: 5px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-        text-align: left;
-        background: #2e4051;
-        font-size: 14px;
+    .safetyOverview-nav:hover,
+    .tabs:hover,
+    .vulnerabilityDetails_nav:hover {
+        box-shadow: 10px 10px 5px #888888;
+        /*设置阴影,可以自定义参数*/
+        -webkit-box-shadow: 10px 10px 5px #888888;
+        -o-box-shadow: 10px 10px 5px #888888;
+        -moz-box-shadow: 10px 10px 5px #888888;
     }
 }
 </style>

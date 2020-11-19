@@ -579,6 +579,9 @@ export default {
     .hoverBorder:hover .gradeDistribution-nav {
         box-shadow: 10px 10px 5px #888888;
         /*设置阴影,可以自定义参数*/
+        -webkit-box-shadow: 10px 10px 5px #888888;
+        -o-box-shadow: 10px 10px 5px #888888;
+        -moz-box-shadow: 10px 10px 5px #888888;
     }
 
     .list-nav {

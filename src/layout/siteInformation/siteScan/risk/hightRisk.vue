@@ -8,7 +8,7 @@ export default {
     data() {
         return {
             hightRisk: {},
-            highlight: "#03b7c9",
+            highlight: "#FF6347", //#03b7c9
         };
     },
     mounted() {
@@ -109,14 +109,14 @@ export default {
                             offsetCenter: [0, "100%"],
                             textStyle: {
                                 fontSize: 20,
-                                color: "#fff",
+                                color: this.highlight,
                             },
                             formatter: ["{value} ", "{name|" + "高危" + "}"].join("\n"),
                             rich: {
                                 name: {
                                     fontSize: 14,
                                     lineHeight: 30,
-                                    color: "#ddd",
+                                    color: this.highlight,
                                 },
                             },
                         },

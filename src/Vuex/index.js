@@ -8,7 +8,8 @@ export default new Vuex.Store({
     storeToken: localStorage.getItem('storeToken')?localStorage.getItem('storeToken'):'',
     userinfo:{},
     avatar:'',
-    active_scan_id:'null'//主动扫描目标单个漏洞详细内容查询key
+    active_scan_id:'null',//主动扫描目标单个漏洞详细内容查询key
+    scan_info_id:'null'//主动扫描目标单个漏洞详细内容查询接口
   },
   mutations: {
     tokenLogin(state,usertoken){
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     active_scan_id(state,active_scan_id){
       state.active_scan_id = active_scan_id
+    },
+    scan_info_id(state,scan_info_id){
+      state.scan_info_id=scan_info_id
     }
   },
   actions: {

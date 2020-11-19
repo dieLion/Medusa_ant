@@ -109,14 +109,14 @@ export default {
                             offsetCenter: [0, "100%"],
                             textStyle: {
                                 fontSize: 20,
-                                color: "#fff",
+                                color: this.highlight,
                             },
                             formatter: ["{value} ", "{name|" + "低危" + "}"].join("\n"),
                             rich: {
                                 name: {
                                     fontSize: 14,
                                     lineHeight: 30,
-                                    color: "#ddd",
+                                    color: this.highlight,
                                 },
                             },
                         },

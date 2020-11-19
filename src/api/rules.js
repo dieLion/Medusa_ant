@@ -20,6 +20,7 @@ import {
     URL_POST_GITHUB_MONITOR,
     URL_POST_HOMEPAGE_GITHUB_MONITOR_DATA
     
+    
 } from './url'
 import store from '../Vuex'
 
@@ -63,6 +64,13 @@ let api = {
     //主动扫描目标漏洞列表查询接口
     async imfomation_query(params) {
         let response = await post(URL_POST_INFOMATION_QUERY, params, {
+            headers: {}
+        })
+        return response
+    },
+    //主动扫描目标单个漏洞详细内容查询接口
+    async medusa_query(params) {
+        let response = await post(URL_POST_MEDUSA_QUERY, params, {
             headers: {}
         })
         return response
@@ -127,12 +135,7 @@ let api = {
         return response
     },
 
-    async medusa_query(params) {
-        let response = await post(URL_POST_MEDUSA_QUERY, params, {
-            headers: {}
-        })
-        return response
-    },
+    
     async generate_word(params) {
         let response = await post(URL_POST_GENERATE_WORD, params, {
             headers: {}

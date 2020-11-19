@@ -47,9 +47,10 @@
             </a-menu>
         </a-layout-sider>
         <a-layout>
+
             <a-layout-header style="
             background: #fff;
-            padding: 0;
+            padding: 0 ;
             display: flex;
             justify-content: space-between;
           ">
@@ -110,6 +111,7 @@ export default {
     // },
     data() {
         return {
+            top: 0.1,
             collapsed: false,
             contentBackground: {
                 background: "#fff",
@@ -247,6 +249,13 @@ export default {
                     this.defaultOpenKeys = ["sub1"];
                     break;
                 case "siteInformation/siteScan":
+                    this.activeIndex = ["siteInformation"];
+                    this.contentBackground = {
+                        background: "rgba(242,242,242,1)",
+                    };
+                    this.defaultOpenKeys = ["sub1"];
+                    break;
+                case "siteInformation/siteScan/vulnerabilityDetails":
                     this.activeIndex = ["siteInformation"];
                     this.contentBackground = {
                         background: "rgba(242,242,242,1)",
