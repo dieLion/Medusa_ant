@@ -6,6 +6,9 @@
             <div class="personalCard_title">
                 <slot name="title"></slot>
             </div>
+            <div class="dividing_line">
+                {{ LV }}
+            </div>
             <div class="personalCard_main">
                 <slot name="main"></slot>
             </div>
@@ -19,6 +22,9 @@
         <div class="pad">
             <div class="personalCard_title_back">
                 <slot name="title_back"> </slot>
+            </div>
+            <div class="dividing_line">
+                {{ LV }}
             </div>
             <div class="personalCard_main_back">
                 <slot name="main_back"></slot>
@@ -36,6 +42,10 @@ export default {
         //     type: String,
         //     default: "UR"
         // }
+        LV: {
+            type: String,
+            default: "SSR",
+        },
     },
     data() {
         return {
@@ -96,6 +106,7 @@ export default {
                     this.handleMouseLeave = this.handleMouseLeave.bind(this);
                     this.init = this.init.bind(this);
                     console.log(this.X, this.Y);
+                    this.setPropertyBG("--W", this.W + "px");
                     this.setPropertyBG("--H", this.H + "px");
                     this.init();
                 }
@@ -114,7 +125,6 @@ export default {
                     this.setPropertyBG("--BX", 50 - (Y / 4).toFixed(2) + "%");
                 }
                 handleMouseLeave() {
-
                     this.setProperty("--RY", 0);
                     this.setProperty("--RX", 0);
                     this.setPropertyBG("--BY", "50%");
@@ -182,6 +192,7 @@ $br2: #7f574b;
         .cardBackBG {
             --BX: 50%;
             --BY: 50%;
+            --W: 0px;
             --H: 0px;
             padding: 10px;
 
@@ -190,8 +201,7 @@ $br2: #7f574b;
             width: 100%;
             height: 100%;
             position: absolute;
-            background: 
-                url("../assets/CradBack2.jpg") no-repeat;
+            background:  url("../assets/CradBack2.png") no-repeat;
             background-position: var(--BX) var(--BY);
             background-size: var(--H) auto;
         }
@@ -215,8 +225,7 @@ $br2: #7f574b;
                     #99c794c9,
                     #5fb3b3c9,
                     #6699ccc9,
-                    #c594c5c9)20 20;
-
+                    #c594c5c9) 20 20;
         }
 
         .cardBackBG::before {
@@ -225,7 +234,6 @@ $br2: #7f574b;
 
             border-bottom-width: 0;
             border-left-width: 0;
-
         }
 
         .cardBackBG::after {
@@ -264,38 +272,124 @@ $br2: #7f574b;
 
     .front,
     .back {
+        border: 1px solid #888888;
         width: 100%;
         height: 100%;
         position: absolute;
         top: 0;
         left: 0;
+        border-radius: 25px;
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
         -moz-backface-visibility: hidden;
         -o-backface-visibility: hidden;
+        background-image: url("../assets/CradBack3.png");
+
+        background-position: center top;
+        background-size: cover;
 
         .pad {
-            padding: 10px;
+            margin: 20px;
+            width: calc(100% - 40px);
+            height: calc(100% - 40px);
+            overflow: hidden;
 
             .personalCard_title,
             .personalCard_title_back {
                 font-size: 20px;
-                border-bottom: 1px solid #ccc;
+                // border-bottom: 1px solid #ccc;
             }
 
             .personalCard_main,
             .personalCard_main_back {
                 font-size: 16px;
             }
+
+            .dividing_line {
+                display: flex;
+                font-size: 16px;
+                font-weight: 800;
+                width: 100%;
+                text-align: center;
+                align-items: center;
+                background: -webkit-linear-gradient(#ec5f67,
+                        #f99157,
+                        #fac863 20%,
+                        #99c794 40%,
+                        #5fb3b3 60%,
+                        #6699cc 80%,
+                        #c594c5);
+                color: transparent;
+                -webkit-background-clip: text;
+            }
+
+            .dividing_line::before,
+            .dividing_line::after {
+                content: "";
+                flex: 1;
+                height: 1px;
+                background: #ccc;
+            }
+
+            .dividing_line::before {
+                margin-right: 10px;
+            }
+
+            .dividing_line::after {
+                margin-left: 10px;
+            }
+        }
+
+        .pad::before {
+            content: "";
+            width: calc(100% - 40px);
+            height: calc(100% - 40px);
+
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-image: url("../assets/CradBack3.png");
+            background-position: center top;
+            background-size: cover;
+
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            -ms-filter: blur(5px);
+            -o-filter: blur(5px);
+            filter: blur(5px);
         }
     }
+
+    // .front:after,
+    // .back:after {
+    //     content: "";
+    //     // width: calc(100% - 40px);
+    //     // height: calc(100% - 40px);
+    //     position: absolute;
+    //     top: 20px;
+    //     left: 20px;
+    //     right: 0;
+    //     bottom: 0;
+    //     z-index: -1;
+    //     background: url("../assets/CradBack3.png") no-repeat;
+    //     background-position: center;
+    //     background-size: cover;
+    //     background-attachment: fixed;
+    //     -webkit-filter: blur(10px);
+    //     -moz-filter: blur(10px);
+    //     -ms-filter: blur(10px);
+    //     -o-filter: blur(10px);
+    //     filter: blur(10px);
+    // }
 }
 
 .personalCard:hover .cardBackBG::before,
 .personalCard:hover .cardBackBG::after {
     width: calc(100% - 50px);
     height: calc(100% - 50px);
-
 }
 
 .personalCard:hover .cardBack::after {
@@ -325,6 +419,15 @@ $br2: #7f574b;
 }
 
 .personalCard:hover .cardBackBG {
+    box-shadow: 0px 10px 5px #888888;
+    /*设置阴影,可以自定义参数*/
+    -webkit-box-shadow: 0px 10px 5px #888888;
+    -o-box-shadow: 0px 10px 5px #888888;
+    -moz-box-shadow: 0px 10px 5px #888888;
+}
+
+.personalCard:hover .back,
+.personalCard:hover .front {
     box-shadow: 0px 10px 5px #888888;
     /*设置阴影,可以自定义参数*/
     -webkit-box-shadow: 0px 10px 5px #888888;
