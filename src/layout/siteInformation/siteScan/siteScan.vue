@@ -52,9 +52,9 @@
                     </a-checkbox-group>
                 </a-col>
                 <a-col :xs="{ span: 24 }" :sm="{ span: 10 }" :lg="{ span: 8 }" class="vulnerabilityDetails_nav_tag">
-                    <a-col :xs="{ span: 8 }" :lg="{ span: 8 }" class="vulnerabilityDetails_nav_tag_hight">高危:{{HightRisk}}</a-col>
-                    <a-col :xs="{ span: 8 }" :lg="{ span: 8 }" class="vulnerabilityDetails_nav_tag_medium">中危:{{MediumRisk}}</a-col>
-                    <a-col :xs="{ span: 8 }" :lg="{ span: 8 }" class="vulnerabilityDetails_nav_tag_low">低危:{{LowRisk}}</a-col>
+                    <a-col :xs="{ span: 8 }" :lg="{ span: 8 }" class="vulnerabilityDetails_nav_tag_hight">高危:{{ HightRisk }}</a-col>
+                    <a-col :xs="{ span: 8 }" :lg="{ span: 8 }" class="vulnerabilityDetails_nav_tag_medium">中危:{{ MediumRisk }}</a-col>
+                    <a-col :xs="{ span: 8 }" :lg="{ span: 8 }" class="vulnerabilityDetails_nav_tag_low">低危:{{ LowRisk }}</a-col>
                 </a-col>
                 <!--
                 <a-col :xs="{ span: 24 }" :sm="{ span: 14 }" :lg="{ span: 12, offset: 4 }" class="vulnerabilityDetails_nav_tag">
@@ -151,13 +151,13 @@ export default {
                             this.FBdata.map((item) => {
                                 switch (item.rank) {
                                     case "高危":
-                                        this.HightRisk++
+                                        this.HightRisk++;
                                         break;
                                     case "中危":
-                                        this.MediumRisk++
+                                        this.MediumRisk++;
                                         break;
                                     case "低危":
-                                        this.LowRisk++
+                                        this.LowRisk++;
                                         break;
                                 }
                             });
@@ -219,9 +219,16 @@ export default {
         //     console.log(`checked = ${e.target.value}`);
         // },
         handleGetTableSerch(e) {
-            console.log(e);
-            this.$store.commit('scan_info_id', e)
-            this.$router.push("/layout/siteInformation/siteScan/vulnerabilityDetails")
+            this.$store.commit("scan_info_id", e);
+            if (Math.round(Math.random() * 10) == 1) {
+                this.$router.push(
+                    "/layout/siteInformation/siteScan/vulnerabilityDetails2"
+                );
+            } else {
+                this.$router.push(
+                    "/layout/siteInformation/siteScan/vulnerabilityDetails"
+                );
+            }
         },
     },
 };

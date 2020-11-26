@@ -78,13 +78,14 @@
 <script>
 import moment from "moment";
 import myechartspie from "./myechartspie/myechartspie.vue";
+import activeRisk from "./activeRisk/activeRisk.vue";
+import gitHubMonitoring from "./gitHubMonitoring/gitHubMonitoring.vue";
 import {
     Icon
 } from "ant-design-vue";
-import activeRisk from "./activeRisk/activeRisk.vue";
-import gitHubMonitoring from "./gitHubMonitoring/gitHubMonitoring.vue";
+
 const MyIcon = Icon.createFromIconfontCN({
-    scriptUrl: "//at.alicdn.com/t/font_1734998_u0tahsdom7.js",
+    scriptUrl: "//at.alicdn.com/t/font_1734998_apjce2fwnsu.js",
 });
 export default {
     name: "dashboard",

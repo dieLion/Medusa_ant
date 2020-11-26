@@ -38,10 +38,6 @@
 export default {
     name: "personalCard",
     props: {
-        // lv: {
-        //     type: String,
-        //     default: "UR"
-        // }
         LV: {
             type: String,
             default: "SSR",
@@ -73,22 +69,6 @@ export default {
             }
             console.log(this.setFlip);
         },
-        // mousemove(e) {
-        //     let w = this.$refs.card.clientWidth / 2;
-        //     let h = this.$refs.card.clientHeight / 2;
-        //     let offsetX = e.offsetX;
-        //     let offsetY = e.offsetY;
-
-        //     let rx = (offsetX - w) / 3 / 3;
-        //     let ry = -(offsetY - h) / 3 / 3;
-
-        //     console.log(rx, ry);
-        //     this.setProperty("--RY", rx.toFixed(2));
-        //     this.setProperty("--RX", ry.toFixed(2));
-
-        //     this.setProperty("--BY", 50 - rx.toFixed(2) + "%");
-        //     this.setProperty("--BX", 50 - ry.toFixed(2) + "%");
-        // },
         neWClassTransform() {
             let _this = this;
             class Transform {
@@ -201,7 +181,9 @@ $br2: #7f574b;
             width: 100%;
             height: 100%;
             position: absolute;
-            background:  url("../assets/CradBack2.png") no-repeat;
+            background: linear-gradient(hsla(0, 0%, 100%, 0.1),
+                    hsla(0, 0%, 100%, 0.1)),
+                url("../assets/CradBack2.png") no-repeat;
             background-position: var(--BX) var(--BY);
             background-size: var(--H) auto;
         }
@@ -242,12 +224,6 @@ $br2: #7f574b;
 
             border-top-width: 0;
             border-right-width: 0;
-
-            // border-image: -moz-linear-gradient(#F80, #2ED) 20 20;
-
-            // border-image: -o-linear-gradient(#F80, #2ED) 20 20;
-
-            // border-image: linear-gradient(#F80, #2ED) 20 20;
         }
     }
 
@@ -260,7 +236,7 @@ $br2: #7f574b;
         width: calc(100% + (20px));
         height: calc(100% + (20px));
         z-index: -20;
-        filter: blur(0.4rem);
+        filter: blur(50px);
         opacity: 1;
         border: 0 solid #113546;
         border-radius: 25px;
@@ -362,28 +338,6 @@ $br2: #7f574b;
             filter: blur(5px);
         }
     }
-
-    // .front:after,
-    // .back:after {
-    //     content: "";
-    //     // width: calc(100% - 40px);
-    //     // height: calc(100% - 40px);
-    //     position: absolute;
-    //     top: 20px;
-    //     left: 20px;
-    //     right: 0;
-    //     bottom: 0;
-    //     z-index: -1;
-    //     background: url("../assets/CradBack3.png") no-repeat;
-    //     background-position: center;
-    //     background-size: cover;
-    //     background-attachment: fixed;
-    //     -webkit-filter: blur(10px);
-    //     -moz-filter: blur(10px);
-    //     -ms-filter: blur(10px);
-    //     -o-filter: blur(10px);
-    //     filter: blur(10px);
-    // }
 }
 
 .personalCard:hover .cardBackBG::before,
@@ -410,12 +364,6 @@ $br2: #7f574b;
             #6699cc,
             #c594c5);
     box-sizing: inherit;
-    // box-shadow: 0px 10px 5px #888888;
-    // /*设置阴影,可以自定义参数*/
-    // -webkit-box-shadow: 0px 10px 5px #888888;
-    // -o-box-shadow: 0px 10px 5px #888888;
-    // -moz-box-shadow: 0px 10px 5px #888888;
-    // background-position: var(--BX) var(--BY);
 }
 
 .personalCard:hover .cardBackBG {

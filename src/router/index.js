@@ -9,12 +9,14 @@ import personalSettings2 from '../layout/personalSettings/index2'
 import dashboard from '../layout/dashboard'
 import siteScan from '../layout/siteInformation/siteScan/siteScan.vue'
 import siteInformation from '../layout/siteInformation/siteInformation.vue'
-import vulnerabilityDetails from '../layout/siteInformation/siteScan/vulnerabilityDetails/vulnerabilityDetails2.vue'
-// import domainNameDetails from '../layout/siteInformation/siteScan/portInformation/domainNameDetails/domainNameDetails.vue'
+import vulnerabilityDetails2 from '../layout/siteInformation/siteScan/vulnerabilityDetails/vulnerabilityDetails2.vue'
+ import vulnerabilityDetails from '../layout/siteInformation/siteScan/vulnerabilityDetails/vulnerabilityDetails.vue'
 import gitHub from '../layout/gitHub/gitHub.vue'
 import Agreement from '../views/agreement/agreement.vue'
 import Forget from '../views/forget/forget.vue'
-
+import issueTasks from '../layout/issueTasks/issueTasks.vue'
+import createProject from '../layout/scriptFish/createProject/createProject.vue'
+import projectManagement from '../layout/scriptFish/projectManagement/projectManagement.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -57,27 +59,60 @@ const routes = [
       {
         path: 'personalSettings',
         component: personalSettings2,
-        name: 'personalSettings'
+        name: 'personalSettings',
+        meta:{
+          keepAlive:true,
+          activeIndex:"personalSettings"
+        },
       },
       {
         path: 'dashboard',
         component: dashboard,
-        name: 'dashboard'
+        name: 'dashboard',
+        meta:{
+          keepAlive:true,
+          activeIndex:"dashboard"
+        },
       },
       {
         path:'siteInformation',
         component: siteInformation,
-        name: 'siteInformation'
+        name: 'siteInformation',
+        meta:{
+          keepAlive:true,
+          activeIndex:"siteInformation",
+          defaultOpenKeys:"sub1"
+        },
       },
       {
         path: 'siteInformation/siteScan',
         component: siteScan,
-        name: 'siteInformation/siteScan'
+        name: 'siteInformation/siteScan',
+        meta:{
+          keepAlive:true,
+          activeIndex:"siteInformation",
+          defaultOpenKeys:"sub1"
+        },
       },
       {
         path: 'siteInformation/siteScan/vulnerabilityDetails',
         component: vulnerabilityDetails,
-        name: 'siteInformation/siteScan/vulnerabilityDetails'
+        name: 'siteInformation/siteScan/vulnerabilityDetails',
+        meta:{
+          keepAlive:true,
+          activeIndex:"siteInformation",
+          defaultOpenKeys:"sub1"
+        },
+      },
+      {
+        path: 'siteInformation/siteScan/vulnerabilityDetails2',
+        component: vulnerabilityDetails2,
+        name: 'siteInformation/siteScan/vulnerabilityDetails2',
+        meta:{
+          keepAlive:true,
+          activeIndex:"siteInformation",
+          defaultOpenKeys:"sub1"
+        },
       },
       // {
       //   path: 'siteInformation/siteScan/domainNameDetails',
@@ -85,10 +120,47 @@ const routes = [
       //   name: 'siteInformation/siteScan/domainNameDetails'
       // },
       {
+        path: 'issueTasks',
+        component: issueTasks,
+        name: 'issueTasks',
+        meta:{
+          keepAlive:true,
+          activeIndex:"issueTasks",
+          defaultOpenKeys:"sub1"
+        },
+        
+      },
+      {
         path: 'gitHub',
         component: gitHub,
-        name: 'gitHub'
+        name: 'gitHub',
+        meta:{
+          keepAlive:true,
+          activeIndex:"gitHub",
+          defaultOpenKeys:"sub3"
+        },
       },
+      {
+        path: 'createProject',
+        component: createProject,
+        name: 'createProject',
+        meta:{
+          keepAlive:true,
+          activeIndex:"createProject",
+          defaultOpenKeys:"sub4"
+        },
+      },
+      {
+        path: 'projectManagement',
+        component: projectManagement,
+        name: 'projectManagement',
+        meta:{
+          keepAlive:true,
+          activeIndex:"projectManagement",
+          defaultOpenKeys:"sub4"
+        },
+      },
+      
     ]
   },
 ]
@@ -97,7 +169,18 @@ VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 const router = new VueRouter({
-  routes
+  routes,
+  // scrollBehavior(to,from,savePosition){
+  //   if(savePosition){
+  //     return savePosition
+  //   }
+  //   else{
+  //     return{
+  //       x:0,
+  //       y:0
+  //     }
+  //   }
+  // }
 })
 
 export default router

@@ -19,6 +19,14 @@ export const URL_POST_HOMEPAGE_GITHUB_MONITOR_DATA = `/homepage_github_monitor_d
 export const URL_POST_UPLOAD_AVATAR = `/upload_avatar/`// 上传头像接口
 export const URL_POST_GITHUB_MONITOR = `/github_monitor/`// GitHub监控接口
 
+export const URL_POST_CREATE_SCRIPT_PROJECT = `/create_cross_site_script_project/`// 创建跨站脚本钓鱼项目
+export const URL_POST_QUERY_SCRIPT_PROJECT = `/query_cross_site_script_project/`// 查询跨站脚本钓鱼项目
+
+export const URL_POST_READ_SCRIPT_TEMPLATE = `/read_cross_site_script_template/`// 读取用户自定义跨站脚本模板数据
+export const URL_POST_READ_DEFAULT_SCRIPT_TEMPLATE = `/read_default_cross_site_script_template/`// 读取默认跨站脚本模板数据
+
+
+
 
 // API/api/upload_avatar/
 

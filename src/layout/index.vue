@@ -6,51 +6,19 @@
                 <img width="100%" height="100%" src="../assets/logo.png" />
             </div>
             <a-menu theme="dark" mode="inline" :selectedKeys="activeIndex" :default-open-keys="defaultOpenKeys">
-                <a-menu-item key="personalSettings" @click="handleGopersonalSettings">
-                    <a-icon type="user" />
-                    <span>个人界面</span>
-                </a-menu-item>
-                <a-menu-item key="dashboard" @click="handleGodashboard">
-                    <myicon type="icon-ziyuan" />
-                    <span>仪表盘</span>
-                </a-menu-item>
-
-                <a-sub-menu key="sub1">
-                    <span slot="title">
-                        <myicon type="icon-ziyuan" />
-                        <span>主动扫描</span>
-                    </span>
-                    <a-menu-item key="siteInformation" @click="handleGositeInformation">站点扫描</a-menu-item>
-                    <!-- <a-menu-item key="6">服务信息</a-menu-item>
-            <a-menu-item key="7">漏洞信息</a-menu-item> -->
-                </a-sub-menu>
-
-                <a-sub-menu key="sub2">
-                    <span slot="title">
-                        <myicon type="icon-ziyuan" />
-                        <span>被动扫描</span>
-                    </span>
-                    <!-- <a-menu-item key="8">添加项目</a-menu-item>
-            <a-menu-item key="9">项目管理</a-menu-item>
-            <a-menu-item key="10">代理记录</a-menu-item> -->
-                </a-sub-menu>
-                <a-sub-menu key="sub3">
-                    <span slot="title">
-                        <myicon type="icon-ziyuan" />
-                        <span>监控页面</span>
-                    </span>
-                    <a-menu-item key="gitHub" @click="handleGogitHub">GitHub</a-menu-item>
-                    <!-- <a-menu-item key="8">添加项目</a-menu-item>
-            <a-menu-item key="9">项目管理</a-menu-item>
-            <a-menu-item key="10">代理记录</a-menu-item> -->
-                </a-sub-menu>
+                <template v-for="item in menuList">
+                    <a-menu-item :key="item.key" @click="handleGoChange" v-if="!item.children">
+                        <myicon :type="item.iconType" />
+                        <span>{{ item.msg }}</span>
+                    </a-menu-item>
+                    <sub-menu v-else :key="item.key" :menu-info="item" :handleGoChange="handleGoChange" />
+                </template>
             </a-menu>
         </a-layout-sider>
         <a-layout>
-
             <a-layout-header style="
             background: #fff;
-            padding: 0 ;
+            padding: 0;
             display: flex;
             justify-content: space-between;
           ">
@@ -93,14 +61,17 @@ import {
     Icon
 } from "ant-design-vue";
 const MyIcon = Icon.createFromIconfontCN({
-    scriptUrl: "//at.alicdn.com/t/font_1734998_i0feu56gjii.js",
+    scriptUrl: "//at.alicdn.com/t/font_1734998_261bksb0z5p.js",
 });
 import zhCN from "ant-design-vue/lib/locale-provider/zh_CN";
 import enUS from "ant-design-vue/lib/locale-provider/en_US";
+import SubMenu from "./SubMenu";
+
 export default {
     name: "layout",
     components: {
         myicon: MyIcon,
+        "sub-menu": SubMenu,
     },
     // computed: {
     //     logo: function () {
@@ -111,10 +82,73 @@ export default {
     // },
     data() {
         return {
+            menuList: [{
+                    key: "personalSettings",
+                    iconType: "icon-Serviceusers",
+                    msg: "个人界面",
+                },
+                {
+                    key: "dashboard",
+                    iconType: "icon-saomiao1",
+                    msg: "仪表盘",
+                },
+                {
+                    key: "sub1",
+                    iconType: "icon-ziyuan",
+                    msg: "主动扫描",
+                    children: [{
+                            key: "issueTasks",
+                            msg: "下发任务",
+                        },
+                        {
+                            key: "siteInformation",
+                            msg: "站点扫描",
+                        },
+                    ],
+                },
+                {
+                    key: "sub2",
+                    iconType: "icon-saomiao2",
+                    msg: "被动扫描",
+                    children: [],
+                },
+                {
+                    key: "sub3",
+                    iconType: "icon-jiankong",
+                    msg: "监控页面",
+                    children: [{
+                        key: "gitHub",
+                        msg: "gitHub监控",
+                    }, ],
+                },
+                {
+                    key: "sub4",
+                    iconType: "icon-jiankong",
+                    msg: "跨站脚本钓鱼",
+                    children: [{
+                            key: "createProject",
+                            msg: "创建项目",
+                        },
+                        {
+                            key: "projectManagement",
+                            msg: "项目管理",
+                        },
+                        {
+                            key: "publicTemplate",
+                            msg: "公共模板",
+                        },
+                        {
+                            key: "customTemplate",
+                            msg: "自定义模板",
+                        },
+                    ],
+                },
+            ],
             top: 0.1,
             collapsed: false,
             contentBackground: {
-                background: "#fff",
+                background: "rgba(242,242,242,1)",
+                padding: "10px"
             },
             locale: zhCN,
             activeIndex: [],
@@ -136,6 +170,32 @@ export default {
         },
     },
     methods: {
+        handleGoChange(e) {
+            console.log(e);
+            this.$router.push("/layout/" + e.key);
+            // switch (e.key) {
+            //     case "personalSettings":
+            //         this.$router.push("/layout/personalSettings");
+            //         this.activeIndex = ["personalSettings"];
+            //         break;
+            //     case "dashboard":
+            //         this.$router.push("/layout/dashboard");
+            //         this.activeIndex = ["dashboard"];
+            //         break;
+            //     case "issueTasks":
+            //         this.$router.push("/layout/issueTasks");
+            //         this.activeIndex = ["issueTasks"];
+            //         break;
+            //     case "siteInformation":
+            //         this.$router.push("/layout/siteInformation");
+            //         this.activeIndex = ["siteInformation"];
+            //         break;
+            //     case "gitHub":
+            //         this.$router.push("/layout/gitHub");
+            //         this.activeIndex = ["gitHub"];
+            //         break;
+            // }
+        },
         handleMenuClick(e) {
             switch (e.key) {
                 case "user":
@@ -195,118 +255,12 @@ export default {
                 }
             });
         },
-        handleGopersonalSettings() {
-            this.contentBackground = {
-                background: "rgba(242,242,242,1)",
-            };
-            this.$router.push("/layout/personalSettings");
-        },
-        handleGodashboard() {
-            this.contentBackground = {
-                background: "rgba(242,242,242,1)",
-            };
-            this.$router.push("/layout/dashboard");
-        },
-        handleGositeInformation() {
-            // this.contentBackground = {
-            //     background: "#587797",
-            // };
-            this.$router.push("/layout/siteInformation");
-        },
-        handleGogitHub() {
-            this.contentBackground = {
-                background: "rgba(242,242,242,1)",
-            };
-            this.$router.push("/layout/gitHub");
-        },
         Refresh() {
-            console.log(this.$route.name);
-            switch (this.$route.name) {
-                case "personalSettings":
-                    this.activeIndex = ["personalSettings"];
-                    this.contentBackground = {
-                        background: "rgba(242,242,242,1)",
-                    };
-                    break;
-                case "gitHub":
-                    this.activeIndex = ["gitHub"];
-                    this.contentBackground = {
-                        background: "rgba(242,242,242,1)",
-                    };
-                    this.defaultOpenKeys = ["sub3"];
-                    break;
-                case "dashboard":
-                    this.activeIndex = ["dashboard"];
-                    this.contentBackground = {
-                        background: "rgba(242,242,242,1)",
-                    };
-                    break;
-                case "siteInformation":
-                    this.activeIndex = ["siteInformation"];
-                    this.contentBackground = {
-                        background: "rgba(242,242,242,1)",
-                    };
-                    this.defaultOpenKeys = ["sub1"];
-                    break;
-                case "siteInformation/siteScan":
-                    this.activeIndex = ["siteInformation"];
-                    this.contentBackground = {
-                        background: "rgba(242,242,242,1)",
-                    };
-                    this.defaultOpenKeys = ["sub1"];
-                    break;
-                case "siteInformation/siteScan/vulnerabilityDetails":
-                    this.activeIndex = ["siteInformation"];
-                    this.contentBackground = {
-                        background: "rgba(242,242,242,1)",
-                    };
-                    this.defaultOpenKeys = ["sub1"];
-                    break;
+            console.log(this.$route.meta.activeIndex);
+            this.activeIndex = [this.$route.meta.activeIndex]
+            if (this.$route.meta.defaultOpenKeys) {
+                this.defaultOpenKeys = [this.$route.meta.defaultOpenKeys];
             }
-            // if (
-            //     this.$route.name == "layout/siteInformation" ||
-            //     this.$route.name == "siteScan/vulnerabilityDetails" ||
-            //     this.$route.name == "siteScan/domainNameDetails"
-            // ) {
-            //     this.activeIndex = ["siteInformation"];
-            // } else {
-            //     this.activeIndex = [this.$route.name];
-            // }
-            // // console.log(this.$route.name, this.activeIndex);
-            // if (
-            //     this.activeIndex == "personalSettings" ||
-            //     this.activeIndex == "gitHub"
-            // ) {
-            //     this.contentBackground = {
-            //         background: "rgba(242,242,242,1)",
-            //     };
-            //     if (this.activeIndex == "gitHub") {
-            //         this.defaultOpenKeys = ["sub3"];
-            //     }
-            // } else if (
-            //     this.activeIndex == "dashboard" ||
-            //     this.activeIndex == "siteScan"
-            // ) {
-            //     // console.log(this.defaultOpenKeys);
-            //     if (this.activeIndex == "siteScan") {
-            //         this.defaultOpenKeys = ["sub1"];
-            //         this.contentBackground = {
-            //             background: "#587797",
-            //         };
-            //     } else {
-            //         this.contentBackground = {
-            //             background: "rgba(242,242,242,1)",
-            //         };
-            //     }
-
-            //     if (this.$route.name == "siteScan/vulnerabilityDetails") {
-            //         this.contentBackground = {
-            //             background: "#587797",
-            //         };
-            //     }
-            // }
-
-            // console.log(this.defaultOpenKeys);
         },
         handleLoadError() {
             console.log("error");
@@ -317,6 +271,7 @@ export default {
     },
     watch: {
         $route(to) {
+            console.log(to.meta.keepAlive);
             this.activeIndex = [to.name];
             this.Refresh();
             this.handleGetuserinfo();

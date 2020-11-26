@@ -3,6 +3,7 @@ import {
     postDownload
 } from '../utils/request'
 import {
+
     URL_POST_LOGIN,
     URL_POST_REGISTERED,
     URL_POST_FORGET_PASSWORD,
@@ -18,9 +19,13 @@ import {
     URL_POST_HOMEPAGE_VULNERABILITY_DISTRIBUTIONT_DATA,
     URL_POST_UPLOAD_AVATAR,
     URL_POST_GITHUB_MONITOR,
-    URL_POST_HOMEPAGE_GITHUB_MONITOR_DATA
-    
-    
+    URL_POST_HOMEPAGE_GITHUB_MONITOR_DATA,
+    URL_POST_CREATE_SCRIPT_PROJECT,
+    URL_POST_QUERY_SCRIPT_PROJECT,
+    URL_POST_READ_SCRIPT_TEMPLATE,
+    URL_POST_READ_DEFAULT_SCRIPT_TEMPLATE,
+
+
 } from './url'
 import store from '../Vuex'
 
@@ -39,15 +44,15 @@ let api = {
         })
         return response
     },
-    
+
     // 忘记密码
-    async forget_password(params){
-        let response = await post(URL_POST_FORGET_PASSWORD,params,{
-            headers:{}
+    async forget_password(params) {
+        let response = await post(URL_POST_FORGET_PASSWORD, params, {
+            headers: {}
         })
         return response
     },
-    // 扫描接口
+    // 扫描任务下发接口
     async scanning(params) {
         let response = await post(URL_POST_SCANNING, params, {
             headers: {}
@@ -85,38 +90,38 @@ let api = {
         return response
     },
     //更新密码
-    async update_password(params){
-        let response = await post(URL_POST_UPDATE_PASSWORD,params,{
-            headers:{}
+    async update_password(params) {
+        let response = await post(URL_POST_UPDATE_PASSWORD, params, {
+            headers: {}
         })
         return response
     },
     //首页内容
-    async homepage_data(params){
-        let response = await post(URL_POST_HOMEPAGE_DEFAULT_DATA,params,{
-            headers:{}
+    async homepage_data(params) {
+        let response = await post(URL_POST_HOMEPAGE_DEFAULT_DATA, params, {
+            headers: {}
         })
         return response
     },
     //首页漏洞分布
-    async homepage_vulnerability_distributiont_data(params){
-        let response = await post(URL_POST_HOMEPAGE_VULNERABILITY_DISTRIBUTIONT_DATA,params,{
-            headers:{}
+    async homepage_vulnerability_distributiont_data(params) {
+        let response = await post(URL_POST_HOMEPAGE_VULNERABILITY_DISTRIBUTIONT_DATA, params, {
+            headers: {}
         })
         return response
     },
     // 首页GitHub监控信息
-    async homepage_github_monitor_data(params){
-        let response = await post(URL_POST_HOMEPAGE_GITHUB_MONITOR_DATA,params,{
-            headers:{}
+    async homepage_github_monitor_data(params) {
+        let response = await post(URL_POST_HOMEPAGE_GITHUB_MONITOR_DATA, params, {
+            headers: {}
         })
         return response
     },
     //上传头像
-    async upload_avatar(params){
-        let response = await post(URL_POST_UPLOAD_AVATAR,params,{
-            headers:{
-                token:store.state.storeToken
+    async upload_avatar(params) {
+        let response = await post(URL_POST_UPLOAD_AVATAR, params, {
+            headers: {
+                token: store.state.storeToken
                 // 'Content-Type': 'application/json',//设置请求头请求格式为JSON
                 // "Access-Control-Allow-Origin": "token",
                 // token:store.state.storeToken
@@ -126,16 +131,54 @@ let api = {
     },
 
     //github监控
-    async github_monitor(params){
-        let response = await post(URL_POST_GITHUB_MONITOR,params,{
-            headers:{
+    async github_monitor(params) {
+        let response = await post(URL_POST_GITHUB_MONITOR, params, {
+            headers: {
+
+            }
+        })
+        return response
+    },
+    //创建钓鱼脚本项目
+    async create_script_project(params) {
+        let response = await post(URL_POST_CREATE_SCRIPT_PROJECT, params, {
+            headers: {
+
+            }
+        })
+        return response
+    },
+    //查询钓鱼脚本项目
+    async query_script_project(params) {
+        let response = await post(URL_POST_QUERY_SCRIPT_PROJECT, params, {
+            headers: {
+
+            }
+        })
+        return response
+    },
+    //读取用户自定义跨站脚本模板数据
+    async read_script_template(params) {
+        let response = await post(URL_POST_READ_SCRIPT_TEMPLATE, params, {
+            headers: {
 
             }
         })
         return response
     },
 
-    
+
+    //读取默认跨站脚本模板数据
+    async read_default_script_template(params) {
+        let response = await post(URL_POST_READ_DEFAULT_SCRIPT_TEMPLATE, params, {
+            headers: {
+
+            }
+        })
+        return response
+    },
+
+
     async generate_word(params) {
         let response = await post(URL_POST_GENERATE_WORD, params, {
             headers: {}
