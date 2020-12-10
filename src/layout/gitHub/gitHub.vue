@@ -87,27 +87,43 @@ export default {
             };
 
             this.$api.github_monitor(params).then((res) => {
-                res.message.map((item) => {
-                    let data = {
-                        key: item.github_id,
-                        github_id: item.github_id,
-                        name: item.name,
-                        html_url: item.html_url,
-                        created_at: item.created_at,
-                        updated_at: item.updated_at,
-                        pushed_at: item.pushed_at,
-                        forks_count: item.forks_count,
-                        watchers_count: item.watchers_count,
-                    };
-                    this.FBdata.push(data);
-                });
-                this.data = this.FBdata;
-                console.log(this.data);
+                switch (res.code) {
+                    case 200:
+                        res.message.map((item) => {
+                            let data = {
+                                key: item.github_id,
+                                github_id: item.github_id,
+                                name: item.name,
+                                html_url: item.html_url,
+                                created_at: item.created_at,
+                                updated_at: item.updated_at,
+                                pushed_at: item.pushed_at,
+                                forks_count: item.forks_count,
+                                watchers_count: item.watchers_count,
+                            };
+                            this.FBdata.push(data);
+                        });
+                        this.data = this.FBdata;
+                        console.log(this.data);
+                        break;
+                    case 404:
+                        this.$message.error(res.message);
+                        break;
+                    case 403:
+                        this.$message.error(res.message);
+                        break;
+                    case 169:
+                        this.$message.error(res.message);
+                        break;
+                    case 500:
+                        this.$message.error(res.message);
+                        break;
+                }
             });
         },
         handleOnSearch(val) {
             let item = this.optionValue;
-            if (item != '') {
+            if (item != "") {
                 console.log(this.optionValue, val);
                 // for (let i = 0; i < this.FBdata.length; i++) {
                 //     console.log(this.FBdata[i][item])
@@ -130,7 +146,7 @@ export default {
                     }
                 });
             } else {
-                this.$message.error('请先选择要搜索的字段')
+                this.$message.error("请先选择要搜索的字段");
             }
         },
         handleChange(val) {

@@ -31,7 +31,7 @@
             <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="tabs">
                 <a-tabs default-active-key="1" @change="handleCallback">
                     <a-tab-pane key="1" tab="端口信息">
-                        Content of Tab Pane 1
+                        <component :is="port_information"></component>
                     </a-tab-pane>
                     <a-tab-pane key="2" tab="子域名列表" force-render>
                         Content of Tab Pane 2
@@ -67,7 +67,7 @@
                 </a-col>
                 -->
                 <a-col :xs="{ span: 24 }" :lg="{ span: 24 }">
-                    <a-table :columns="columns" :data-source="data">
+                    <a-table :columns="columns" :data-source="data" :pagination="pagination">
                         <span slot="action" slot-scope="text, record">
                             <a @click="handleGetTableSerch(record.key)">查询</a>
                         </span>
@@ -83,16 +83,23 @@
 import hisghtRisk from "./risk/hightRisk";
 import mediumRisk from "./risk/mediumRisk";
 import lowRisk from "./risk/lowRisk";
+import port_information from "./portInformation/portInformation.vue"
 export default {
     name: "siteScan",
     components: {
         hisghtRisk,
         mediumRisk,
         lowRisk,
+        port_information
     },
     data() {
         return {
+            pagination: {
+                //分页器配置
+                defaultPageSize: 5,
+            },
             ScreenValue: "all",
+            port_information: "port_information",
             columns: [{
                     title: "目标URL",
                     dataIndex: "url",
@@ -197,27 +204,8 @@ export default {
                 });
             });
             this.data = data;
-            console.log(data);
-            //   this.FBdata.map((i) => {
-            //     if (i[item].indexOf(val) != -1) {
-            //       let data = {
-            //         key: i.github_id,
-            //         github_id: i.github_id,
-            //         name: i.name,
-            //         html_url: i.html_url,
-            //         created_at: i.created_at,
-            //         updated_at: i.updated_at,
-            //         pushed_at: i.pushed_at,
-            //         forks_count: i.forks_count,
-            //         watchers_count: i.watchers_count,
-            //       };
-            //       this.data.push(data);
-            //     }
-            //   });
         },
-        // handleScreenOnChange(e) {
-        //     console.log(`checked = ${e.target.value}`);
-        // },
+
         handleGetTableSerch(e) {
             this.$store.commit("scan_info_id", e);
             if (Math.round(Math.random() * 10) == 1) {

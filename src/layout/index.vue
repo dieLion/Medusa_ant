@@ -16,12 +16,7 @@
             </a-menu>
         </a-layout-sider>
         <a-layout>
-            <a-layout-header style="
-            background: #fff;
-            padding: 0;
-            display: flex;
-            justify-content: space-between;
-          ">
+            <a-layout-header class="layout">
                 <a-icon class="trigger" :type="collapsed ? 'menu-unfold' : 'menu-fold'" @click="() => (collapsed = !collapsed)" />
                 <div class="control">
                     <a-dropdown class="user">
@@ -73,13 +68,6 @@ export default {
         myicon: MyIcon,
         "sub-menu": SubMenu,
     },
-    // computed: {
-    //     logo: function () {
-    //         return {
-    //             background: this.logoimg
-    //         }
-    //     }
-    // },
     data() {
         return {
             menuList: [{
@@ -118,7 +106,7 @@ export default {
                     msg: "监控页面",
                     children: [{
                         key: "gitHub",
-                        msg: "gitHub监控",
+                        msg: "GitHub监控",
                     }, ],
                 },
                 {
@@ -173,28 +161,6 @@ export default {
         handleGoChange(e) {
             console.log(e);
             this.$router.push("/layout/" + e.key);
-            // switch (e.key) {
-            //     case "personalSettings":
-            //         this.$router.push("/layout/personalSettings");
-            //         this.activeIndex = ["personalSettings"];
-            //         break;
-            //     case "dashboard":
-            //         this.$router.push("/layout/dashboard");
-            //         this.activeIndex = ["dashboard"];
-            //         break;
-            //     case "issueTasks":
-            //         this.$router.push("/layout/issueTasks");
-            //         this.activeIndex = ["issueTasks"];
-            //         break;
-            //     case "siteInformation":
-            //         this.$router.push("/layout/siteInformation");
-            //         this.activeIndex = ["siteInformation"];
-            //         break;
-            //     case "gitHub":
-            //         this.$router.push("/layout/gitHub");
-            //         this.activeIndex = ["gitHub"];
-            //         break;
-            // }
         },
         handleMenuClick(e) {
             switch (e.key) {
@@ -285,9 +251,16 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .icon {
     font-size: 40px;
+}
+
+.layout {
+    background: #fff;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
 }
 
 .control {

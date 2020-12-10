@@ -59,6 +59,8 @@ export default {
                 }, ],
                 yAxis: [{
                     type: "value",
+                    splitNumber: 4,
+
                     axisLabel: {
                         show: true,
                         color: "rgba(169,169,169,1)",
@@ -68,6 +70,7 @@ export default {
                             color: "rgba(169,169,169,1)",
                         },
                     },
+
                     splitLine: {
                         lineStyle: {
                             // 使用深浅的间隔色
@@ -111,8 +114,8 @@ export default {
                         show: true,
                         fontFamily: "黑体",
                         fontSize: 16,
-                        color: "#fff",
-                        backgroundColor: "rgba(0,23,11,0.5)",
+                        color: "rgba(169,169,169,0.8)",
+                        // backgroundColor: "#fff",
                         position: "top",
                     },
                 }, ],

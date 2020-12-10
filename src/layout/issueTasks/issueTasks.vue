@@ -9,10 +9,10 @@
                 <a-form-model-item label="目标URL" prop="url">
                     <a-input v-model="form.url" />
                 </a-form-model-item>
-                <a-form-model-item label="任务的进程树" prop="process">
+                <a-form-model-item label="任务的进程树" prop="process" placeholder="默认为20">
                     <a-input v-model.number="form.process" />
                 </a-form-model-item>
-                <a-form-model-item label="扫描模块" prop="module">
+                <a-form-model-item label="扫描模块" prop="module" placeholder="默认为ALL">
                     <a-input v-model="form.module" />
                 </a-form-model-item>
                 <a-form-model-item label="自定义头" prop="header">
@@ -28,7 +28,7 @@ Sec-Fetch-Mode: cors
 Sec-Fetch-Site: same-origin
             " />
                 </a-form-model-item>
-                <a-form-model-item label="指定代理" prop="proxy">
+                <a-form-model-item label="指定代理" prop="proxy" placeholder="默认为None">
                     <a-input v-model="form.proxy" />
                 </a-form-model-item>
                 <a-form-model-item :wrapper-col="{ span: 6, offset: 9 }">
@@ -64,13 +64,11 @@ export default {
                     whitespace: true,
                 }, ],
                 process: [{
-                    required: true,
                     message: "当前任务使用的进程树",
                     whitespace: true,
                     type: "number",
                 }, ],
                 module: [{
-                    required: true,
                     message: "扫描模块,参考Modules目录下的文件名",
                     whitespace: true,
                 }, ],
@@ -79,7 +77,6 @@ export default {
                     whitespace: true,
                 }, ],
                 proxy: [{
-                    required: true,
                     message: "该任务指定代理，如果没有代理该值直接传入0 ",
                     whitespace: true,
                 }, ],
@@ -98,7 +95,8 @@ export default {
                     let obj = {};
                     let json_obj;
                     console.log(form.header)
-                    if (form.header === "None" || form.header == '') {
+
+                    if (form.header == "None" || form.header == '') {
                         json_obj = "None";
                     } else {
                         let sp_form = form.header.split(/\r*\n/);
@@ -107,6 +105,15 @@ export default {
                             obj[arr[0]] = arr[1];
                         });
                         json_obj = JSON.stringify(obj);
+                    }
+                    if (form.process == undefined || form.process == '') {
+                        form.process = 20
+                    }
+                    if (form.header == '') {
+                        form.module = "ALL"
+                    }
+                    if (form.proxy == '') {
+                        form.proxy = "None"
                     }
                     // console.log(sp_form)
                     // console.log(sp_form.toString())

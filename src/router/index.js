@@ -16,7 +16,12 @@ import Agreement from '../views/agreement/agreement.vue'
 import Forget from '../views/forget/forget.vue'
 import issueTasks from '../layout/issueTasks/issueTasks.vue'
 import createProject from '../layout/scriptFish/createProject/createProject.vue'
+
 import projectManagement from '../layout/scriptFish/projectManagement/projectManagement.vue'
+import selectProject from '../layout/scriptFish/projectManagement/selectProject/selectProject.vue'
+import publicTemplate from '../layout/scriptFish/publicTemplate/publicTemplate.vue'
+import customTemplate from '../layout/scriptFish/customTemplate/customTemplate.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -150,6 +155,7 @@ const routes = [
           defaultOpenKeys:"sub4"
         },
       },
+      
       {
         path: 'projectManagement',
         component: projectManagement,
@@ -157,6 +163,36 @@ const routes = [
         meta:{
           keepAlive:true,
           activeIndex:"projectManagement",
+          defaultOpenKeys:"sub4"
+        },
+      },
+      {
+        path: 'projectManagement/selectProject',
+        component: selectProject,
+        name: 'projectManagement/selectProject',
+        meta:{
+          keepAlive:true,
+          activeIndex:"projectManagement",
+          defaultOpenKeys:"sub4"
+        },
+      },
+      {
+        path: 'publicTemplate',
+        component: publicTemplate,
+        name: 'publicTemplate',
+        meta:{
+          keepAlive:true,
+          activeIndex:"publicTemplate",
+          defaultOpenKeys:"sub4"
+        },
+      },
+      {
+        path: 'customTemplate',
+        component: customTemplate,
+        name: 'customTemplate',
+        meta:{
+          keepAlive:true,
+          activeIndex:"customTemplate",
           defaultOpenKeys:"sub4"
         },
       },

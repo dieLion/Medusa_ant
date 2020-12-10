@@ -164,25 +164,6 @@ export default {
         },
         handleForget() {
             this.$router.push("/Forget");
-            // let newdate = Math.round(new Date().getTime() / 1000);
-            // const thirtyDays = 2592000;
-            // let thirtyDaysdate = newdate - thirtyDays;
-            // let params = {
-            //     token: localStorage.getItem("storeToken"),
-            //     start_time: "1594087497",
-            //     end_time: "1604087497",
-            // };
-            // console.log(params);
-            // this.$api.homepage_data(params).then((res) => {
-            //     console.log(res);
-            // });
-            // // let params = {
-            // //   token: localStorage.getItem("storeToken"),
-            // // };
-            // // console.log(params);
-            // // this.$api.user_info(params).then((res) => {
-            // //   console.log(res);
-            // // });
         },
 
         handleOk() {

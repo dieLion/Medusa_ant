@@ -3,10 +3,10 @@ export const URL_POST_REGISTERED = `/registered/` // 注册
 export const URL_POST_LOGIN = `/login/` // 登陆
 export const URL_POST_FORGET_PASSWORD = `/forget_password/`// 忘记密码
 export const URL_POST_SCANNING = `/vulnerability_scanning/` // 扫描任务下发接口
-export const URL_POST_LIST_QUERY = `/active_scan_list_query/` // 扫描任务下发接口
-
-export const URL_POST_INFOMATION_QUERY = `/scan_information_query/` // 扫描任务下发接口
-export const URL_POST_MEDUSA_QUERY = `/medusa_query/` // 扫描任务下发接口
+export const URL_POST_LIST_QUERY = `/active_scan_list_query/` // 主动扫描目标列表查询接口
+export const URL_POST_PORT_INFORMATION =`actively_scan_port_information/`//主动扫描端口查询
+export const URL_POST_INFOMATION_QUERY = `/scan_information_query/` // 主动扫描目标漏洞列表查询接口
+export const URL_POST_MEDUSA_QUERY = `/medusa_query/` //主动扫描目标单个漏洞详细内容查询接口
 export const URL_POST_GENERATE_WORD = `/generate_word/` // 扫描报告生成接口
 export const URL_POST_DOWNLOAD_WORD = `/download_word/` // 扫描报告下载接口
 
@@ -21,9 +21,13 @@ export const URL_POST_GITHUB_MONITOR = `/github_monitor/`// GitHub监控接口
 
 export const URL_POST_CREATE_SCRIPT_PROJECT = `/create_cross_site_script_project/`// 创建跨站脚本钓鱼项目
 export const URL_POST_QUERY_SCRIPT_PROJECT = `/query_cross_site_script_project/`// 查询跨站脚本钓鱼项目
+export const URL_POST_QUERY_SCRIPT_PROJECT_DATA = `/query_cross_site_script_project_data/`// 查询跨站脚本钓鱼项目中数据
+
 
 export const URL_POST_READ_SCRIPT_TEMPLATE = `/read_cross_site_script_template/`// 读取用户自定义跨站脚本模板数据
 export const URL_POST_READ_DEFAULT_SCRIPT_TEMPLATE = `/read_default_cross_site_script_template/`// 读取默认跨站脚本模板数据
+export const URL_POST_SAVE_CROSS_SITE_SCRIPT_TEMPLATE = `/save_cross_site_script_template/`// 保存用户自定义跨站脚本模板数据
+
 
 
 

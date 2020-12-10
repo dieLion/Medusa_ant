@@ -105,7 +105,7 @@ export default {
                                 module: item.module,
                                 process: item.process,
                                 status: item.status,
-                                creation_time: this.FnUnixTimes(item.creation_time),
+                                creation_time: this.$qj.QjUnixTimes(item.creation_time),
                             };
                             this.FBdata.push(data);
                         });
@@ -127,24 +127,7 @@ export default {
                 }
             });
         },
-        FnUnixTimes(e) {
-            //Unix时间转化
-            let unixTimestamp = new Date(e * 1000);
-            let Y = unixTimestamp.getFullYear() + "-";
-            let M =
-                (unixTimestamp.getMonth() + 1 < 10 ?
-                    "0" + (unixTimestamp.getMonth() + 1) :
-                    unixTimestamp.getMonth() + 1) + "-";
-            let D =
-                unixTimestamp.getDate() + 1 < 10 ?
-                "0" + unixTimestamp.getDate() :
-                unixTimestamp.getDate();
-            let h = unixTimestamp.getHours() + ":";
-            let m = unixTimestamp.getMinutes() + ":";
-            let s = unixTimestamp.getSeconds();
-            let Time = Y + M + D + "  " + h + m + s;
-            return Time;
-        },
+
         handleOnSearch(val) {
             let optionItem = this.optionValue;
             if (optionItem != "") {

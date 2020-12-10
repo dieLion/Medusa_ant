@@ -91,7 +91,7 @@ export default {
                 },
                 yAxis: {
                     type: "value",
-                    max: "dataMax",
+                    splitNumber: 5,
                     axisLabel: {
                         show: true,
                         color: "rgba(169,169,169,1)",

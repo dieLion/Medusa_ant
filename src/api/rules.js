@@ -9,6 +9,7 @@ import {
     URL_POST_FORGET_PASSWORD,
     URL_POST_SCANNING,
     URL_POST_LIST_QUERY,
+    URL_POST_PORT_INFORMATION,
     URL_POST_INFOMATION_QUERY,
     URL_POST_MEDUSA_QUERY,
     URL_POST_GENERATE_WORD,
@@ -20,10 +21,14 @@ import {
     URL_POST_UPLOAD_AVATAR,
     URL_POST_GITHUB_MONITOR,
     URL_POST_HOMEPAGE_GITHUB_MONITOR_DATA,
+    
     URL_POST_CREATE_SCRIPT_PROJECT,
     URL_POST_QUERY_SCRIPT_PROJECT,
+    URL_POST_QUERY_SCRIPT_PROJECT_DATA,
     URL_POST_READ_SCRIPT_TEMPLATE,
     URL_POST_READ_DEFAULT_SCRIPT_TEMPLATE,
+    URL_POST_SAVE_CROSS_SITE_SCRIPT_TEMPLATE,
+    
 
 
 } from './url'
@@ -66,6 +71,14 @@ let api = {
         })
         return response
     },
+    //主动扫描端口查询
+    async port_information(params) {
+        let response = await post(URL_POST_PORT_INFORMATION, params, {
+            headers: {}
+        })
+        return response
+    },
+    
     //主动扫描目标漏洞列表查询接口
     async imfomation_query(params) {
         let response = await post(URL_POST_INFOMATION_QUERY, params, {
@@ -157,6 +170,16 @@ let api = {
         })
         return response
     },
+    // 查询跨站脚本钓鱼项目中数据
+    async query_script_project_data(params) {
+        let response = await post(URL_POST_QUERY_SCRIPT_PROJECT_DATA, params, {
+            headers: {
+
+            }
+        })
+        return response
+    },
+    
     //读取用户自定义跨站脚本模板数据
     async read_script_template(params) {
         let response = await post(URL_POST_READ_SCRIPT_TEMPLATE, params, {
@@ -177,7 +200,16 @@ let api = {
         })
         return response
     },
+    // 保存用户自定义跨站脚本模板数据
+    
+    async save_cross_site_script_template(params) {
+        let response = await post(URL_POST_SAVE_CROSS_SITE_SCRIPT_TEMPLATE, params, {
+            headers: {
 
+            }
+        })
+        return response
+    },
 
     async generate_word(params) {
         let response = await post(URL_POST_GENERATE_WORD, params, {

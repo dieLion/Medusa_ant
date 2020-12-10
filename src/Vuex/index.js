@@ -9,7 +9,8 @@ export default new Vuex.Store({
     userinfo:{},
     avatar:'',
     active_scan_id:'null',//主动扫描目标单个漏洞详细内容查询key
-    scan_info_id:'null'//主动扫描目标单个漏洞详细内容查询接口
+    scan_info_id:'null',//主动扫描目标单个漏洞详细内容查询接口
+    project_associated_file_name:'null'//查询跨站脚本钓鱼项目中生成的特殊文件名
   },
   mutations: {
     tokenLogin(state,usertoken){
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     },
     scan_info_id(state,scan_info_id){
       state.scan_info_id=scan_info_id
+    },
+    project_associated_file_name(state,project_associated_file_name){
+      state.project_associated_file_name=project_associated_file_name
     }
   },
   actions: {
