@@ -1,11 +1,11 @@
 <template>
-<div class="siteScan">
-    <a-row :gutter="[
-        { xs: 8, sm: 16, md: 24, xs: 8 },
-        { xs: 4, sm: 8, md: 16, lg: 24 },
-      ]">
+<a-row :gutter="[
+      { xs: 8, sm: 16, md: 24, xs: 8 },
+      { xs: 4, sm: 8, md: 16, lg: 24 },
+    ]" class="siteScan">
+    <a-col :xs="{ span: 24 }">
+        <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="safetyOverview-title">安全总览:</a-col>
         <a-col :xs="{ span: 24 }" :lg="{ span: 24 }">
-            <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="safetyOverview-title">安全总览:</a-col>
             <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="safetyOverview-nav">
                 <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="safetyOverview-nav-header">
                     <a-col :xs="{ span: 8 }" :lg="{ span: 4 }">richhc.com</a-col>
@@ -39,9 +39,9 @@
                 </a-tabs>
             </a-col>
         </a-col>
+        <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="vulnerabilityDetails_title">漏洞详情:
+        </a-col>
         <a-col :xs="{ span: 24 }" :lg="{ span: 24 }">
-            <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="vulnerabilityDetails_title">漏洞详情:
-            </a-col>
             <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="vulnerabilityDetails_nav">
                 <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="vulnerabilityDetails_nav_lv">
                     威胁等级:
@@ -75,22 +75,22 @@
                 </a-col>
             </a-col>
         </a-col>
-    </a-row>
-</div>
+    </a-col>
+</a-row>
 </template>
 
 <script>
 import hisghtRisk from "./risk/hightRisk";
 import mediumRisk from "./risk/mediumRisk";
 import lowRisk from "./risk/lowRisk";
-import port_information from "./portInformation/portInformation.vue"
+import port_information from "./portInformation/portInformation.vue";
 export default {
     name: "siteScan",
     components: {
         hisghtRisk,
         mediumRisk,
         lowRisk,
-        port_information
+        port_information,
     },
     data() {
         return {
@@ -229,7 +229,7 @@ $color: #51c51a;
 .siteScan {
     margin: 0;
     padding: 20px;
-    padding-top: 15px;
+    padding-top: 0;
 
     // .safetyOverview-title {
     //     min-width: 60px;

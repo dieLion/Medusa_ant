@@ -15,16 +15,16 @@ export default {
         };
     },
     mounted() {
-        this.handelSetActiveL()
+        this.handelSetActiveL();
     },
     methods: {
         handelSetActiveL() {
-            this.$emit('handelSetActiveL')
+            this.$emit("handelSetActiveL");
             this.$refs.tabtenL.style.setProperty("--widthL", "50%");
             this.$refs.tabtenR.style.setProperty("--widthR", "25%");
         },
         handelSetActiveR() {
-            this.$emit('handelSetActiveR')
+            this.$emit("handelSetActiveR");
             this.$refs.tabtenR.style.setProperty("--widthR", "50%");
             this.$refs.tabtenL.style.setProperty("--widthL", "25%");
         },
@@ -56,6 +56,7 @@ export default {
         height: 25px;
         width: 25%;
         min-width: 125px;
+        cursor: pointer;
     }
 
     .tabtenL {
@@ -85,7 +86,6 @@ export default {
 
     .tabtenL:before {
         content: "";
-
         width: var(--widthL);
         left: 0;
         border-top: 25px solid rgb(32, 218, 47);
@@ -94,11 +94,31 @@ export default {
 
     .tabtenR:before {
         content: "";
-
         width: var(--widthR);
         right: 0;
         border-bottom: 25px solid rgba(0, 174, 255, 1);
         border-left: 35px solid transparent;
+        animation: WidthLength 2s linear;
+        -moz-animation: WidthLength 2s linear;
+        /* Firefox */
+        -webkit-animation: WidthLength 2s linear;
+        /* Safari 和 Chrome */
+        -o-animation: WidthLength 2s linear;
+        /* Opera */
+    }
+
+    @keyframes WidthLength {
+        0% {
+            width: 25%;
+        }
+
+        50% {
+            width: 45%;
+        }
+
+        100% {
+            width: 25%;
+        }
     }
 
     .tabtenL:after,
@@ -121,6 +141,33 @@ export default {
         content: "自定义模板";
         text-align: right;
         color: #fff;
+        animation: textAnimation 2s linear;
+        -moz-animation: textAnimation 2s linear;
+        /* Firefox */
+        -webkit-animation: textAnimation 2s linear;
+        /* Safari 和 Chrome */
+        -o-animation: textAnimation 2s linear;
+        /* Opera */
+    }
+
+    @keyframes textAnimation {
+        0% {
+            content: "自定义模板";
+            text-align: right;
+            color: #fff;
+        }
+
+        50% {
+            content: "点我切换";
+            text-align: right;
+            color: #fff;
+        }
+
+        100% {
+            text-align: right;
+            color: #fff;
+            content: "自定义模板";
+        }
     }
 
     .tabtenL:hover:before {

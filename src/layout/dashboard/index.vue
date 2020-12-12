@@ -28,8 +28,10 @@
             </a-col>
         </a-col>
         <a-col :xs="{ span: 24 }" :lg="{ span: 12 }" class="hoverBorder">
-            <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="gradeDistribution-name">类型分布</a-col>
-            <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="gradeDistribution-nav"></a-col>
+            <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="gradeDistribution-name">系统信息</a-col>
+            <a-col :xs="{ span: 24 }" :lg="{ span: 24 }" class="gradeDistribution-nav">
+                <systemInformation></systemInformation>
+            </a-col>
         </a-col>
     </a-row>
     <a-row :gutter="[
@@ -80,6 +82,7 @@ import moment from "moment";
 import myechartspie from "./myechartspie/myechartspie.vue";
 import activeRisk from "./activeRisk/activeRisk.vue";
 import gitHubMonitoring from "./gitHubMonitoring/gitHubMonitoring.vue";
+import systemInformation from "./systemInformation/systemInformation.vue";
 import {
     Icon
 } from "ant-design-vue";
@@ -94,6 +97,7 @@ export default {
         myechartspie,
         activeRisk,
         gitHubMonitoring,
+        systemInformation
     },
     data() {
         return {

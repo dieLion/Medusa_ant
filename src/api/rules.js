@@ -21,15 +21,15 @@ import {
     URL_POST_UPLOAD_AVATAR,
     URL_POST_GITHUB_MONITOR,
     URL_POST_HOMEPAGE_GITHUB_MONITOR_DATA,
-    
+
     URL_POST_CREATE_SCRIPT_PROJECT,
     URL_POST_QUERY_SCRIPT_PROJECT,
     URL_POST_QUERY_SCRIPT_PROJECT_DATA,
     URL_POST_READ_SCRIPT_TEMPLATE,
     URL_POST_READ_DEFAULT_SCRIPT_TEMPLATE,
     URL_POST_SAVE_CROSS_SITE_SCRIPT_TEMPLATE,
-    
-
+    URL_POST_HARDWARE_INITIALIZATION,// 获取当前机器基础信息
+    URL_POST_HARDWARE_USAGE_QUERY// 获取当前机器CPU和内存使用率
 
 } from './url'
 import store from '../Vuex'
@@ -78,7 +78,7 @@ let api = {
         })
         return response
     },
-    
+
     //主动扫描目标漏洞列表查询接口
     async imfomation_query(params) {
         let response = await post(URL_POST_INFOMATION_QUERY, params, {
@@ -179,7 +179,7 @@ let api = {
         })
         return response
     },
-    
+
     //读取用户自定义跨站脚本模板数据
     async read_script_template(params) {
         let response = await post(URL_POST_READ_SCRIPT_TEMPLATE, params, {
@@ -189,6 +189,22 @@ let api = {
         })
         return response
     },
+    // 获取当前机器基础信息
+    async hardware_initialization(params) {
+        let response = await post(URL_POST_HARDWARE_INITIALIZATION, params, {
+            headers: {}
+        })
+        return response
+    },
+
+    // 获取当前机器CPU和内存使用率
+    async hardware_usage_query(params) {
+        let response = await post(URL_POST_HARDWARE_USAGE_QUERY, params, {
+            headers: {}
+        })
+        return response
+    },
+
 
 
     //读取默认跨站脚本模板数据
@@ -201,7 +217,7 @@ let api = {
         return response
     },
     // 保存用户自定义跨站脚本模板数据
-    
+
     async save_cross_site_script_template(params) {
         let response = await post(URL_POST_SAVE_CROSS_SITE_SCRIPT_TEMPLATE, params, {
             headers: {

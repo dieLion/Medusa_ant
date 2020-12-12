@@ -19,18 +19,14 @@
                             <setPW ref="getPW"></setPW>
                         </div>
                     </a-modal>
-                    <!-- 
-            <button type="button" class="ant-btn profile-operate">
-              <span>修改头像</span>
-            </button> -->
                     <a-upload name="file" :customRequest="handleCustomRequest" @change="handle_Change" :file-list="fileList">
                         <a-button>
                             <a-icon type="upload" /> 修改头像
                         </a-button>
                     </a-upload>
                 </a-col>
-                <a-col class="profile-deadline" :xs="{ span: 16, offset: 4 }" :lg="{ span: 16, offset: 4 }">
-                    <p style="minwidth: 187px; minheight: 76px">{{ time }}</p>
+                <a-col :xs="{ span: 16, offset: 4 }" :lg="{ span: 16, offset: 4 }">
+                    <div class="profile-deadline"></div>
                 </a-col>
             </a-col>
         </a-col>
@@ -63,7 +59,7 @@ import setPW from "./setpassword/setpassword";
 export default {
     name: "personalSettings2",
     components: {
-        setPW
+        setPW,
     },
     data() {
         return {
@@ -196,7 +192,7 @@ export default {
             } else {
                 console.log("请求后台");
                 let params = {
-                    token: this.$store.state.storeToken
+                    token: this.$store.state.storeToken,
                 };
                 this.$api.user_info(params).then((res) => {
                     switch (res.code) {
@@ -305,7 +301,7 @@ export default {
             // await this.handleChange(file);
             console.log(file);
             let progress = {
-                percent: 0
+                percent: 0,
             };
             const intervalId = setInterval(() => {
                 if (progress.percent < 100) {
@@ -358,10 +354,10 @@ export default {
             }, 100);
         },
         handleLoadError() {
-            console.log('error')
+            console.log("error");
             const config = require("../../../faceConfig");
             const imgURL = config.imgPath;
-            this.title = imgURL + 'admin.jpg'
+            this.title = imgURL + "admin.jpg";
         },
     },
 };
@@ -386,7 +382,6 @@ export default {
     padding: 5px 0;
 
     .profile-info {
-
         margin: 0 auto;
         text-align: center;
 
@@ -420,16 +415,85 @@ export default {
         }
 
         .profile-deadline {
-            position: relative;
-            margin-bottom: 30px;
-            text-align: left;
+            height: 54px;
+            border-bottom: 4px solid #9ca4bf;
+            padding: 0;
         }
 
-        .profile-deadline p {
-            padding-bottom: 8px;
-            height: 48px;
-            line-height: 40px;
-            border-bottom: 4px solid #9ca4bf;
+        .profile-deadline::after {
+            content: "";
+            position: absolute;
+            background: url("../../assets/giphy.gif") no-repeat;
+            background-size: 100% 100%;
+            width: 50px;
+            height: 50px;
+            top: 38px;
+            left: -25px;
+            animation: Mario 5s linear infinite;
+            -moz-animation: Mario 5s linear infinite;
+            /* Firefox */
+            -webkit-animation: Mario 5s linear infinite;
+            /* Safari 和 Chrome */
+            -o-animation: Mario 5s linear infinite;
+            /* Opera */
+        }
+
+        @keyframes Mario {
+            0% {
+                left: -25px;
+            }
+
+            25% {
+                top: 38px;
+                transform: rotate(0deg);
+            }
+
+            28% {
+                top: 0px;
+                transform: rotate(360deg);
+
+            }
+
+            29% {
+                top: 0px;
+                transform: rotate(0);
+
+            }
+
+            31% {
+                top: 38px;
+                transform: rotate(0deg);
+            }
+
+            45% {
+                left: calc(100% - 25px);
+                transform: rotate(0deg);
+                top: 38px;
+            }
+
+            50% {
+                left: calc(100% - 25px);
+                transform: rotate(180deg);
+                top: 80px;
+            }
+
+            52% {
+                left: calc(100% - 25px);
+                transform: rotate(180deg);
+                top: 80px;
+            }
+
+            95% {
+                left: -25px;
+                transform: rotate(180deg);
+                top: 80px;
+            }
+
+            100% {
+                left: -25px;
+                transform: rotate(360deg);
+                top: 38px;
+            }
         }
     }
 }

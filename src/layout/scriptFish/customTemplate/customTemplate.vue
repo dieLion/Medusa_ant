@@ -28,10 +28,10 @@ export default {
     data() {
         return {
             labelCol: {
-                span: 6,
+                span: 24,
             },
             wrapperCol: {
-                span: 14,
+                span: 24,
             },
             cmOptions: {
                 tabSize: 4,
@@ -108,10 +108,15 @@ export default {
     margin: 0;
     padding: 20px;
     padding-top: 30px;
+    height: 100%;
 
     .customTemplate_bg {
         background: #fff;
-        min-height: 800px;
+        height: 100%;
+    }
+
+    .customTemplate_bg /deep/ .CodeMirror {
+        height: 550px;
     }
 }
 </style>

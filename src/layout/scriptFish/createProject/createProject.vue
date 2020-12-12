@@ -3,8 +3,8 @@
     <a-row :gutter="[
         { xs: 8, sm: 16, md: 24, xs: 8 },
         { xs: 8, sm: 16, md: 24, lg: 32 },
-      ]">
-        <a-col :xs="{ span: 24 }" :lg="{ span: 12 }" :xl="{ span: 12 }" :xxl="{ span: 12 }">
+      ]" class="createProject_bg">
+        <a-col :xs="{ span: 24 }" :lg="{ span: 12 }" :xl="{ span: 12 }" :xxl="{ span: 12 }" class="createProject_bg">
             <a-col :xs="{ span: 24 }" class="read">
                 <!-- <a-list item-layout="horizontal" :data-source="ScriptTemplate" :column="[24]">
                     <a-list-item slot="renderItem" slot-scope="item">
@@ -15,28 +15,28 @@
                     </a-list-item>
                 </a-list>-->
                 <a-form-model :model="showDataForm" :label-col="labelCol" :wrapper-col="wrapperCol" ref="showData">
-                    <a-form-model-item label="选择的模板名" prop="title">
+                    <a-form-model-item label="选择的模板名" prop="title" :labelAlign="'left'">
                         <a-input v-model="showDataForm.title" :disabled="true" />
                     </a-form-model-item>
-                    <a-form-model-item label="模板内容" prop="data">
-                        <a-textarea v-model="showDataForm.data" :disabled="true" :auto-size="{ minRows: 25, maxRows: 25 }" />
+                    <a-form-model-item label="模板内容" prop="data" :labelAlign="'left'">
+                        <codemirror v-model="showDataForm.data" :options="showDataFormOptions" class="code"></codemirror>
                     </a-form-model-item>
                 </a-form-model>
             </a-col>
         </a-col>
-        <a-col :xs="{ span: 24 }" :lg="{ span: 12 }" :xl="{ span: 12 }" :xxl="{ span: 12 }">
+        <a-col :xs="{ span: 24 }" :lg="{ span: 12 }" :xl="{ span: 12 }" :xxl="{ span: 12 }" class="createProject_bg">
             <a-col :xs="{ span: 24 }" class="ruleForm">
                 <a-col :xs="{ span: 24 }"> 填写项目基本信息 </a-col>
                 <a-form-model :model="form" :label-col="labelCol" :wrapper-col="wrapperCol" :rules="rules" ref="ruleForm">
-                    <a-form-model-item label="项目名" prop="projectName">
+                    <a-form-model-item label="项目名" prop="projectName" :labelAlign="'left'">
                         <a-input v-model="form.projectName" />
                     </a-form-model-item>
-                    <a-form-model-item label="默认模板选择" prop="default">
+                    <a-form-model-item label="默认模板选择" prop="default" :labelAlign="'left'">
                         <a-select :options="DefaultScriptTemplate" placeholder="选择模板" @dropdownVisibleChange="handleDropdownVisibleChange" @change="handleChange">
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item label="脚本数据" prop="script_data">
-                        <a-input v-model="form.script_data" type="textarea" :auto-size="{ minRows: 20, maxRows: 20 }" ref="textarea" />
+                    <a-form-model-item label="脚本数据" prop="script_data" :labelAlign="'left'">
+                        <codemirror ref="textarea" v-model="form.script_data" :options="cmOptions" class="code"></codemirror>
                     </a-form-model-item>
 
                     <a-form-model-item :wrapper-col="{ span: 10, offset: 6 }">
@@ -67,11 +67,29 @@ export default {
     },
     data() {
         return {
+            showDataFormOptions: {
+                mode: "javascript",
+                theme: "duotone-light",
+                lineNumbers: true,
+                line: true,
+                readOnly: "nocursor", //只读
+                matchBrackets: true,
+            },
+            cmOptions: {
+                mode: "javascript",
+                theme: "duotone-light",
+                lineNumbers: true,
+                line: true,
+                //readOnly: "nocursor", //只读
+                matchBrackets: true,
+            },
             labelCol: {
-                span: 6,
+                span: 20,
+                offset: 2,
             },
             wrapperCol: {
-                span: 14,
+                span: 20,
+                offset: 2,
             },
             form: {
                 projectName: "",
@@ -91,7 +109,7 @@ export default {
             },
             showDataForm: {
                 title: "您还未选择模板",
-                data: ''
+                data: "",
             },
             DefaultScriptTemplate: [],
             val: "",
@@ -143,10 +161,10 @@ export default {
             this.DefaultScriptTemplate.map((item) => {
                 if (item.value == val) {
                     this.defaultVal = item.key;
-                    this.showDataForm.title = item.value
-                    this.showDataForm.data = item.key
+                    this.showDataForm.title = item.value;
+                    this.showDataForm.data = item.key;
                 }
-            })
+            });
         },
         handleDropdownVisibleChange(open) {
             let params = {
@@ -157,14 +175,14 @@ export default {
                     case 200:
                         this.DefaultScriptTemplate = [];
                         let options = {};
-                        let list = []
+                        let list = [];
                         res.message.map((item) => {
                             options = {
                                 value: item.file_name,
                                 label: item.file_name,
                                 key: this.$qj.QJBase64Decode(item.file_data),
                             };
-                            list.push(options)
+                            list.push(options);
                         });
                         this.$api.read_script_template(params).then((res) => {
                             console.log(res);
@@ -176,9 +194,9 @@ export default {
                                             label: item.template_name,
                                             key: this.$qj.QJBase64Decode(item.template_data),
                                         };
-                                        list.push(options)
+                                        list.push(options);
                                     });
-                                    this.DefaultScriptTemplate = list
+                                    this.DefaultScriptTemplate = list;
                                     console.log(this.DefaultScriptTemplate);
                                     break;
                                 case 169:
@@ -206,33 +224,15 @@ export default {
             });
         },
         handleSetDefault() {
-            let form = this.form;
-            var tc = this.$refs.textarea;
-            console.log(tc.$el.selectionStart);
-            var tclen = form.script_data.length;
-            tc.focus();
-            if (typeof document.selection != "undefined") {} else {
-                form.script_data =
-                    form.script_data.substr(0, tc.$el.selectionStart) +
-                    this.defaultVal +
-                    form.script_data.substring(tc.$el.selectionStart, tclen);
+            let val = this.defaultVal
+            let tc = this.$refs.textarea.codemirror.getCursor();
+            let tc2 = {
+                line: tc.line,
+                ch: tc.ch
             }
+            this.$refs.textarea.codemirror.replaceRange(val, tc2);
         },
-        handleSet(e) {
-            this.val = e;
-            let form = this.form;
 
-            var tc = this.$refs.textarea;
-            console.log(tc.$el.selectionStart);
-            var tclen = form.script_data.length;
-            tc.focus();
-            if (typeof document.selection != "undefined") {} else {
-                form.script_data =
-                    form.script_data.substr(0, tc.$el.selectionStart) +
-                    this.val +
-                    form.script_data.substring(tc.$el.selectionStart, tclen);
-            }
-        },
     },
 };
 </script>
@@ -258,22 +258,29 @@ $color: #51c51a;
     padding: 20px;
     padding-top: 20px;
     min-width: 300px;
+    height: 100%;
 
-    .read,
-    .ruleForm {
-        background: #fff;
-        border: 1px solid #ccc;
-        font-size: 18px;
-        height: 750px;
-
-        .btn {
-            display: -webkit-flex;
-            /* Safari */
-            display: flex;
-            justify-content: space-around;
-        }
+    .createProject_bg {
+        height: 100%;
     }
+}
 
-    .read::after {}
+.read,
+.ruleForm {
+    background: #fff;
+    height: 100%;
+    border: 1px solid #ccc;
+    font-size: 18px;
+
+    .btn {
+        display: -webkit-flex;
+        /* Safari */
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+.read /deep/.CodeMirror {
+    height: 550px;
 }
 </style>

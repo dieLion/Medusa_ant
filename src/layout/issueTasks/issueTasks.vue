@@ -1,9 +1,9 @@
 <template>
-<div class="issueTasks">
-    <a-row :gutter="[
-        { xs: 8, sm: 16, md: 24, xs: 8 },
-        { xs: 8, sm: 16, md: 24, lg: 32 },
-      ]" style="background: #fff">
+<a-row :gutter="[
+      { xs: 8, sm: 16, md: 24, xs: 8 },
+      { xs: 8, sm: 16, md: 24, lg: 32 },
+    ]" class="issueTasks">
+    <a-col :xs="{ span: 24 }" class="issueTasks_bg">
         <a-col :xs="{ span: 20, offset: 2 }" :lg="{ span: 14, offset: 5 }" :xl="{ span: 12, offset: 6 }" :xxl="{ span: 10, offset: 7 }">
             <a-form-model :model="form" :label-col="labelCol" :wrapper-col="wrapperCol" :rules="rules" ref="ruleForm">
                 <a-form-model-item label="目标URL" prop="url">
@@ -32,12 +32,14 @@ Sec-Fetch-Site: same-origin
                     <a-input v-model="form.proxy" />
                 </a-form-model-item>
                 <a-form-model-item :wrapper-col="{ span: 6, offset: 9 }">
-                    <a-button type="primary" @click="handleOnSubmit"> 下发任务 </a-button>
+                    <a-button type="primary" @click="handleOnSubmit">
+                        下发任务
+                    </a-button>
                 </a-form-model-item>
             </a-form-model>
         </a-col>
-    </a-row>
-</div>
+    </a-col>
+</a-row>
 </template>
 
 <script>
@@ -94,9 +96,9 @@ export default {
                     // let re_form = form.header.replace(/^\s+|\s+$/g, "");
                     let obj = {};
                     let json_obj;
-                    console.log(form.header)
+                    console.log(form.header);
 
-                    if (form.header == "None" || form.header == '') {
+                    if (form.header == "None" || form.header == "") {
                         json_obj = "None";
                     } else {
                         let sp_form = form.header.split(/\r*\n/);
@@ -106,14 +108,14 @@ export default {
                         });
                         json_obj = JSON.stringify(obj);
                     }
-                    if (form.process == undefined || form.process == '') {
-                        form.process = 20
+                    if (form.process == undefined || form.process == "") {
+                        form.process = 20;
                     }
-                    if (form.header == '') {
-                        form.module = "ALL"
+                    if (form.header == "") {
+                        form.module = "ALL";
                     }
-                    if (form.proxy == '') {
-                        form.proxy = "None"
+                    if (form.proxy == "") {
+                        form.proxy = "None";
                     }
                     // console.log(sp_form)
                     // console.log(sp_form.toString())
@@ -166,5 +168,11 @@ export default {
     margin: 0;
     padding: 20px;
     padding-top: 30px;
+    height: 100%;
+
+    .issueTasks_bg {
+        background: #fff;
+        height: 100%;
+    }
 }
 </style>

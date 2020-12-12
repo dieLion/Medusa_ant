@@ -28,8 +28,8 @@ export const URL_POST_READ_SCRIPT_TEMPLATE = `/read_cross_site_script_template/`
 export const URL_POST_READ_DEFAULT_SCRIPT_TEMPLATE = `/read_default_cross_site_script_template/`// 读取默认跨站脚本模板数据
 export const URL_POST_SAVE_CROSS_SITE_SCRIPT_TEMPLATE = `/save_cross_site_script_template/`// 保存用户自定义跨站脚本模板数据
 
-
-
+export const URL_POST_HARDWARE_INITIALIZATION = `/system_hardware_initialization/`// 获取当前机器基础信息
+export const URL_POST_HARDWARE_USAGE_QUERY = `/system_hardware_usage_query/`// 获取当前机器CPU和内存使用率
 
 
 // API/api/upload_avatar/

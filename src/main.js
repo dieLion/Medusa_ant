@@ -5,6 +5,7 @@ import store from './Vuex'
 import axios from 'axios'
 import 'lib-flexible'
 import VueCodemirror from 'vue-codemirror'
+import "codemirror/mode/javascript/javascript.js"
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.less' // or 'ant-design-vue/dist/antd.less'
 import echarts from 'echarts'

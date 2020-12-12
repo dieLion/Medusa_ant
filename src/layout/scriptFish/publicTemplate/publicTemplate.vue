@@ -3,8 +3,8 @@
     <a-row :gutter="[
         { xs: 8, sm: 8, md: 8, xs: 8 },
         { xs: 8, sm: 16, md: 24, lg: 32 },
-      ]">
-        <a-col :xs="{ span: 24 }" :lg="{ span: 8 }" :xl="{ span: 8 }" :xxl="{ span: 6 }">
+      ]" class="createProject_bg">
+        <a-col :xs="{ span: 24 }" :lg="{ span: 8 }" :xl="{ span: 8 }" :xxl="{ span: 6 }" class="createProject_bg">
             <a-col :xs="{ span: 24 }" class="read">
                 <Tabbten @handelSetActiveL="handelSetActiveL" @handelSetActiveR="handelSetActiveR"></Tabbten>
                 <a-list item-layout="horizontal" class="read_horizontal" :data-source="DefaultScriptTemplate" :column="[24]">
@@ -19,17 +19,19 @@
                 </a-col>-->
             </a-col>
         </a-col>
-        <a-col :xs="{ span: 24 }" :lg="{ span: 16 }" :xl="{ span: 16 }" :xxl="{ span: 18 }">
+        <a-col :xs="{ span: 24 }" :lg="{ span: 16 }" :xl="{ span: 16 }" :xxl="{ span: 18 }" class="createProject_bg">
             <a-col :xs="{ span: 24 }" class="ruleForm">
-                <a-form-model :model="form" :label-col="labelCol" :wrapper-col="wrapperCol" ref="ruleForm" :layout="form.layout">
-                    <a-form-model-item label="模板名称" prop="template_name" :labelAlign="'left'">
+                <a-form-model :model="form" :label-col="labelCol" :wrapper-col="wrapperCol" ref="ruleForm">
+                    <a-form-model-item label="模板名称" prop="template_name" :labelAlign="'left'" class="form_model_item">
                         <a-input v-model="form.template_name" :disabled="true" />
                     </a-form-model-item>
-                    <a-form-model-item label="模板内容" prop="template_data" :labelAlign="'left'">
+                    <a-form-model-item label="模板内容" prop="template_data" :labelAlign="'left'" class="form_model_item">
                         <codemirror ref="myCm" v-model="form.template_data" :options="cmOptions" class="code"></codemirror>
                     </a-form-model-item>
-
                 </a-form-model>
+                <div class="zhizhu">
+                    <img :src="zhizhu" height="300px" alt="" class="zhizhu_img" ref="zhizhu" :class="inAnimation?'zhizhu_animation':''" @animationend='inAnimation=false' @click="handleShaking" />
+                </div>
             </a-col>
         </a-col>
     </a-row>
@@ -41,10 +43,6 @@ import {
     Icon
 } from "ant-design-vue";
 import Tabbten from "../../../components/Tabbten.vue";
-import {
-    codemirror
-} from "vue-codemirror";
-require("codemirror/mode/javascript/javascript.js");
 const MyIcon = Icon.createFromIconfontCN({
     scriptUrl: "//at.alicdn.com/t/font_1734998_apjce2fwnsu.js",
 });
@@ -53,10 +51,11 @@ export default {
     components: {
         myicon: MyIcon,
         Tabbten,
-        codemirror,
     },
     data() {
         return {
+            zhizhu: require("../../../assets/zhizhu.png"),
+            inAnimation: false,
             labelCol: {
                 span: 20,
                 offset: 2,
@@ -121,13 +120,7 @@ export default {
                 template_name: val.template_name,
                 template_data: val.template_data,
             };
-            //   this.DefaultScriptTemplate.map((item) => {
-            //     if (item.value == val) {
-            //       this.defaultVal = item.key;
-            //       this.showDataForm.title = item.value;
-            //       this.showDataForm.data = item.key;
-            //     }
-            //   });
+            this.handleShaking()
         },
         handelSetActiveL() {
             this.handleReadDefaultScriptTemplate();
@@ -161,6 +154,12 @@ export default {
                 }
             });
         },
+        handleShaking() {
+            let deg = Math.round(Math.random() * 45); //0-45随机数
+            this.$refs.zhizhu.style.setProperty("--Deg", deg + 'deg');
+            this.$refs.zhizhu.style.setProperty("--Deg2", -deg + 'deg');
+            this.inAnimation = true
+        },
     },
 };
 </script>
@@ -186,13 +185,63 @@ $color: #51c51a;
     padding: 20px;
     padding-top: 20px;
     min-width: 300px;
+    height: 100%;
+
+    .createProject_bg {
+        height: 100%;
+    }
+
+    .zhizhu {
+        text-align: center;
+        padding: 0;
+
+        .zhizhu_img {
+            transform: rotate(0deg);
+            transform-origin: center top;
+            cursor: pointer;
+        }
+
+        .zhizhu_animation {
+            --Deg: 30deg;
+            --Deg2: -30deg;
+            animation: Shaking 4s linear;
+            -moz-animation: Shaking 4s linear;
+            /* Firefox */
+            -webkit-animation: Shaking 4s linear;
+            /* Safari 和 Chrome */
+            -o-animation: Shaking 4s linear;
+            /* Opera */
+        }
+
+        @keyframes Shaking {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(var(--Deg));
+            }
+
+            50% {
+                transform: rotate(0deg);
+            }
+
+            75% {
+                transform: rotate(var(--Deg2));
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+    }
 
     .read,
     .ruleForm {
         border: 1px solid #ccc;
         border-radius: 5px;
         font-size: 18px;
-        min-height: 800px;
+        height: 100%;
 
         .btn {
             display: -webkit-flex;
@@ -203,9 +252,13 @@ $color: #51c51a;
     }
 
     .ruleForm {
-        background: #fff;
         // background: url("../../../assets/blackBack.jpg") no-repeat;
         // background-size: 100% 100%;
+        background: #fff;
+
+        .form_model_item {
+            margin-bottom: 0;
+        }
     }
 
     // .read /deep/.ant-list-split .ant-list-item {

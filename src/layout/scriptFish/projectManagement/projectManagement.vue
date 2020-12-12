@@ -3,7 +3,7 @@
     <a-row :gutter="[
         { xs: 8, sm: 16, md: 24, xs: 8 },
         { xs: 8, sm: 16, md: 24, lg: 32 },
-      ]" style="background: #fff">
+      ]" class="projectManagement_bg">
         <a-col :xs="{ span: 24 }" :lg="{ span: 24 }">
             <a-table :columns="columns" :data-source="data" :pagination="pagination" @change="handleChangePage">
                 <span slot="capacity" slot-scope="text, record">
@@ -210,6 +210,12 @@ export default {
     margin: 0;
     padding: 20px;
     padding-top: 30px;
+    height: 100%;
+
+    .projectManagement_bg {
+        height: 100%;
+        background: #fff;
+    }
 }
 
 .projectManagement /deep/.ant-table {

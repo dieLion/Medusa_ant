@@ -1,9 +1,9 @@
 <template>
-<div class="github">
-    <a-row :gutter="[
-        { xs: 8, sm: 16, md: 24, xs: 8 },
-        { xs: 8, sm: 16, md: 24, lg: 32 },
-      ]" style="background: #fff">
+<a-row :gutter="[
+      { xs: 8, sm: 16, md: 24, xs: 8 },
+      { xs: 8, sm: 16, md: 24, lg: 32 },
+    ]" class="github">
+    <a-col class="github_bg" :xs="{ span: 24 }">
         <a-col :xs="{ span: 12 }" :lg="{ offset: 14, span: 4 }">
             <a-select style="width: 100%" :options="options" placeholder="选择搜索字段" @change="handleChange">
             </a-select>
@@ -14,8 +14,8 @@
         <a-col :xs="{ span: 24 }" :lg="{ span: 24 }">
             <a-table :columns="columns" :data-source="data"> </a-table>
         </a-col>
-    </a-row>
-</div>
+    </a-col>
+</a-row>
 </template>
 
 <script>
@@ -161,5 +161,11 @@ export default {
     margin: 0;
     padding: 20px;
     padding-top: 30px;
+    height: 100%;
+
+    .github_bg {
+        background: #fff;
+        height: 100%;
+    }
 }
 </style>
