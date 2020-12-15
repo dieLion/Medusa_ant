@@ -25,9 +25,6 @@ export default {
         this.handelHardwareInitialization();
     },
     methods: {
-        handelRrturnMemorySize(val) {
-            return (val / 1024 / 1024 / 1024).toFixed(4);
-        },
         handelHardwareInitialization() {
             let params = {
                 token: localStorage.getItem("storeToken"),
@@ -48,7 +45,7 @@ export default {
                             },
                             {
                                 label: "内存大小",
-                                data: this.handelRrturnMemorySize(res.message.memory_total) + "Gb",
+                                data: this.$qj.QJMemorySize(res.message.memory_total) + "Gb",
                                 span: 1
                             },
                             {

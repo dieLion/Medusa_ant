@@ -108,6 +108,7 @@ export default {
                             color: ["rgba(169,169,169,0.5)"],
                         },
                     },
+                    minInterval: 1,
                     label: {
                         show: false,
                     },

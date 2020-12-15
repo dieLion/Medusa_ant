@@ -77,7 +77,7 @@ export default {
                         switch (res.code) {
                             case 200:
                                 console.log(res);
-                                this.$message.error(res.message);
+                                this.$message.success('模板创建成功');
                                 break;
                             case 169:
                                 this.$message.error(res.message);

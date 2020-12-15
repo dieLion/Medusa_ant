@@ -12,6 +12,8 @@
                 </span>
                 <span slot="action" slot-scope="text, record">
                     <a @click="handleGetTableSerch(record.key)">查询</a>
+                    <a-divider type="vertical" />
+                    <a>修改</a>
                 </span>
             </a-table>
         </a-col>
@@ -210,10 +212,10 @@ export default {
     margin: 0;
     padding: 20px;
     padding-top: 30px;
-    height: 100%;
+    min-height: 100%;
 
     .projectManagement_bg {
-        height: 100%;
+        min-height: 100%;
         background: #fff;
     }
 }

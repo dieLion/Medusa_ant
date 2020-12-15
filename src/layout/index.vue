@@ -123,11 +123,11 @@ export default {
                         },
                         {
                             key: "publicTemplate",
-                            msg: "公共模板",
+                            msg: "模板管理",
                         },
                         {
                             key: "customTemplate",
-                            msg: "自定义模板",
+                            msg: "创建自定义模板",
                         },
                     ],
                 },

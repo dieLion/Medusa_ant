@@ -9,6 +9,7 @@
                 <Tabbten @handelSetActiveL="handelSetActiveL" @handelSetActiveR="handelSetActiveR"></Tabbten>
                 <a-list item-layout="horizontal" class="read_horizontal" :data-source="DefaultScriptTemplate" :column="[24]">
                     <a-list-item slot="renderItem" slot-scope="item">
+                        <a slot="actions" @click="handleReadOnly(item)">修改模板</a>
                         <a-list-item-meta>
                             <span slot="title" class="read_font" @click="handleSelectData(item)">{{ item.template_name }}</span>
                             <myicon type="icon-js" slot="avatar" class="icon" />
@@ -75,7 +76,7 @@ export default {
                 theme: "duotone-light",
                 lineNumbers: true,
                 line: true,
-                readOnly: "nocursor", //只读
+                readOnly: "nocursor", //只读 nocursor
                 matchBrackets: true,
             },
         };
@@ -120,6 +121,14 @@ export default {
                 template_name: val.template_name,
                 template_data: val.template_data,
             };
+            this.handleShaking()
+        },
+        handleReadOnly(val) { //修改
+            this.form = {
+                template_name: val.template_name,
+                template_data: val.template_data,
+            };
+            this.cmOptions.readOnly = false
             this.handleShaking()
         },
         handelSetActiveL() {

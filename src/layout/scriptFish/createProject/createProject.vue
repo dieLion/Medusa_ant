@@ -149,13 +149,6 @@ export default {
                 }
             });
         },
-
-        // handleBase64Encode(val) {
-        //     return Base64.encode(val);
-        // },
-        // handleBase64Decode(val) {
-        //     return Base64.decode(val);
-        // },
         handleChange(val) {
             console.log(val);
             this.DefaultScriptTemplate.map((item) => {
@@ -197,7 +190,7 @@ export default {
                                         list.push(options);
                                     });
                                     this.DefaultScriptTemplate = list;
-                                    console.log(this.DefaultScriptTemplate);
+
                                     break;
                                 case 169:
                                     this.$message.error(res.message);
