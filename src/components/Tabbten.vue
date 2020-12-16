@@ -36,7 +36,7 @@ export default {
 .tabten {
     height: 25px;
     width: 100%;
-    font-size: 18px;
+    font-size: 16px;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -132,13 +132,13 @@ export default {
     }
 
     .tabtenL:after {
-        content: "公共模板";
+        content: "切换公共模板";
         text-align: left;
         left: 0;
     }
 
     .tabtenR:after {
-        content: "自定义模板";
+        content: "切换个人模板";
         text-align: right;
         color: #fff;
         animation: textAnimation 2s linear;
@@ -152,7 +152,7 @@ export default {
 
     @keyframes textAnimation {
         0% {
-            content: "自定义模板";
+            content: "切换个人模板";
             text-align: right;
             color: #fff;
         }
@@ -166,7 +166,7 @@ export default {
         100% {
             text-align: right;
             color: #fff;
-            content: "自定义模板";
+            content: "切换个人模板";
         }
     }
 

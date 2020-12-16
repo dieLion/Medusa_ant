@@ -180,7 +180,7 @@ export default {
 .selectProject {
     margin: 0;
     padding: 35px 20px 0 20px;
-    min-height: 100%;
+    height: 100%;
 
     .selectProject_bg {
         min-height: 100%;

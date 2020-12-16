@@ -39,6 +39,7 @@ export default {
                 theme: "duotone-light",
                 lineNumbers: true,
                 line: true,
+                lineWrapping: true, //自动换行
                 mode: "text/javascript",
                 // readOnly: 'nocursor' //只读
             },
@@ -117,6 +118,10 @@ export default {
 
     .customTemplate_bg /deep/ .CodeMirror {
         height: 550px;
+    }
+
+    .customTemplate_bg /deep/ .ant-form-item-control {
+        line-height: 20px;
     }
 }
 </style>

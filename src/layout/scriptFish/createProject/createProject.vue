@@ -72,6 +72,7 @@ export default {
                 theme: "duotone-light",
                 lineNumbers: true,
                 line: true,
+                lineWrapping: true, //自动换行
                 readOnly: "nocursor", //只读
                 matchBrackets: true,
             },
@@ -79,6 +80,7 @@ export default {
                 mode: "javascript",
                 theme: "duotone-light",
                 lineNumbers: true,
+                lineWrapping: true, //自动换行
                 line: true,
                 //readOnly: "nocursor", //只读
                 matchBrackets: true,
@@ -217,15 +219,14 @@ export default {
             });
         },
         handleSetDefault() {
-            let val = this.defaultVal
+            let val = this.defaultVal;
             let tc = this.$refs.textarea.codemirror.getCursor();
             let tc2 = {
                 line: tc.line,
-                ch: tc.ch
-            }
+                ch: tc.ch,
+            };
             this.$refs.textarea.codemirror.replaceRange(val, tc2);
         },
-
     },
 };
 </script>
@@ -271,6 +272,14 @@ $color: #51c51a;
         display: flex;
         justify-content: space-around;
     }
+}
+
+.ruleForm /deep/ .ant-form-item-control {
+    line-height: 20px;
+}
+
+.read /deep/ .ant-form-item-control {
+    line-height: 20px;
 }
 
 .read /deep/.CodeMirror {

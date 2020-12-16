@@ -9,7 +9,7 @@
                 <Tabbten @handelSetActiveL="handelSetActiveL" @handelSetActiveR="handelSetActiveR"></Tabbten>
                 <a-list item-layout="horizontal" class="read_horizontal" :data-source="DefaultScriptTemplate" :column="[24]">
                     <a-list-item slot="renderItem" slot-scope="item">
-                        <a slot="actions" @click="handleReadOnly(item)">修改模板</a>
+                        <!-- <a slot="actions" @click="handleReadOnly(item)">修改模板</a>-->
                         <a-list-item-meta>
                             <span slot="title" class="read_font" @click="handleSelectData(item)">{{ item.template_name }}</span>
                             <myicon type="icon-js" slot="avatar" class="icon" />
@@ -29,9 +29,14 @@
                     <a-form-model-item label="模板内容" prop="template_data" :labelAlign="'left'" class="form_model_item">
                         <codemirror ref="myCm" v-model="form.template_data" :options="cmOptions" class="code"></codemirror>
                     </a-form-model-item>
+                    <a-form-model-item class="item_btn form_model_item" :wrapper-col="{ span: 24 }">
+                        <a-button type="primary" @click="handleOnSubmit" :disabled="Display">
+                            保存修改
+                        </a-button>
+                    </a-form-model-item>
                 </a-form-model>
                 <div class="zhizhu">
-                    <img :src="zhizhu" height="300px" alt="" class="zhizhu_img" ref="zhizhu" :class="inAnimation?'zhizhu_animation':''" @animationend='inAnimation=false' @click="handleShaking" />
+                    <img :src="zhizhu" height="300px" alt="" class="zhizhu_img" ref="zhizhu" :class="inAnimation ? 'zhizhu_animation' : ''" @animationend="inAnimation = false" @click="handleShaking" />
                 </div>
             </a-col>
         </a-col>
@@ -70,11 +75,13 @@ export default {
                 template_data: "",
             },
             DefaultScriptTemplate: [],
-
+            DisplayState: false,
+            Display: true,
             cmOptions: {
                 mode: "javascript",
                 theme: "duotone-light",
                 lineNumbers: true,
+                lineWrapping: true,
                 line: true,
                 readOnly: "nocursor", //只读 nocursor
                 matchBrackets: true,
@@ -117,24 +124,33 @@ export default {
         },
         handleSelectData(val) {
             console.log(val);
+            if (this.DisplayState) {
+                this.Display = false;
+            } else {
+                this.Display = true;
+            }
             this.form = {
                 template_name: val.template_name,
                 template_data: val.template_data,
             };
-            this.handleShaking()
+
+            this.cmOptions.readOnly = false;
+            this.handleShaking();
         },
-        handleReadOnly(val) { //修改
-            this.form = {
-                template_name: val.template_name,
-                template_data: val.template_data,
-            };
-            this.cmOptions.readOnly = false
-            this.handleShaking()
-        },
+        // handleReadOnly(val) { //修改
+        //     this.form = {
+        //         template_name: val.template_name,
+        //         template_data: val.template_data,
+        //     };
+        //     this.cmOptions.readOnly = false
+        //     this.handleShaking()
+        // },
         handelSetActiveL() {
+            this.DisplayState = false;
             this.handleReadDefaultScriptTemplate();
         },
         handelSetActiveR() {
+            this.DisplayState = true;
             let params = {
                 token: localStorage.getItem("storeToken"),
             };
@@ -165,9 +181,42 @@ export default {
         },
         handleShaking() {
             let deg = Math.round(Math.random() * 45); //0-45随机数
-            this.$refs.zhizhu.style.setProperty("--Deg", deg + 'deg');
-            this.$refs.zhizhu.style.setProperty("--Deg2", -deg + 'deg');
-            this.inAnimation = true
+            this.$refs.zhizhu.style.setProperty("--Deg", deg + "deg");
+            this.$refs.zhizhu.style.setProperty("--Deg2", -deg + "deg");
+            this.inAnimation = true;
+        },
+        handleOnSubmit() {
+            let form = this.form;
+            if (form.template_name != "") {
+                let params = {
+                    template_name: form.template_name,
+                    template_data: form.template_data,
+                    token: localStorage.getItem("storeToken"),
+                };
+                this.$api.modify_cross_site_script_template(params).then((res) => {
+                    switch (res.code) {
+                        case 200:
+                            this.$message.success("模板修改成功");
+                            this.handelSetActiveR();
+                            break;
+                        case 169:
+                            this.$message.error(res.message);
+                            break;
+                        case 403:
+                            this.$message.error(res.message);
+                            break;
+                        case 404:
+                            this.$message.error(res.message);
+                            break;
+                        case 500:
+                            this.$message.error(res.message);
+                            break;
+                    }
+                });
+            } else {
+                this.$message.error("请确定您选择了模板");
+                return false;
+            }
         },
     },
 };
@@ -252,12 +301,14 @@ $color: #51c51a;
         font-size: 18px;
         height: 100%;
 
-        .btn {
-            display: -webkit-flex;
-            /* Safari */
-            display: flex;
-            justify-content: space-around;
+        .item_btn {
+            margin-top: 20px;
+            text-align: center;
         }
+    }
+
+    .ruleForm /deep/ .ant-form-item-control {
+        line-height: 20px;
     }
 
     .ruleForm {

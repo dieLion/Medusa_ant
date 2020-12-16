@@ -19,6 +19,7 @@ import createProject from '../layout/scriptFish/createProject/createProject.vue'
 
 import projectManagement from '../layout/scriptFish/projectManagement/projectManagement.vue'
 import selectProject from '../layout/scriptFish/projectManagement/selectProject/selectProject.vue'
+import projectDetails from '../layout/scriptFish/projectManagement/projectDetails/projectDetails.vue'
 import publicTemplate from '../layout/scriptFish/publicTemplate/publicTemplate.vue'
 import customTemplate from '../layout/scriptFish/customTemplate/customTemplate.vue'
 
@@ -170,6 +171,16 @@ const routes = [
         path: 'projectManagement/selectProject',
         component: selectProject,
         name: 'projectManagement/selectProject',
+        meta:{
+          keepAlive:true,
+          activeIndex:"projectManagement",
+          defaultOpenKeys:"sub4"
+        },
+      },
+      {
+        path: 'projectManagement/projectDetails',
+        component: projectDetails,
+        name: 'projectManagement/projectDetails',
         meta:{
           keepAlive:true,
           activeIndex:"projectManagement",

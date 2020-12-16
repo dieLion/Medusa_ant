@@ -25,9 +25,12 @@ import {
     URL_POST_CREATE_SCRIPT_PROJECT,
     URL_POST_QUERY_SCRIPT_PROJECT,
     URL_POST_QUERY_SCRIPT_PROJECT_DATA,
+    URL_POST_QUERY_SCRIPT_PROJECT_INFO,
+    URL_POST_MODIFY_CROSS_SITE_SCRIPT_PROJECT,
     URL_POST_READ_SCRIPT_TEMPLATE,
     URL_POST_READ_DEFAULT_SCRIPT_TEMPLATE,
     URL_POST_SAVE_CROSS_SITE_SCRIPT_TEMPLATE,
+    URL_POST_MODIFY_CROSS_SITE_SCRIPT_TEMPLATE,
     URL_POST_HARDWARE_INITIALIZATION,// 获取当前机器基础信息
     URL_POST_HARDWARE_USAGE_QUERY// 获取当前机器CPU和内存使用率
 
@@ -135,9 +138,6 @@ let api = {
         let response = await post(URL_POST_UPLOAD_AVATAR, params, {
             headers: {
                 token: store.state.storeToken
-                // 'Content-Type': 'application/json',//设置请求头请求格式为JSON
-                // "Access-Control-Allow-Origin": "token",
-                // token:store.state.storeToken
             }
         })
         return response
@@ -179,7 +179,26 @@ let api = {
         })
         return response
     },
+    // 查询跨站脚本钓鱼项目中详细信息
+    
+    async query_script_project_info(params) {
+        let response = await post(URL_POST_QUERY_SCRIPT_PROJECT_INFO, params, {
+            headers: {
 
+            }
+        })
+        return response
+    },
+    
+    // 修改跨站脚本钓鱼项目中详细信息
+    async modify_cross_site_script_project(params) {
+        let response = await post(URL_POST_MODIFY_CROSS_SITE_SCRIPT_PROJECT, params, {
+            headers: {
+
+            }
+        })
+        return response
+    },
     //读取用户自定义跨站脚本模板数据
     async read_script_template(params) {
         let response = await post(URL_POST_READ_SCRIPT_TEMPLATE, params, {
@@ -216,8 +235,8 @@ let api = {
         })
         return response
     },
-    // 保存用户自定义跨站脚本模板数据
 
+    // 保存用户自定义跨站脚本模板数据
     async save_cross_site_script_template(params) {
         let response = await post(URL_POST_SAVE_CROSS_SITE_SCRIPT_TEMPLATE, params, {
             headers: {
@@ -226,6 +245,17 @@ let api = {
         })
         return response
     },
+
+    // 修改用户自定义跨站脚本模板数据
+    async modify_cross_site_script_template(params) {
+        let response = await post(URL_POST_MODIFY_CROSS_SITE_SCRIPT_TEMPLATE, params, {
+            headers: {
+            }
+        })
+        return response
+    },
+
+    
 
     async generate_word(params) {
         let response = await post(URL_POST_GENERATE_WORD, params, {

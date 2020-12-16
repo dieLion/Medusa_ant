@@ -160,7 +160,7 @@ export default {
                     height: "70%",
                 },
                 legend: {
-                    data: ["中央处理器使用率", "核心使用率"],
+                    show: true
                 },
                 series: this.handleSetSeries(),
             });
@@ -196,21 +196,21 @@ export default {
             for (let i = 0; i < CoreData.length; i++) {
                 for (let j = 0; j < CoreData[i].length; j++) {
                     list[j].push(CoreData[i][j]);
-                }
+                }i
             }
             console.log(list);
 
             for (let i = 0; i < list.length; i++) {
                 let option = {
-                    name: "核心使用率",
+                    name: "线程"+i,
                     type: "line",
                     showSymbol: false,
                     symbol: "circle",
                     smooth: true,
                     hoverAnimation: true,
-                    itemStyle: {
-                        color: "rgb(0, 255, 242)",
-                    },
+                    // itemStyle: {
+                    //     color: "rgb(0, 255, 242)",
+                    // },
                     emphasis: {
                         label: {
                             show: false,

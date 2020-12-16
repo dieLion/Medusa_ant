@@ -13,7 +13,7 @@
                 <span slot="action" slot-scope="text, record">
                     <a @click="handleGetTableSerch(record.key)">查询</a>
                     <a-divider type="vertical" />
-                    <a>修改</a>
+                    <a @click="handleGetDetails(record.key)">修改</a>
                 </span>
             </a-table>
         </a-col>
@@ -203,6 +203,10 @@ export default {
             this.$store.commit("project_associated_file_name", key);
             this.$router.push("/layout/projectManagement/selectProject");
         },
+        handleGetDetails(key) {
+            this.$store.commit("project_associated_file_name", key);
+            this.$router.push("/layout/projectManagement/projectDetails");
+        }
     },
 };
 </script>
@@ -212,7 +216,7 @@ export default {
     margin: 0;
     padding: 20px;
     padding-top: 30px;
-    min-height: 100%;
+    height: 100%;
 
     .projectManagement_bg {
         min-height: 100%;
