@@ -63,7 +63,6 @@ export default {
         fnsystemHardwareEcharts() {
             //   console.log(this.parameter);
             // 基于准备好的dom，初始化echarts实例
-            console.log("慢");
             this.systemHardwareEcharts = this.$echarts.init(
                 this.$refs.systemHardwareCPU
             );
@@ -199,9 +198,9 @@ export default {
                 }i
             }
             console.log(list);
-
+  let option={}
             for (let i = 0; i < list.length; i++) {
-                let option = {
+               option = {
                     name: "线程"+i,
                     type: "line",
                     showSymbol: false,
@@ -225,6 +224,7 @@ export default {
             return series;
         },
         getLenght() {
+            console.log(this.CoreData[0])
             return this.CoreData[0].length;
         },
     },

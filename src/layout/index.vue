@@ -1,4 +1,5 @@
 <template>
+<keep-alive>
 <a-config-provider :locale="locale">
     <a-layout id="components-layout-demo-custom-trigger" style="height: 100%">
         <a-layout-sider v-model="collapsed" :trigger="null" collapsible breakpoint="lg" collapsed-width="0">
@@ -49,6 +50,7 @@
         </a-layout>
     </a-layout>
 </a-config-provider>
+   </keep-alive>
 </template>
 
 <script>
