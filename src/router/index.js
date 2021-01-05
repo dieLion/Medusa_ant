@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import login from '../views/login/index.vue'
-import register from '../views/register/register.vue'
+import login from '../LoginAndForget/login/index.vue'
+import register from '../LoginAndForget/register/register.vue'
 
 import layout from '../layout'
 // import personalSettings from '../layout/personalSettings'
@@ -12,11 +12,12 @@ import siteInformation from '../layout/siteInformation/siteInformation.vue'
 import vulnerabilityDetails2 from '../layout/siteInformation/siteScan/vulnerabilityDetails/vulnerabilityDetails2.vue'
  import vulnerabilityDetails from '../layout/siteInformation/siteScan/vulnerabilityDetails/vulnerabilityDetails.vue'
 import gitHub from '../layout/gitHub/gitHub.vue'
-import Agreement from '../views/agreement/agreement.vue'
-import Forget from '../views/forget/forget.vue'
+import Agreement from '../LoginAndForget/agreement/agreement.vue'
+import Forget from '../LoginAndForget/forget/forget.vue'
 import issueTasks from '../layout/issueTasks/issueTasks.vue'
 import createProject from '../layout/scriptFish/createProject/createProject.vue'
 
+import markdown from '../layout/markdown'
 import projectManagement from '../layout/scriptFish/projectManagement/projectManagement.vue'
 import selectProject from '../layout/scriptFish/projectManagement/selectProject/selectProject.vue'
 import projectDetails from '../layout/scriptFish/projectManagement/projectDetails/projectDetails.vue'
@@ -31,6 +32,13 @@ const routes = [
     name: 'Login',
     // component: Login
     component: login
+    // component:()=> import('@views/login/index')
+  },
+  {
+    path: '/markdown',
+    name: 'markdown',
+    // component: Login
+    component: markdown
     // component:()=> import('@views/login/index')
   },
   {

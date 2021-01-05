@@ -61,31 +61,11 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
+    if(response.headers.verificationcodekey){
+      store.commit("verificationcodekey", response.headers.verificationcodekey)
+    }
     const res = response.data
     // console.log(message)
-    // switch (res.code) {
-    //   case 666:
-    //     message.error(res.message)
-    //     break;
-    //   case 604:
-    //     message.error(res.message)
-    //     break;
-    //   case 603:
-    //     message.error(res.message)
-    //     break;
-    //   case 500:
-    //     message.error(res.message)
-    //     break;
-    //   case 404:
-    //     message.error(res.message)
-    //     break;
-    //   case 400:
-    //     message.error(res.message)
-    //     break;
-    //   case 200:
-    //     message.success(res.message)
-    //     break;
-    // }
     // if the custom code is not 0, it is judged as an error.
     // if (res.code !== 0) {
     // Message.error(res.message || 'Error')

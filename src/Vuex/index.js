@@ -10,7 +10,9 @@ export default new Vuex.Store({
     avatar:'',
     active_scan_id:'null',//主动扫描目标单个漏洞详细内容查询key
     scan_info_id:'null',//主动扫描目标单个漏洞详细内容查询接口
-    project_associated_file_name:'null'//查询跨站脚本钓鱼项目中生成的特殊文件名
+    project_associated_file_name:'null',//查询跨站脚本钓鱼项目中生成的特殊文件名
+    verificationcodekey:'',//验证码的key
+    collapsed:false//layout的侧边栏变化
   },
   mutations: {
     tokenLogin(state,usertoken){
@@ -34,6 +36,12 @@ export default new Vuex.Store({
     },
     project_associated_file_name(state,project_associated_file_name){
       state.project_associated_file_name=project_associated_file_name
+    },
+    verificationcodekey(state,verificationcodekey){
+      state.verificationcodekey=verificationcodekey
+    },
+    collapsed(state,collapsed){
+      state.collapsed=collapsed
     }
   },
   actions: {

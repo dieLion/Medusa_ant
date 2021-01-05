@@ -1,4 +1,5 @@
 import {
+    get,
     post,
     postDownload
 } from '../utils/request'
@@ -6,6 +7,7 @@ import {
 
     URL_POST_LOGIN,
     URL_POST_REGISTERED,
+    URL_GET_VERIFICATION_CODE,
     URL_POST_FORGET_PASSWORD,
     URL_POST_SCANNING,
     URL_POST_LIST_QUERY,
@@ -52,7 +54,15 @@ let api = {
         })
         return response
     },
-
+    // 获取验证码
+    async get_verification_code(params) {
+        let response = await get(URL_GET_VERIFICATION_CODE, params, {
+            headers: {},
+            responseType: 'blob',
+        })
+        return response
+    },
+    
     // 忘记密码
     async forget_password(params) {
         let response = await post(URL_POST_FORGET_PASSWORD, params, {

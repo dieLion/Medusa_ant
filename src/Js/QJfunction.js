@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import api from '../api/rules'
 let Base64 = require("js-base64").Base64;
 
 //UNix时间转换正常时间并格式化YYYY-MM-DD hh-mm-ss格式时间
@@ -56,6 +57,13 @@ const QJMemorySize = (e) => {//内存处理
     return val;
 }
 
+const QJGETCAPTCHA = () =>{//获取验证码
+    let imgFilePath =  api.get_verification_code().then((res) => {
+        return window.URL.createObjectURL(res);
+    });
+    return imgFilePath
+}
+
 export default function (Vue) {
     //添加全局API
     Vue.prototype.$qj = {
@@ -63,6 +71,7 @@ export default function (Vue) {
         QJBase64Encode,
         QJBase64Decode,
         QJMemorySize,
-        QjUnixTimeHHMMSS
+        QjUnixTimeHHMMSS,
+        QJGETCAPTCHA
     }
 }

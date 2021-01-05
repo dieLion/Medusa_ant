@@ -194,8 +194,10 @@ export default {
     margin: 0;
     padding: 20px;
     padding-top: 30px;
+    height: 100%;
 
     .projectDetails_bg {
+        min-height: 100%;
         background: #fff;
 
         .item {
@@ -224,6 +226,7 @@ export default {
 
     .projectDetails_bg /deep/ .ant-input[disabled] {
         background-color: #f5f5f5;
+        cursor:auto;
     }
 }
 </style>

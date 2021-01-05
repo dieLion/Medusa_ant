@@ -1,6 +1,8 @@
 // 此文件暴露接口地址
 export const URL_POST_REGISTERED = `/registered/` // 注册
 export const URL_POST_LOGIN = `/login/` // 登陆
+export const URL_GET_VERIFICATION_CODE = `/get_verification_code/` // 获取验证码
+
 export const URL_POST_FORGET_PASSWORD = `/forget_password/`// 忘记密码
 export const URL_POST_SCANNING = `/vulnerability_scanning/` // 扫描任务下发接口
 export const URL_POST_LIST_QUERY = `/active_scan_list_query/` // 主动扫描目标列表查询接口
