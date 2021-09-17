@@ -1,241 +1,148 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import login from '../LoginAndForget/login/index.vue'
-import register from '../LoginAndForget/register/register.vue'
+import Dashboard from '../views/Dashboard/Dashboard.vue'
+import Login from '../views/Login/Login.vue'
+import Register from '../views/Register/Register.vue'
+import Layout from '../views/Layout/Layout.vue'
+import PersonalSettings from '../views/PersonalSettings/PersonalSettings.vue'
+import IssueTask from '../views/ActiveScanning/IssueTask/IssueTask.vue'
+import SiteInforMation from '../views/ActiveScanning/SiteInforMation/SiteInforMation.vue'
+import GitHubMonitor from '../views/Monitor/GitHubMonitor/GitHubMonitor.vue'
+import VulnerabilitiesMonitor from '../views/Monitor/VulnerabilitiesMonitor/VulnerabilitiesMonitor.vue'
+import VulnerabilitiesMonitorDetailed from '../views/Monitor/VulnerabilitiesMonitor/part/VulnerabilitiesMonitorDetailed.vue'
+import CreateCombine from '../views/Combine/CreateCombine/CreateCombine.vue'
+import CombineList from '../views/Combine/CombineList/CombineList.vue'
+import MarkdownData from '../views/Combine/CombineList/part/MarkdownData.vue'
+import DataComparison from '../views/Combine/CombineList/part/DataComparison.vue'
+import { message } from 'ant-design-vue'
+import store from '@/store'
 
-import layout from '../layout'
-// import personalSettings from '../layout/personalSettings'
-import personalSettings2 from '../layout/personalSettings/index2'
-import dashboard from '../layout/dashboard'
-import siteScan from '../layout/siteInformation/siteScan/siteScan.vue'
-import siteInformation from '../layout/siteInformation/siteInformation.vue'
-import vulnerabilityDetails2 from '../layout/siteInformation/siteScan/vulnerabilityDetails/vulnerabilityDetails2.vue'
- import vulnerabilityDetails from '../layout/siteInformation/siteScan/vulnerabilityDetails/vulnerabilityDetails.vue'
-import gitHub from '../layout/gitHub/gitHub.vue'
-import Agreement from '../LoginAndForget/agreement/agreement.vue'
-import Forget from '../LoginAndForget/forget/forget.vue'
-import issueTasks from '../layout/issueTasks/issueTasks.vue'
-import createProject from '../layout/scriptFish/createProject/createProject.vue'
-
-import markdown from '../layout/markdown'
-import projectManagement from '../layout/scriptFish/projectManagement/projectManagement.vue'
-import selectProject from '../layout/scriptFish/projectManagement/selectProject/selectProject.vue'
-import projectDetails from '../layout/scriptFish/projectManagement/projectDetails/projectDetails.vue'
-import publicTemplate from '../layout/scriptFish/publicTemplate/publicTemplate.vue'
-import customTemplate from '../layout/scriptFish/customTemplate/customTemplate.vue'
+// import { mapGetters } from "vuex";
 
 Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
+  },
+  {
     path: '/',
-    name: 'Login',
-    // component: Login
-    component: login
-    // component:()=> import('@views/login/index')
-  },
-  {
-    path: '/markdown',
-    name: 'markdown',
-    // component: Login
-    component: markdown
-    // component:()=> import('@views/login/index')
-  },
-  {
-    path: '/Agreement',
-    name: 'Agreement',
-    // component: Login
-    component: Agreement
-    // component:()=> import('@views/login/index')
-  },
-  {
-    path: '/Register',
-    name: 'Register',
-    // component: Login
-    component: register
-    // component:()=> import('@views/login/index')
-  },
-  {
-    path: '/Forget',
-    name: 'Forget',
-    // component: Login
-    component: Forget
+    name: 'layout',
+    component: Layout,
+    redirect: '/layout/dashboard',
   },
   {
     path: '/layout',
     name: 'layout',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: layout,
+    component: Layout,
+    meta: {
+      isLogin: true
+    },
     redirect: '/layout/dashboard',
-    children: [
-      {
-        path: 'personalSettings',
-        component: personalSettings2,
-        name: 'personalSettings',
-        meta:{
-          keepAlive:true,
-          activeIndex:"personalSettings"
-        },
-      },
-      {
-        path: 'dashboard',
-        component: dashboard,
-        name: 'dashboard',
-        meta:{
-          keepAlive:true,
-          activeIndex:"dashboard"
-        },
-      },
-      {
-        path:'siteInformation',
-        component: siteInformation,
-        name: 'siteInformation',
-        meta:{
-          keepAlive:true,
-          activeIndex:"siteInformation",
-          defaultOpenKeys:"sub1"
-        },
-      },
-      {
-        path: 'siteInformation/siteScan',
-        component: siteScan,
-        name: 'siteInformation/siteScan',
-        meta:{
-          keepAlive:true,
-          activeIndex:"siteInformation",
-          defaultOpenKeys:"sub1"
-        },
-      },
-      {
-        path: 'siteInformation/siteScan/vulnerabilityDetails',
-        component: vulnerabilityDetails,
-        name: 'siteInformation/siteScan/vulnerabilityDetails',
-        meta:{
-          keepAlive:true,
-          activeIndex:"siteInformation",
-          defaultOpenKeys:"sub1"
-        },
-      },
-      {
-        path: 'siteInformation/siteScan/vulnerabilityDetails2',
-        component: vulnerabilityDetails2,
-        name: 'siteInformation/siteScan/vulnerabilityDetails2',
-        meta:{
-          keepAlive:true,
-          activeIndex:"siteInformation",
-          defaultOpenKeys:"sub1"
-        },
-      },
-      // {
-      //   path: 'siteInformation/siteScan/domainNameDetails',
-      //   component: domainNameDetails,
-      //   name: 'siteInformation/siteScan/domainNameDetails'
-      // },
-      {
-        path: 'issueTasks',
-        component: issueTasks,
-        name: 'issueTasks',
-        meta:{
-          keepAlive:true,
-          activeIndex:"issueTasks",
-          defaultOpenKeys:"sub1"
-        },
-        
-      },
-      {
-        path: 'gitHub',
-        component: gitHub,
-        name: 'gitHub',
-        meta:{
-          keepAlive:true,
-          activeIndex:"gitHub",
-          defaultOpenKeys:"sub3"
-        },
-      },
-      {
-        path: 'createProject',
-        component: createProject,
-        name: 'createProject',
-        meta:{
-          keepAlive:true,
-          activeIndex:"createProject",
-          defaultOpenKeys:"sub4"
-        },
-      },
-      
-      {
-        path: 'projectManagement',
-        component: projectManagement,
-        name: 'projectManagement',
-        meta:{
-          keepAlive:true,
-          activeIndex:"projectManagement",
-          defaultOpenKeys:"sub4"
-        },
-      },
-      {
-        path: 'projectManagement/selectProject',
-        component: selectProject,
-        name: 'projectManagement/selectProject',
-        meta:{
-          keepAlive:true,
-          activeIndex:"projectManagement",
-          defaultOpenKeys:"sub4"
-        },
-      },
-      {
-        path: 'projectManagement/projectDetails',
-        component: projectDetails,
-        name: 'projectManagement/projectDetails',
-        meta:{
-          keepAlive:true,
-          activeIndex:"projectManagement",
-          defaultOpenKeys:"sub4"
-        },
-      },
-      {
-        path: 'publicTemplate',
-        component: publicTemplate,
-        name: 'publicTemplate',
-        meta:{
-          keepAlive:true,
-          activeIndex:"publicTemplate",
-          defaultOpenKeys:"sub4"
-        },
-      },
-      {
-        path: 'customTemplate',
-        component: customTemplate,
-        name: 'customTemplate',
-        meta:{
-          keepAlive:true,
-          activeIndex:"customTemplate",
-          defaultOpenKeys:"sub4"
-        },
-      },
-      
+    children: [{
+      path: 'dashboard',
+      name: 'dashboard',
+      component: Dashboard,
+    },
+    {
+      path: 'personalSettings',
+      name: 'personalSettings',
+      component: PersonalSettings,
+    },
+    {
+      path: 'issueTasks',
+      name: 'issueTasks',
+      component: IssueTask,
+    },
+    {
+      path: 'siteInformation',
+      name: 'siteInformation',
+      component: SiteInforMation,
+    },
+    {
+      path: 'GitHubMonitor',
+      name: 'GitHubMonitor',
+      component: GitHubMonitor,
+    },
+    {
+      path: 'VulnerabilitiesMonitor',
+      name: 'VulnerabilitiesMonitor',
+      component: VulnerabilitiesMonitor,
+    },
+    {
+      path: 'VulnerabilitiesMonitorDetailed',
+      name: 'VulnerabilitiesMonitor/VulnerabilitiesMonitorDetailed',
+      component: VulnerabilitiesMonitorDetailed,
+    },
+    {
+      path: 'CreateCombine',
+      name: 'CreateCombine',
+      component: CreateCombine,
+    },
+    {
+      path: 'CombineList',
+      name: 'CombineList',
+      component: CombineList,
+    },
+    {
+      path: 'MarkdownData',
+      name: 'CombineList/MarkdownData',
+      component: MarkdownData,
+    },
+    {
+      path: 'DataComparison',
+      name: 'CombineList/DataComparison',
+      component: DataComparison,
+    },
+
     ]
   },
 ]
+
 const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push(location) {
+VueRouter.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
 }
+
 const router = new VueRouter({
-  routes,
-  // scrollBehavior(to,from,savePosition){
-  //   if(savePosition){
-  //     return savePosition
-  //   }
-  //   else{
-  //     return{
-  //       x:0,
-  //       y:0
-  //     }
-  //   }
-  // }
+  routes
+})
+
+router.beforeEach(async (to, from, next) => {
+  if (to.name == from.name) {
+    next(false)
+    return
+  }
+  if (to.matched[0]?.meta.isLogin) {
+    if (localStorage.getItem('token')) {
+      await store.dispatch("UserStore/setUserinfo", localStorage.getItem('token'))
+      if (store.state.UserStore.userinfo.key) {
+        if (to.name.indexOf('/') != -1) store.commit("StateStore/setStarSelectedKeys", to.name.substring(0, to.name.indexOf('/')))
+        else store.commit("StateStore/setStarSelectedKeys", to.name)
+        next()
+      }
+      else {
+        message.warn('用户信息获取失败')
+        next({
+          path: "/login",
+        });
+      }
+    } else {
+      message.warn('未登录')
+      next({
+        path: "/login",
+      });
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

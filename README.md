@@ -1,4 +1,4 @@
-# medusaant
+# medus-vue
 
 ## Project setup
 ```
