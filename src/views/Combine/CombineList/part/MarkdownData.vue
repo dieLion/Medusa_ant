@@ -11,13 +11,13 @@
     <a-col :span="24">
       <Card :name="`项目:${markdown_project_name}`" :bodyStyle="bodyStyle">
         <template slot="extraCard">
-          <div :span="24">
+          <div>
             创建时间:
             <span
               style="color: #51c51a"
             >{{moment(markdownInfo.creation_time,'X').format('YYYY-MM-DD H:mm:ss')}}</span>
           </div>
-          <div :span="24">
+          <div>
             最后修改时间:
             <span
               style="color: #51c51a"
@@ -44,7 +44,6 @@ import Card from '@/components/Card/Card.vue'
 import { MarkdownPro } from 'vue-meditor'
 import { OverallMixins } from '@/js/Mixins/OverallMixins.js'
 const config = require("../../../../../faceConfig");
-
 export default {
   mixins: [OverallMixins],
   data () {

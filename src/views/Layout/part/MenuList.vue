@@ -88,16 +88,16 @@ export default {
           ],
         },
         {
-          key: "sub4",
+          key: "CrossSiteScript",
           iconType: "icon-heike",
           msg: "跨站脚本钓鱼",
           children: [
             {
-              key: "createProject",
+              key: "CreateCrossSiteScript",
               msg: "创建项目",
             },
             {
-              key: "projectManagement",
+              key: "ProjectManagement",
               msg: "项目管理",
             },
             {

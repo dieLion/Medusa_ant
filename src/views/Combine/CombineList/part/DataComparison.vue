@@ -3,7 +3,7 @@
     type="flex"
     justify="center"
     align="top"
-    style="height:100%"
+    style="height:100%;text-align:left"
     :gutter="[
      16, { xs: 4, sm: 8, md: 12, lg: 16 }
     ]"
@@ -23,7 +23,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import Card from '@/components/Card/Card.vue'
-import { MarkdownPreview } from 'vue-meditor'
 
 export default {
   computed: {
@@ -33,7 +32,7 @@ export default {
       comparisonData: "CombineStore/comparisonData",
     })
   },
-  components: { Card, MarkdownPreview },
+  components: { Card },
   mounted () {
     const _this = this
     if (_this.markdown_name == '' || _this.markdown_name == undefined || _this.markdown_name == null || _this.comparisonData == {} || _this.comparisonData == undefined || _this.comparisonData == null) {

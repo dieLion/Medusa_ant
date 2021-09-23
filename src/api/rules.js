@@ -42,9 +42,12 @@ import {
   URL_POST_GENERATE_WORD,
   URL_POST_DOWNLOAD_WORD,
 
+  //XSS平台
   URL_POST_CREATE_SCRIPT_PROJECT,
   URL_POST_QUERY_SCRIPT_PROJECT,
   URL_POST_QUERY_SCRIPT_PROJECT_DATA,
+  URL_POST_STATISTICAL_CROSS_SITE_SCRIPT_PROJECT_DATA,
+  URL_POST_STATISTICAL_CROSS_SITE_SCRIPT_PROJECT,
   URL_POST_QUERY_SCRIPT_PROJECT_INFO,
   URL_POST_MODIFY_CROSS_SITE_SCRIPT_PROJECT,
   URL_POST_READ_SCRIPT_TEMPLATE,
@@ -412,6 +415,20 @@ const api = {
     })
     return response
   },
+
+  async statistical_cross_site_script_project_data (params) {
+    let response = await post(URL_POST_STATISTICAL_CROSS_SITE_SCRIPT_PROJECT_DATA, params, {
+      headers: {}
+    })
+    return response
+  },
+  async statistical_cross_site_script_project (params) {
+    let response = await post(URL_POST_STATISTICAL_CROSS_SITE_SCRIPT_PROJECT, params, {
+      headers: {}
+    })
+    return response
+  },
+
 
 }
 

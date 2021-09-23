@@ -43,6 +43,21 @@ export const URL_POST_MARKDOWN_DATA_COMPARISON = `/markdown_data_comparison/`//M
 export const URL_POST_JOIN_MARKDOWN_PROJECT = `/join_markdown_project/`//加入协同作战项目
 export const URL_POST_MARKDOWN_PROJECT_STATISTICAL = `/markdown_project_statistical/`//加入协同作战项目
 
+//XSS平台
+
+export const URL_POST_CREATE_SCRIPT_PROJECT = `/create_cross_site_script_project/`// 创建跨站脚本钓鱼项目
+export const URL_POST_QUERY_SCRIPT_PROJECT = `/query_cross_site_script_project/`// 查询跨站脚本钓鱼项目
+export const URL_POST_QUERY_SCRIPT_PROJECT_DATA = `/query_cross_site_script_project_data/`// 查询跨站脚本钓鱼项目中数据
+export const URL_POST_STATISTICAL_CROSS_SITE_SCRIPT_PROJECT = `/statistical_cross_site_script_project/`// 统计跨站脚本钓鱼项目个数
+export const URL_POST_STATISTICAL_CROSS_SITE_SCRIPT_PROJECT_DATA = `/statistical_cross_site_script_project_data/`// 统计跨站脚本钓鱼项目中数据
+
+
+export const URL_POST_QUERY_SCRIPT_PROJECT_INFO = `/query_cross_site_script_project_info/`// 查询跨站脚本钓鱼项目中详细信息
+export const URL_POST_MODIFY_CROSS_SITE_SCRIPT_PROJECT = `/modify_cross_site_script_project/`// 修改跨站脚本钓鱼项目中详细信息
+export const URL_POST_READ_SCRIPT_TEMPLATE = `/read_cross_site_script_template/`// 读取用户自定义跨站脚本模板数据
+export const URL_POST_READ_DEFAULT_SCRIPT_TEMPLATE = `/read_default_cross_site_script_template/`// 读取默认跨站脚本模板数据
+export const URL_POST_SAVE_CROSS_SITE_SCRIPT_TEMPLATE = `/save_cross_site_script_template/`// 保存用户自定义跨站脚本模板数据
+export const URL_POST_MODIFY_CROSS_SITE_SCRIPT_TEMPLATE = `/modify_cross_site_script_template/`// 修改用户自定义跨站脚本模板数据 
 
 
 
@@ -59,18 +74,6 @@ export const URL_POST_DOWNLOAD_WORD = `/download_word/` // 扫描报告下载接
 
 
 
-export const URL_POST_CREATE_SCRIPT_PROJECT = `/create_cross_site_script_project/`// 创建跨站脚本钓鱼项目
-export const URL_POST_QUERY_SCRIPT_PROJECT = `/query_cross_site_script_project/`// 查询跨站脚本钓鱼项目
-export const URL_POST_QUERY_SCRIPT_PROJECT_DATA = `/query_cross_site_script_project_data/`// 查询跨站脚本钓鱼项目中数据
-export const URL_POST_QUERY_SCRIPT_PROJECT_INFO = `/query_cross_site_script_project_info/`// 查询跨站脚本钓鱼项目中详细信息
-
-export const URL_POST_MODIFY_CROSS_SITE_SCRIPT_PROJECT = `/modify_cross_site_script_project/`// 修改跨站脚本钓鱼项目中详细信息
-
-
-export const URL_POST_READ_SCRIPT_TEMPLATE = `/read_cross_site_script_template/`// 读取用户自定义跨站脚本模板数据
-export const URL_POST_READ_DEFAULT_SCRIPT_TEMPLATE = `/read_default_cross_site_script_template/`// 读取默认跨站脚本模板数据
-export const URL_POST_SAVE_CROSS_SITE_SCRIPT_TEMPLATE = `/save_cross_site_script_template/`// 保存用户自定义跨站脚本模板数据
-export const URL_POST_MODIFY_CROSS_SITE_SCRIPT_TEMPLATE = `/modify_cross_site_script_template/`// 修改用户自定义跨站脚本模板数据 
 
 
 

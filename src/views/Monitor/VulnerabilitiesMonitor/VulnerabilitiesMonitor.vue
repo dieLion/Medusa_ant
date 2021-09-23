@@ -46,8 +46,6 @@
           </div>
         </div>
       </Card>
-      <!-- <a-col :span="8" class="myicon"></a-col> -->
-      <!-- <a-col :span="16"></a-col> -->
     </a-col>
     <a-col :span="24">
       <Card :name="``" :bodyStyle="bodyStyle">
@@ -58,6 +56,7 @@
           :rowKey="`vulnerability_number`"
           :showExpandedRowKeys="true"
           @change="handleChange"
+          :callback="handleCallback"
         ></Tables>
       </Card>
     </a-col>
@@ -305,6 +304,9 @@ export default {
       _this.$store.commit('MonitorStore/setVulnerabilityCode', item)
       _this.$router.push('VulnerabilitiesMonitorDetailed')
     },
+    handleCallback (record) {//回写展开项内容
+      return record.vulnerability_description
+    }
   }
 }
 </script>
