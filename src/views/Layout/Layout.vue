@@ -1,6 +1,6 @@
 <template>
   <a-layout style="height:100%">
-    <a-layout-sider>
+    <a-layout-sider width="170">
       <div style="height:60px">
         <img width="100%" height="100%" src="@/assets/logo.png" />
       </div>
@@ -33,7 +33,6 @@ export default {
   methods: {
     handleGetSelectedKeys (selectedKeys) {
       this.$refs.MenuList.handleSetSelectedKeys(selectedKeys)
-
     }
   }
 }
@@ -45,7 +44,8 @@ export default {
   // height: calc(100% - 36px);
   padding: 10px;
   height: 100%;
-  background: #fff;
+  min-height: 540px;
+  // background: #fff;
   overflow: auto;
   overflow-x: hidden;
 }

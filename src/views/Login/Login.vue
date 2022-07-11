@@ -8,7 +8,7 @@
   >
     <a-form :form="form" :layout="`vertical`" :wrapper-col="{ span: 14, offset: 4 }">
       <a-form-item>
-        <img width="75%" :src="medusaUrl" />
+        <img width="100%" :src="medusaUrl" />
       </a-form-item>
       <a-form-item>
         <a-input
@@ -167,26 +167,38 @@ export default {
             verification_code_key: this.verificationcodekey,
             verification_code: values.verificationCode
           }
-          this.$api.login(params).then((res) => {
-            if (res.code == 200) {
-              this.$message.success('登录成功,正在获取用户信息')
-              this.$store.commit('UserStore/setToken', res.message)
-              this.$store.dispatch('UserStore/setUserinfo', res.message)
-              if (this.userinfo != {}) this.$router.push('./Layout')
-            } else {
-              this.$message.error(res.message)
+          this.$api.login(params)
+            .then((res) => {
+              if (res.code == 200) {
+                // this.$message.success('登录成功,正在获取用户信息')
+                this.$store.commit('UserStore/setToken', res.message)
+                this.$store.dispatch('UserStore/setUserinfo', res.message)
+                if (this.userinfo != {}) this.$router.push('./Layout')
+              } else {
+                this.$message.error(res.message)
+                this.form.resetFields('verificationCode')
+                this.$refs.verificationCode.handleVerificationCode()
+              }
+            })
+            .catch((err) => {
+              this.form.resetFields('verificationCode')
               this.$refs.verificationCode.handleVerificationCode()
-            }
-          })
+            })
         } else {
           this.$message.warn('请输入完整信息')
         }
       })
     },
-    handleForget () { },
+    handleForget () {
+      this.$router.push('./ForgetPassWord')
+    },
     handleRegister () {
       this.$router.push('./Register')
     }
+  },
+  mounted() {
+    // this.form.setFieldsValue({userName:'ascotbe',passWord:'ascotbe'})
+    this.form.setFieldsValue({userName:'',passWord:''})
   }
 }
 </script>

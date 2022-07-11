@@ -2,14 +2,13 @@
   <a-row
     type="flex"
     justify="center"
-    align="top"
-    style="height:100%;text-align:left"
+    style="height:100%;min-height: 540px;text-align:left"
     :gutter="[
      16, { xs: 4, sm: 8, md: 12, lg: 16 }
     ]"
   >
     <a-col :span="24">
-      <Card :name="'跨站脚本钓鱼项目列表'" :bodyStyle="bodyStyle">
+      <!-- <Card :name="'跨站脚本钓鱼项目列表'" :bodyStyle="bodyStyle"> -->
         <Tables
           :columns="columns"
           :tableData="data"
@@ -18,7 +17,7 @@
           :total="total"
           @change="handleChange"
         ></Tables>
-      </Card>
+      <!-- </Card> -->
     </a-col>
   </a-row>
 </template>
@@ -41,19 +40,23 @@ export default {
         {
           title: "项目名",
           dataIndex: "project_name",
+          // align: 'center',
         },
         {
           title: "文件名",
           dataIndex: "file_name",
+          // align: 'center',
         },
         {
           title: "创建时间",
           dataIndex: "creation_time",
+          // align: 'center',
           customRender: (text, record, index) => { return this.moment(text, "X").format('YYYY-MM-DD H:mm:ss') }
         },
         {
           title: "容量",
           dataIndex: "capacity",
+          // align: 'center',
           // scopedSlots: {
           //   customRender: "capacity",
           // },
@@ -62,15 +65,20 @@ export default {
         {
           title: "操作",
           key: "action",
+          // align: 'center',
           // scopedSlots: {
           //   customRender: "action",
           // },
           customRender: (text, record, index) => {
-            return [<a v-on:click={() => {
-              this.handleSerch(record)
-            }}>查询</a>, <a-divider type="vertical" />, <a v-on:click={() => {
-              this.handleDetails(record)
-            }}>修改</a>]
+            return [
+              <a v-on:click={() => {
+                this.handleSerch(record)
+              }}>查询</a>, <a-divider type="vertical" />, <a v-on:click={() => {
+                this.handleDetails(record)
+              }}>修改</a>, <a-divider type="vertical" />, <a v-on:click={() => {
+                this.handleDelete(record)
+              }}>删除</a>
+            ]
           }
         },
       ],
@@ -90,7 +98,7 @@ export default {
     _this.handleQueryScriptProject()
   },
   methods: {
-    handleQueryScriptProject () {
+    handleQueryScriptProject () {//查询表格信息
       const _this = this
       const params = {
         token: _this.token,
@@ -122,12 +130,12 @@ export default {
         else _this.$message.error(res.message);
       })
     },
-    handleChange (pagination) {
+    handleChange (pagination) {//分页change
       const _this = this
       _this.current = pagination.current
       _this.handleQueryScriptProject()
     },
-    handleRenderCapacity (text, record, index) {
+    handleRenderCapacity (text, record, index) {//容量的渲染
       return <a-progress
         type="line"
         status="normal"
@@ -140,15 +148,30 @@ export default {
       >
       </a-progress>
     },
-    handleSerch (record) {
+    handleSerch (record) {//查看项目详情
       const _this = this
       _this.$store.dispatch('CrossSiteScriptStore/setProjectAssociatedFileName', record.file_name)
       _this.$router.push("QueryProject")
     },
-    handleDetails (record) {
+    handleDetails (record) {//进入项目修改页面
       const _this = this
-      _this.$store.dispatch('CrossSiteScriptStore/setProjectAssociatedFileName', record.file_name)
-      _this.$router.push("ModifyProject")
+      // _this.$store.dispatch('CrossSiteScriptStore/setProjectAssociatedFileName', record.file_name)
+      _this.$router.push({path:"/layout/ModifyProject",query: {name: record.file_name}})
+    },
+    handleDelete (record) {//项目删除
+      const _this = this
+      const params = {
+        token: _this.token,
+        project_name: record.project_name
+      };
+      _this.$api.delete_cross_site_script_project(params).then((res) => {
+        if (res.code == 200) {
+          _this.$message.success("项目删除成功");
+          _this.handleQueryScriptProject()
+        } else {
+          _this.$message.error(res.message);
+        }
+      });
     }
   }
 

@@ -1,62 +1,75 @@
 <template>
-  <a-row type="flex" :gutter="[
+  <a-row
+    :gutter="[
      16, { xs: 4, sm: 8, md: 12, lg: 16 }
-    ]">
-    <a-col :span="18">
-      <Card :name="``" :bodyStyle="bodyStyle">
-        <a-form :form="form" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
-          <a-col :span="8">
+    ]"
+  >
+  <a-col :span='24'>
+    <div style="text-align: left; font-size: 18px;">
+      Vulnerabilities (CVE)
+    </div>
+   </a-col>
+    <a-col :span='24'>
+      <a-col :xs="24" :lg="18" style="background: #fff;">
+        <a-form  class="search-form" :form="form">
+          <a-col :xs="24" :lg="8">
             <a-form-item>
               <a-select
                 placeholder="Filter by cvss v3 score"
                 :options="options"
                 allowClear
                 v-decorator="[
-              'severity',
-            ]"
+            'severity',
+          ]"
               ></a-select>
             </a-form-item>
           </a-col>
-          <a-col :span="8">
+          <a-col :xs="24" :lg="8">
             <a-form-item>
               <a-input
                 placeholder="Search in CVEs"
                 v-on:keyup.enter.native="handleNistQuery"
                 v-decorator="[
-              'key',
-            ]"
+            'key',
+          ]"
               ></a-input>
             </a-form-item>
           </a-col>
-          <a-col :span="8">
-            <a-button @click="handleReset" style="margin-right:15px">重置</a-button>
-            <a-button type="primary" @click="handleNistQuery">Search</a-button>
+          <a-col :xs="24" :lg="8">
+            <a-form-item>
+              <div style="text-align:left;">
+                <a-button @click="handleReset" style="margin-right:4px">重置</a-button>
+                <a-button type="primary" @click="handleNistQuery">查询</a-button>
+              </div>
+            </a-form-item>
           </a-col>
         </a-form>
-      </Card>
-    </a-col>
-
-    <a-col :span="6">
-      <Card :name="``" :bodyStyle="bodyStyle">
-        <div class="myicon">
-          <myicon :type="`icon-ziyuan1`" style="font-size:100px;" />
-          <div class="total">
-            <div :span="24">TOTAL:</div>
-            <div :span="24" style="font-weight:800">{{total}}</div>
+      </a-col>
+      <a-col :xs='0' :lg='1'></a-col>
+      <a-col :xs="24" :lg="5" style="display: flex;background: #fff;">
+        <div style="display: flex;">
+          <div style="height: 56px; font-size: 50px; line-height: 56px; width: 80px; text-align: center;">
+            <a-icon type="safety-certificate" />
+          </div>
+          <div class="total" style="text-align: left;">
+            <div style="font-size: 14px; line-height: 2;">TOTAL:</div>
+            <div style="font-size: 18px; line-height: 1;font-weight: 800;">{{total}}</div>
           </div>
         </div>
-      </Card>
+      </a-col>
     </a-col>
-    <a-col :span="24">
-      <Card :name="``" :bodyStyle="bodyStyle">
+
+    <a-col :span="24" >
+      <Card name="">
         <Tables
+          :loading='loading'
           :columns="columns"
           :tableData="data"
           :total="total"
           :rowKey="`vulnerability_number`"
           :showExpandedRowKeys="true"
           @change="handleChange"
-          :callback="handleCallback"
+          :ExpandedRowRenderCallback="handleCallback"
         ></Tables>
       </Card>
     </a-col>
@@ -65,20 +78,23 @@
 
 <script>
 import Card from '@/components/Card/Card.vue'
-import Tables from '@/components/Tables/Tables.vue'
+import Tables from '@/components/Tables/CTables.vue'
 import { mapGetters } from "vuex";
 import { Icon } from "ant-design-vue";
+const faceConfig = require("../../../../faceConfig");
 const MyIcon = Icon.createFromIconfontCN({
-  scriptUrl: "//at.alicdn.com/t/font_1734998_iv1ouwpdggf.js",
+  scriptUrl: faceConfig.scriptUrl,
 });
+
 export default {
   components: {
     Card,
     Tables,
-    myicon: MyIcon,
+    MyIcon,
   },
   data () {
     return {
+      loading: true,
       form: this.$form.createForm(this, { name: 'form' }),
       bodyStyle: {
         borderTop: '3px solid #51c51a',
@@ -86,41 +102,13 @@ export default {
       },
       columns: [
         {
-          title: "漏洞编号",
+          title: "CVE",
           dataIndex: "vulnerability_number",
           key: "vulnerability_number",
           customRender: (text, record, index) => this.handleRenderVulnerabilityNumber(text, record, index)
         },
         {
-          title: "CVSS v3 分数",
-          dataIndex: "v3_base_score",
-          key: "v3_base_score",
-        },
-        {
-          title: "CVSS v3 分级",
-          dataIndex: "v3_base_severity",
-          key: "v3_base_severity",
-          customRender: (text, record, index) => this.handleRenderTag(text, record, index)
-        },
-        {
-          title: "CVSS v2 分数",
-          dataIndex: "v2_base_score",
-          key: "v2_base_score",
-        },
-        {
-          title: "CVSS v2 分级",
-          dataIndex: "v2_base_severity",
-          key: "v2_base_severity",
-          customRender: (text, record, index) => this.handleRenderTag(text, record, index)
-
-        },
-        {
-          title: "最后更新时间",
-          dataIndex: "last_up_date",
-          key: "last_up_date",
-        },
-        {
-          title: "开发商名称",
+          title: "vendors",
           dataIndex: "vendors",
           key: "vendors",
           width: 300,
@@ -128,12 +116,44 @@ export default {
 
         },
         {
-          title: "产品名称",
+          title: "Products",
           dataIndex: "products",
           key: "products",
           width: 300,
           customRender: (text, record, index) => this.handleRenderVendorsAndProducts(text, record, index)
         },
+        {
+          title: "Updated",
+          dataIndex: "last_up_date",
+          key: "last_up_date",
+           width: 120,
+        },
+        // {
+        //   title: "CVSS v3 分数",
+        //   dataIndex: "v3_base_score",
+        //   key: "v3_base_score",
+        // },
+        {
+          title: "CVSS v2",
+          dataIndex: "v2_base_severity",
+          key: "v2_base_severity",
+          width: 120,
+          customRender: (text, record, index) => this.handleRenderTag(text, record, index,'v2')
+
+        },
+        {
+          title: "CVSS v3",
+          dataIndex: "v3_base_severity",
+          key: "v3_base_severity",
+          width: 120,
+          customRender: (text, record, index) => this.handleRenderTag(text, record, index)
+        },
+        // {
+        //   title: "CVSS v2 分数",
+        //   dataIndex: "v2_base_score",
+        //   key: "v2_base_score",
+        // },
+       
       ],
       data: [],
       total: 0,
@@ -208,14 +228,15 @@ export default {
       }
     },
     handleNistQuery () {
+      this.loading = true
       const _this = this
       const form = _this.form.getFieldsValue()
       if (form.severity && !form.key) {
-        _this.$message.warn('如药进行查询，请填写2个搜索哦条件')
+        _this.$message.warn('如要进行查询，请填写2个搜索条件')
         return
       }
       if (!form.severity && form.key) {
-        _this.$message.warn('如药进行查询，请填写2个搜索哦条件')
+        _this.$message.warn('如要进行查询，请填写2个搜索条件')
         return
       }
       if (form.severity || form.key) {
@@ -232,6 +253,8 @@ export default {
           } else {
             _this.$message.error(res.message);
           }
+        }).finally(() => {
+          this.loading = false
         })
       }
       else {
@@ -246,6 +269,8 @@ export default {
           } else {
             _this.$message.error(res.message);
           }
+        }).finally(() => {
+          this.loading = false
         })
       }
     },
@@ -254,7 +279,7 @@ export default {
       _this.current = pagination.current
       _this.handleNistQuery()
     },
-    handleRenderTag (text, record, index) {
+    handleRenderTag (text, record, index,type) {
       //NONE、LOW、MEDIUM、HIGH、CRITICAL
       let color = ''
       switch (text) {
@@ -273,16 +298,17 @@ export default {
         case 'CRITICAL':
           color = "#FF6666"
           break;
-        // default:
-        //   color = "#00FFCC"
-        //   break;
+        default:
+          color = "#909399"
+          break;
       }
-      return text ? <a-tag color={color}> {text} </a-tag > : ''
+      return text ? <a-tag color={color}>{type === 'v2'?record.v2_base_score:record.v3_base_score}{text} </a-tag > : <a-tag color={color}>N/A</a-tag>
     },
     handleRenderVendorsAndProducts (text, record, index) {
       let arr = text ? eval('(' + text + ')') : []
       let dom = ''
       if (arr.length > 0) {
+        arr = Array.from(new Set(arr))
         dom = arr.map((item) => {
           return <a-tag color="green" v-on:click={() => {
             this.handleClickVendorsAndProducts(item)//暂时没用
@@ -320,5 +346,8 @@ export default {
   }
   // border-top: 3px solid #51c51a;
   // background: #51c51a;
+}
+.search-form .ant-form-item {
+  margin-bottom: 0;
 }
 </style>
